@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
+import 'package:virtualQ/UI/screens/home/home.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -27,6 +28,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   child: Text(
                     'Sign Up',
                     style: TextStyle(
+                      color: Colors.lightBlue[900],
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                     ),
@@ -34,16 +36,8 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
                 FadeAnimation(
                   0.5,
-                  Container(
-                    padding: EdgeInsets.only(top: 30),
-                    height: 270,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/signup.png'),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
+                  ReusableWidgets()
+                      .customImage(context, 'assets/images/signup.png'),
                 ),
                 Padding(
                   padding: EdgeInsets.all(10.0),
@@ -54,15 +48,16 @@ class _SignUpFormState extends State<SignUpForm> {
                         Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromRGBO(143, 148, 251, .2),
-                                  blurRadius: 20.0,
-                                  offset: Offset(0, 10),
-                                ),
-                              ]),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromRGBO(143, 148, 251, .2),
+                                blurRadius: 20.0,
+                                offset: Offset(0, 10),
+                              ),
+                            ],
+                          ),
                           child: Column(
                             children: <Widget>[
                               ReusableWidgets().customTextfield(
@@ -100,8 +95,15 @@ class _SignUpFormState extends State<SignUpForm> {
                         FlatButton(
                           onPressed: () {
                             print('hi');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomePage(),
+                              ),
+                            );
                           },
-                          child: ReusableWidgets().customButton('Register'),
+                          child: ReusableWidgets()
+                              .customButton(context, 'Register'),
                         ),
                       ),
                     ],

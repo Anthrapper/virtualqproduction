@@ -15,6 +15,7 @@ class WelcomeScreen extends StatelessWidget {
               child: Text(
                 'Welcome To VirtualQ',
                 style: TextStyle(
+                  color: Colors.lightBlue[900],
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
@@ -23,10 +24,11 @@ class WelcomeScreen extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
-            child: Image.asset('assets/images/queue.jpg'),
+            child:
+                ReusableWidgets().customImage(context, 'assets/images/q.png'),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
+            padding: EdgeInsets.fromLTRB(30, 80, 30, 0),
             child: FlatButton(
               onPressed: () {
                 Navigator.push(
@@ -36,7 +38,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 );
               },
-              child: ReusableWidgets().customButton('Login'),
+              child: ReusableWidgets().customButton(context, 'Login'),
             ),
           ),
           Padding(
@@ -50,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 );
               },
-              child: ReusableWidgets().customButton('Register'),
+              child: ReusableWidgets().customButton(context, 'Register'),
             ),
           ),
         ],

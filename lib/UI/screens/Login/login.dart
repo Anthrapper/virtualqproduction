@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/screens/Login/forgotpass.dart';
+import 'package:virtualQ/UI/screens/home/home.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text(
                     'Login',
                     style: TextStyle(
+                      color: Colors.lightBlue[900],
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                     ),
@@ -32,16 +34,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 FadeAnimation(
                   0.5,
-                  Container(
-                    padding: EdgeInsets.only(top: 30),
-                    height: 300,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/login.jpg'),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
+                  ReusableWidgets()
+                      .customImage(context, 'assets/images/signin.png'),
                 ),
                 Padding(
                   padding: EdgeInsets.all(10.0),
@@ -52,15 +46,16 @@ class _LoginPageState extends State<LoginPage> {
                         Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromRGBO(143, 148, 251, .2),
-                                  blurRadius: 20.0,
-                                  offset: Offset(0, 10),
-                                ),
-                              ]),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromRGBO(143, 148, 251, .2),
+                                blurRadius: 20.0,
+                                offset: Offset(0, 10),
+                              ),
+                            ],
+                          ),
                           child: Column(
                             children: <Widget>[
                               ReusableWidgets().customTextfield(
@@ -81,9 +76,15 @@ class _LoginPageState extends State<LoginPage> {
                         1.5,
                         FlatButton(
                           onPressed: () {
-                            print('hi');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomePage(),
+                              ),
+                            );
                           },
-                          child: ReusableWidgets().customButton('Login'),
+                          child:
+                              ReusableWidgets().customButton(context, 'Login'),
                         ),
                       ),
                       SizedBox(
@@ -103,6 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Text(
                             "Forgot Password?",
                             style: TextStyle(
+                              fontSize: 17,
                               color: Colors.black,
                             ),
                           ),

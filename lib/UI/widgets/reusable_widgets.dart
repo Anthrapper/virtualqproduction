@@ -6,11 +6,41 @@ class ReusableWidgets {
   ScreenSize screenSize;
   final reqValidator = RequiredValidator(errorText: 'This Field Is Required');
 
+  Widget customImage(BuildContext context, String text) {
+    screenSize = ScreenSize().getSize(context);
+    return Container(
+      padding: EdgeInsets.only(top: 30),
+      height: screenSize.height / 2.2,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(text),
+          fit: BoxFit.fill,
+        ),
+      ),
+    );
+  }
+
+  Widget circleImage(BuildContext context, String image) {
+    screenSize = ScreenSize().getSize(context);
+    return Card(
+      elevation: 25,
+      shape: CircleBorder(),
+      clipBehavior: Clip.antiAlias,
+      child: CircleAvatar(
+        radius: screenSize.width / 10,
+        backgroundColor: Colors.white,
+        backgroundImage: AssetImage(image),
+      ),
+    );
+  }
+
   Widget customButton(
+    BuildContext context,
     String text,
   ) {
+    screenSize = ScreenSize().getSize(context);
     return Container(
-      height: 40,
+      height: screenSize.height / 17,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         gradient: LinearGradient(

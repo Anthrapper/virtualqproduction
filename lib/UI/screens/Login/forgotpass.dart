@@ -21,35 +21,54 @@ class _ForgotPassState extends State<ForgotPass> {
               child: Text(
                 'Forgot Password',
                 style: TextStyle(
-                  fontSize: 35,
+                  color: Colors.lightBlue[900],
+                  fontSize: 32,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(30, 50, 30, 30),
+              padding: EdgeInsets.fromLTRB(60, 50, 60, 40),
               child: FadeAnimation(
                 0.5,
-                Container(
-                  height: 300,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/forgot.png'),
-                    ),
-                  ),
-                ),
+                ReusableWidgets()
+                    .customImage(context, 'assets/images/forgot.png'),
               ),
             ),
-            FadeAnimation(
-              1,
-              ReusableWidgets().customTextfield('Enter Your Phone Number',
-                  phoneController, Icon(Icons.phone), false),
+            Padding(
+              padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+              child: Column(
+                children: <Widget>[
+                  FadeAnimation(
+                    1,
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromRGBO(143, 148, 251, .2),
+                            blurRadius: 20.0,
+                            offset: Offset(0, 10),
+                          ),
+                        ],
+                      ),
+                      child: ReusableWidgets().customTextfield(
+                          'Enter Phone Number',
+                          phoneController,
+                          Icon(Icons.phone),
+                          false),
+                    ),
+                  ),
+                ],
+              ),
             ),
             FadeAnimation(
               1.2,
               Padding(
                 padding: EdgeInsets.fromLTRB(30, 50, 30, 0),
-                child: ReusableWidgets().customButton('Get OTP'),
+                child: ReusableWidgets().customButton(context, 'Get OTP'),
               ),
             ),
           ],

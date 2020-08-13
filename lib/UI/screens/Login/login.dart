@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
+import 'package:virtualQ/UI/screens/Login/forgotpass.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class LoginPage extends StatefulWidget {
@@ -29,13 +30,16 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: 30),
-                  height: 300,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/login.jpg'),
-                      fit: BoxFit.fill,
+                FadeAnimation(
+                  0.5,
+                  Container(
+                    padding: EdgeInsets.only(top: 30),
+                    height: 300,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/login.jpg'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ),
@@ -87,10 +91,20 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       FadeAnimation(
                         1.7,
-                        Text(
-                          "Forgot Password?",
-                          style: TextStyle(
-                            color: Colors.black,
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ForgotPass(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Forgot Password?",
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ),

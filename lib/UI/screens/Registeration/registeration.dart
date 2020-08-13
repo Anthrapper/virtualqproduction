@@ -32,13 +32,16 @@ class _SignUpFormState extends State<SignUpForm> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: 30),
-                  height: 300,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/login.jpg'),
-                      fit: BoxFit.fill,
+                FadeAnimation(
+                  0.5,
+                  Container(
+                    padding: EdgeInsets.only(top: 30),
+                    height: 270,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/signup.png'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ),
@@ -63,12 +66,28 @@ class _SignUpFormState extends State<SignUpForm> {
                           child: Column(
                             children: <Widget>[
                               ReusableWidgets().customTextfield(
-                                  'Enter Phone Number',
-                                  phoneController,
-                                  Icon(Icons.phone),
+                                  'Enter Your Name',
+                                  nameController,
+                                  Icon(Icons.supervised_user_circle),
                                   false),
-                              ReusableWidgets().customTextfield('Password',
-                                  passController, Icon(Icons.security), true),
+                              ReusableWidgets().customTextfield(
+                                'Contact',
+                                phoneController,
+                                Icon(Icons.phone),
+                                false,
+                              ),
+                              ReusableWidgets().customTextfield(
+                                'Password',
+                                passController,
+                                Icon(Icons.security),
+                                true,
+                              ),
+                              ReusableWidgets().customTextfield(
+                                'Confirm password',
+                                confController,
+                                Icon(Icons.security),
+                                true,
+                              ),
                             ],
                           ),
                         ),
@@ -77,24 +96,12 @@ class _SignUpFormState extends State<SignUpForm> {
                         height: 30,
                       ),
                       FadeAnimation(
-                        1.5,
+                        1.2,
                         FlatButton(
                           onPressed: () {
                             print('hi');
                           },
-                          child: ReusableWidgets().customButton('Login'),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      FadeAnimation(
-                        1.7,
-                        Text(
-                          "Forgot Password?",
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
+                          child: ReusableWidgets().customButton('Register'),
                         ),
                       ),
                     ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
@@ -28,11 +29,11 @@ class _ForgotPassState extends State<ForgotPass> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(60, 50, 60, 40),
+              padding: EdgeInsets.fromLTRB(20, 50, 20, 40),
               child: FadeAnimation(
                 0.5,
                 ReusableWidgets()
-                    .customImage(context, 'assets/images/forgot.png'),
+                    .customImage(context, 'assets/images/forgotpass.png'),
               ),
             ),
             Padding(
@@ -57,7 +58,7 @@ class _ForgotPassState extends State<ForgotPass> {
                       child: ReusableWidgets().customTextfield(
                           'Enter Phone Number',
                           phoneController,
-                          Icon(Icons.phone),
+                          FaIcon(Icons.phone),
                           false),
                     ),
                   ),

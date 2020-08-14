@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/screens/home/home.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
@@ -61,26 +62,27 @@ class _SignUpFormState extends State<SignUpForm> {
                           child: Column(
                             children: <Widget>[
                               ReusableWidgets().customTextfield(
-                                  'Enter Your Name',
-                                  nameController,
-                                  Icon(Icons.supervised_user_circle),
-                                  false),
+                                'Enter Your Name',
+                                nameController,
+                                FaIcon(Icons.supervised_user_circle),
+                                false,
+                              ),
                               ReusableWidgets().customTextfield(
                                 'Contact',
                                 phoneController,
-                                Icon(Icons.phone),
+                                FaIcon(Icons.phone),
                                 false,
                               ),
                               ReusableWidgets().customTextfield(
                                 'Password',
                                 passController,
-                                Icon(Icons.security),
+                                FaIcon(Icons.security),
                                 true,
                               ),
                               ReusableWidgets().customTextfield(
                                 'Confirm password',
                                 confController,
-                                Icon(Icons.security),
+                                FaIcon(Icons.security),
                                 true,
                               ),
                             ],

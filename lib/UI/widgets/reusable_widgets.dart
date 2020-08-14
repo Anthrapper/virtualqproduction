@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:virtualQ/utilitis/screensize.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -66,26 +67,34 @@ class ReusableWidgets {
   Widget customTextfield(
     String hintText,
     TextEditingController controller,
-    Icon icon,
+    FaIcon icon,
     bool secureText,
   ) {
     return Container(
       padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: Colors.grey[100]),
+          bottom: BorderSide(
+            color: Colors.grey[100],
+          ),
         ),
       ),
       child: TextFormField(
+        textAlign: TextAlign.justify,
         controller: controller,
         obscureText: secureText,
         validator: reqValidator,
         decoration: InputDecoration(
-          prefixIcon: icon,
+          prefixIcon: Padding(
+            padding: EdgeInsets.only(top: 12),
+            child: icon,
+          ),
           border: InputBorder.none,
           hintText: hintText,
           hintStyle: TextStyle(
             color: Colors.grey[400],
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),

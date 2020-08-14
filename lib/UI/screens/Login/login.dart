@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/screens/Login/forgotpass.dart';
 import 'package:virtualQ/UI/screens/home/home.dart';
@@ -61,10 +62,14 @@ class _LoginPageState extends State<LoginPage> {
                               ReusableWidgets().customTextfield(
                                   'Enter Phone Number',
                                   phoneController,
-                                  Icon(Icons.phone),
+                                  FaIcon(Icons.phone),
                                   false),
-                              ReusableWidgets().customTextfield('Password',
-                                  passController, Icon(Icons.security), true),
+                              ReusableWidgets().customTextfield(
+                                'Password',
+                                passController,
+                                FaIcon(Icons.security),
+                                true,
+                              ),
                             ],
                           ),
                         ),

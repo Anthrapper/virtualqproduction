@@ -10,7 +10,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.only(top: 5),
         margin: EdgeInsets.symmetric(horizontal: 8),
         child: AppBar(
           backgroundColor: Colors.lightBlueAccent[200],

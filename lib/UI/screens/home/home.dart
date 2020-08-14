@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
+import 'package:virtualQ/UI/screens/Appointments/currentappointments.dart';
+import 'package:virtualQ/UI/screens/Appointments/selectbank.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
 import 'package:virtualQ/UI/widgets/drawer.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
@@ -32,15 +34,36 @@ class _HomePageState extends State<HomePage> {
             1,
             Padding(
               padding: EdgeInsets.fromLTRB(30, 50, 30, 20),
-              child: ReusableWidgets().customButton(context, 'New Appointment'),
+              child: FlatButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SelectBank(),
+                    ),
+                  );
+                },
+                child:
+                    ReusableWidgets().customButton(context, 'New Appointment'),
+              ),
             ),
           ),
           FadeAnimation(
             1.1,
             Padding(
               padding: EdgeInsets.fromLTRB(30, 0, 30, 20),
-              child: ReusableWidgets()
-                  .customButton(context, 'Current Appointments'),
+              child: FlatButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CurrentAppointments(),
+                    ),
+                  );
+                },
+                child: ReusableWidgets()
+                    .customButton(context, 'Current Appointments'),
+              ),
             ),
           ),
         ],

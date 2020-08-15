@@ -23,7 +23,18 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
+            padding: const EdgeInsets.all(10.0),
+            child: Center(
+              child: Text('Stay Apart. Stay Safe',
+              style: TextStyle(
+                color: Colors.lightBlue[800],
+                fontSize: 14,
+              ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
             child:
                 ReusableWidgets().customImage(context, 'assets/images/q.png'),
           ),

@@ -72,7 +72,7 @@ class ReusableWidgets {
   ) {
     screenSize = ScreenSize().getSize(context);
     return Container(
-      height: screenSize.height / 17,
+      height: screenSize.height /20,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         gradient: LinearGradient(

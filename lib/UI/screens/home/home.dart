@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/screens/Appointments/currentappointments.dart';
-import 'package:virtualQ/UI/screens/Appointments/selectbank.dart';
+import 'package:virtualQ/UI/screens/Appointments/Current/currentappointments.dart';
+import 'package:virtualQ/UI/screens/Appointments/New/selectbank.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
 import 'package:virtualQ/UI/widgets/drawer.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
@@ -22,13 +22,10 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          FadeAnimation(
-            0.5,
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-              child: ReusableWidgets()
-                  .customImage(context, 'assets/images/waiting.png'),
-            ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+            child: ReusableWidgets()
+                .customImage(context, 'assets/images/waiting.png'),
           ),
           FadeAnimation(
             1,

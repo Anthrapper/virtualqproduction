@@ -33,89 +33,60 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                FadeAnimation(
-                  0.5,
-                  ReusableWidgets()
-                      .customImage(context, 'assets/images/signin.png'),
-                ),
+                ReusableWidgets()
+                    .customImage(context, 'assets/images/signin.png'),
                 Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Column(
-                    children: <Widget>[
-                      FadeAnimation(
-                        1,
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(143, 148, 251, .2),
-                                blurRadius: 20.0,
-                                offset: Offset(0, 10),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              ReusableWidgets().customTextfield(
-                                  'Enter Phone Number',
-                                  phoneController,
-                                  FaIcon(Icons.phone),
-                                  false),
-                              ReusableWidgets().customTextfield(
-                                'Password',
-                                passController,
-                                FaIcon(Icons.security),
-                                true,
-                              ),
-                            ],
-                          ),
+                  padding: EdgeInsets.all(15.0),
+                  child: ReusableWidgets().customContainer(
+                    Column(
+                      children: <Widget>[
+                        ReusableWidgets().customTextfield('Enter Phone Number',
+                            phoneController, FaIcon(Icons.phone), false),
+                        ReusableWidgets().customTextfield(
+                          'Password',
+                          passController,
+                          FaIcon(Icons.security),
+                          true,
                         ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      FadeAnimation(
-                        1.5,
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomePage(),
-                              ),
-                            );
-                          },
-                          child:
-                              ReusableWidgets().customButton(context, 'Login'),
+                      ],
+                    ),
+                  ),
+                ),
+                FadeAnimation(
+                  1.5,
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(),
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      FadeAnimation(
-                        1.7,
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ForgotPass(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            "Forgot Password?",
-                            style: TextStyle(
-                              fontSize: 17,
-                              color: Colors.black,
-                            ),
-                          ),
+                      );
+                    },
+                    child: ReusableWidgets().customButton(context, 'Login'),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                FadeAnimation(
+                  1.7,
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ForgotPass(),
                         ),
+                      );
+                    },
+                    child: Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: Colors.black,
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],

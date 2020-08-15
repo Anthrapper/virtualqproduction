@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/utilitis/screensize.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -9,28 +10,58 @@ class ReusableWidgets {
 
   Widget customImage(BuildContext context, String text) {
     screenSize = ScreenSize().getSize(context);
-    return Container(
-      padding: EdgeInsets.only(top: 30),
-      height: screenSize.height / 2.2,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(text),
-          fit: BoxFit.fill,
+    return FadeAnimation(
+      0.5,
+      Container(
+        padding: EdgeInsets.only(top: 30),
+        height: screenSize.height / 2.2,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(text),
+            fit: BoxFit.fill,
+          ),
         ),
       ),
     );
   }
 
-  Widget circleImage(BuildContext context, String image) {
-    screenSize = ScreenSize().getSize(context);
-    return Card(
-      elevation: 25,
-      shape: CircleBorder(),
-      clipBehavior: Clip.antiAlias,
-      child: CircleAvatar(
-        radius: screenSize.width / 10,
-        backgroundColor: Colors.white,
-        backgroundImage: AssetImage(image),
+  Widget customContainer(
+    Widget widget,
+  ) {
+    return FadeAnimation(
+      1,
+      Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromRGBO(143, 148, 251, .2),
+              blurRadius: 20.0,
+              offset: Offset(0, 10),
+            ),
+          ],
+        ),
+        child: widget,
+      ),
+    );
+  }
+
+  Widget customText(
+    String text,
+  ) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+      alignment: Alignment.bottomLeft,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Colors.blueGrey,
+          fontWeight: FontWeight.w800,
+          fontSize: 16,
+        ),
       ),
     );
   }

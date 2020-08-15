@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:virtualQ/UI/screens/Token/token.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
+import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class CurrentAppointments extends StatefulWidget {
   @override
@@ -12,7 +14,14 @@ class _CurrentAppointmentsState extends State<CurrentAppointments> {
     return Scaffold(
       appBar: CustomAppBar('Current Appointments'),
       body: SafeArea(
-        child: ListView(),
+        child: ListView(
+          padding: EdgeInsets.all(20),
+          children: [
+            ReusableWidgets().customContainer(
+              Token(),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/screens/home/home.dart';
+import 'package:virtualQ/UI/screens/Verification/verification.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -35,80 +35,58 @@ class _SignUpFormState extends State<SignUpForm> {
                     ),
                   ),
                 ),
-                FadeAnimation(
-                  0.5,
-                  ReusableWidgets()
-                      .customImage(context, 'assets/images/signup.png'),
+                ReusableWidgets()
+                    .customImage(context, 'assets/images/signup.png'),
+                Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: ReusableWidgets().customContainer(
+                    Column(
+                      children: <Widget>[
+                        ReusableWidgets().customTextfield(
+                          'Enter Your Name',
+                          nameController,
+                          FaIcon(Icons.supervised_user_circle),
+                          false,
+                        ),
+                        ReusableWidgets().customTextfield(
+                          'Contact',
+                          phoneController,
+                          FaIcon(Icons.phone),
+                          false,
+                        ),
+                        ReusableWidgets().customTextfield(
+                          'Password',
+                          passController,
+                          FaIcon(Icons.security),
+                          true,
+                        ),
+                        ReusableWidgets().customTextfield(
+                          'Confirm password',
+                          confController,
+                          FaIcon(Icons.security),
+                          true,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Column(
-                    children: <Widget>[
-                      FadeAnimation(
-                        1,
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(143, 148, 251, .2),
-                                blurRadius: 20.0,
-                                offset: Offset(0, 10),
-                              ),
-                            ],
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  child: FadeAnimation(
+                    1.2,
+                    FlatButton(
+                      onPressed: () {
+                        print('hi');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MobileVerification(),
                           ),
-                          child: Column(
-                            children: <Widget>[
-                              ReusableWidgets().customTextfield(
-                                'Enter Your Name',
-                                nameController,
-                                FaIcon(Icons.supervised_user_circle),
-                                false,
-                              ),
-                              ReusableWidgets().customTextfield(
-                                'Contact',
-                                phoneController,
-                                FaIcon(Icons.phone),
-                                false,
-                              ),
-                              ReusableWidgets().customTextfield(
-                                'Password',
-                                passController,
-                                FaIcon(Icons.security),
-                                true,
-                              ),
-                              ReusableWidgets().customTextfield(
-                                'Confirm password',
-                                confController,
-                                FaIcon(Icons.security),
-                                true,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      FadeAnimation(
-                        1.2,
-                        FlatButton(
-                          onPressed: () {
-                            print('hi');
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomePage(),
-                              ),
-                            );
-                          },
-                          child: ReusableWidgets()
-                              .customButton(context, 'Register'),
-                        ),
-                      ),
-                    ],
+                        );
+                      },
+                      child:
+                          ReusableWidgets().customButton(context, 'Register'),
+                    ),
                   ),
                 ),
               ],

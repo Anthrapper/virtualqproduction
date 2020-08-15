@@ -14,7 +14,7 @@ class ReusableWidgets {
       0.5,
       Container(
         padding: EdgeInsets.only(top: 30),
-        height: screenSize.height / 2.2,
+        height: screenSize.height / 2.6,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(text),

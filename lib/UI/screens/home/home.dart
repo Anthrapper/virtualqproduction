@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 50),
             child: ReusableWidgets()
                 .customImage(context, 'assets/images/waiting.png'),
           ),

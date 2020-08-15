@@ -8,25 +8,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 8),
-        child: AppBar(
-          backgroundColor: Colors.lightBlueAccent[200],
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(15),
-              bottomRight: Radius.circular(15),
-            ),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 8),
+      child: AppBar(
+        backgroundColor: Colors.lightBlueAccent[200],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
           ),
-          centerTitle: true,
-          title: Text(
-            this.titleText,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              color: Colors.white,
-            ),
+        ),
+        centerTitle: true,
+        title: Text(
+          this.titleText,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            color: Colors.white,
           ),
         ),
       ),

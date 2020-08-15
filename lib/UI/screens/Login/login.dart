@@ -33,8 +33,11 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                ReusableWidgets()
-                    .customImage(context, 'assets/images/signin.png'),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  child: ReusableWidgets()
+                      .customImage(context, 'assets/images/signin.png'),
+                ),
                 Padding(
                   padding: EdgeInsets.all(15.0),
                   child: ReusableWidgets().customContainer(

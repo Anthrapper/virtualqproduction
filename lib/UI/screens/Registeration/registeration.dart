@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/screens/Verification/verification.dart';
+import 'package:virtualQ/UI/screens/Registeration/otp_verification.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -80,7 +80,7 @@ class _SignUpFormState extends State<SignUpForm> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MobileVerification(),
+                            builder: (context) => OtpVerification(),
                           ),
                         );
                       },

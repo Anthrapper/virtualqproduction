@@ -177,17 +177,20 @@ class _NewAppointmentState extends State<NewAppointment> {
                 ),
                 FadeAnimation(
                   1.2,
-                  FlatButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TokenSuccess(),
-                        ),
-                      );
-                    },
-                    child: ReusableWidgets()
-                        .customButton(context, 'Generate Token'),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TokenSuccess(),
+                          ),
+                        );
+                      },
+                      child: ReusableWidgets()
+                          .customButton(context, 'Generate Token'),
+                    ),
                   ),
                 ),
               ],

@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:pin_entry_text_field/pin_entry_text_field.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/screens/Login/password_reset.dart';
 import 'package:virtualQ/UI/screens/home/home.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
-import 'package:pin_entry_text_field/pin_entry_text_field.dart';
 
-class MobileVerification extends StatefulWidget {
+class OtpVerification extends StatefulWidget {
   @override
-  _MobileVerificationState createState() => _MobileVerificationState();
+  _OtpVerificationState createState() => _OtpVerificationState();
 }
 
-class _MobileVerificationState extends State<MobileVerification> {
+class _OtpVerificationState extends State<OtpVerification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar('Mobile Verification'),
+      appBar: CustomAppBar(
+        'Verify Your Mobile',
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -23,7 +24,7 @@ class _MobileVerificationState extends State<MobileVerification> {
               Padding(
                 padding: EdgeInsets.fromLTRB(20, 50, 20, 40),
                 child: ReusableWidgets()
-                    .customImage(context, 'assets/images/forgotpass.png'),
+                    .customImage(context, 'assets/images/verification.png'),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
@@ -58,7 +59,7 @@ class _MobileVerificationState extends State<MobileVerification> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PasswordReset(),
+                            builder: (context) => HomePage(),
                           ),
                         );
                       },

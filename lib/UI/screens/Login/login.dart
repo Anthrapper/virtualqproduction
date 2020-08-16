@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
                       .customImage(context, 'assets/images/signin.png'),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(15.0),
+                  padding: EdgeInsets.all(18.0),
                   child: ReusableWidgets().customContainer(
                     Column(
                       children: <Widget>[
@@ -57,16 +57,19 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 FadeAnimation(
                   1.5,
-                  FlatButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(),
-                        ),
-                      );
-                    },
-                    child: ReusableWidgets().customButton(context, 'Login'),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+                          ),
+                        );
+                      },
+                      child: ReusableWidgets().customButton(context, 'Login'),
+                    ),
                   ),
                 ),
                 SizedBox(

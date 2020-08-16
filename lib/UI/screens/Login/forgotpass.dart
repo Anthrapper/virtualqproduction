@@ -32,7 +32,7 @@ class _ForgotPassState extends State<ForgotPass> {
             Padding(
               padding: EdgeInsets.fromLTRB(20, 50, 20, 40),
               child: ReusableWidgets()
-                  .customImage(context, 'assets/images/forgotpass.png'),
+                  .customImage(context, 'assets/images/forgot.jpg'),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(25, 10, 25, 10),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/screens/Login/forgotpass.dart';
-import 'package:virtualQ/UI/screens/home/home.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class LoginPage extends StatefulWidget {
@@ -61,12 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                     padding: EdgeInsets.symmetric(horizontal: 25),
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomePage(),
-                          ),
-                        );
+                        Navigator.pushNamed(context, 'home');
                       },
                       child: ReusableWidgets().customButton(context, 'Login'),
                     ),
@@ -77,14 +70,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 FadeAnimation(
                   1.7,
-                  FlatButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ForgotPass(),
-                        ),
-                      );
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'forgotpass');
                     },
                     child: Text(
                       "Forgot Password?",

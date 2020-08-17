@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:virtualQ/UI/screens/Login/login.dart';
-import 'package:virtualQ/UI/screens/Registeration/registeration.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -25,11 +23,12 @@ class WelcomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Center(
-              child: Text('Stay Apart. Stay Safe',
-              style: TextStyle(
-                color: Colors.lightBlue[800],
-                fontSize: 14,
-              ),
+              child: Text(
+                'Stay Apart. Stay Safe',
+                style: TextStyle(
+                  color: Colors.lightBlue[800],
+                  fontSize: 14,
+                ),
               ),
             ),
           ),
@@ -40,28 +39,18 @@ class WelcomeScreen extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(30, 80, 30, 0),
-            child: FlatButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginPage(),
-                  ),
-                );
+            child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, 'login');
               },
               child: ReusableWidgets().customButton(context, 'Login'),
             ),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
-            child: FlatButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SignUpForm(),
-                  ),
-                );
+            child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, 'register');
               },
               child: ReusableWidgets().customButton(context, 'Register'),
             ),

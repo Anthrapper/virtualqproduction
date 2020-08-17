@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/screens/Token/token_generated.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
 
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
@@ -181,12 +179,7 @@ class _NewAppointmentState extends State<NewAppointment> {
                     padding: EdgeInsets.symmetric(horizontal: 25),
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TokenSuccess(),
-                          ),
-                        );
+                        Navigator.pushNamed(context, 'tokensuccess');
                       },
                       child: ReusableWidgets()
                           .customButton(context, 'Generate Token'),

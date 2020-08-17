@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/screens/Appointments/New/token_creation.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -112,14 +111,9 @@ class _SelectBankState extends State<SelectBank> {
               1.2,
               Padding(
                 padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
-                child: FlatButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NewAppointment(),
-                      ),
-                    );
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, 'tokenform');
                   },
                   child: ReusableWidgets().customButton(
                     context,

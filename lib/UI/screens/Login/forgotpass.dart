@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/screens/Verification/verification.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class ForgotPass extends StatefulWidget {
@@ -52,11 +51,9 @@ class _ForgotPassState extends State<ForgotPass> {
                 child: InkWell(
                   child: ReusableWidgets().customButton(context, 'Get OTP'),
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushNamed(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => MobileVerification(),
-                      ),
+                      'otp',
                     );
                   },
                 ),

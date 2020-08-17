@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/screens/Registeration/otp_verification.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -38,7 +37,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 ReusableWidgets()
                     .customImage(context, 'assets/images/signup.png'),
                 Padding(
-                  padding: EdgeInsets.all(15.0),
+                  padding: EdgeInsets.all(18.0),
                   child: ReusableWidgets().customContainer(
                     Column(
                       children: <Widget>[
@@ -77,12 +76,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     FlatButton(
                       onPressed: () {
                         print('hi');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OtpVerification(),
-                          ),
-                        );
+                        Navigator.pushNamed(context, 'otpverification');
                       },
                       child:
                           ReusableWidgets().customButton(context, 'Register'),

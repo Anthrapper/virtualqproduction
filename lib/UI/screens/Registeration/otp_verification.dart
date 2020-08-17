@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pin_entry_text_field/pin_entry_text_field.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/screens/home/home.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
@@ -47,26 +46,14 @@ class _OtpVerificationState extends State<OtpVerification> {
                   padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(),
-                        ),
+                        'home',
                       );
                     },
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomePage(),
-                          ),
-                        );
-                      },
-                      child: ReusableWidgets().customButton(
-                        context,
-                        'Verify',
-                      ),
+                    child: ReusableWidgets().customButton(
+                      context,
+                      'Verify',
                     ),
                   ),
                 ),

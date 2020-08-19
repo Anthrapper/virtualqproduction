@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+import 'package:virtualQ/Services/authentication_helper.dart';
+
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -10,8 +12,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+
     Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, 'apphome');
+      AuthenticationHelper().checkLoginStatus(context);
     });
   }
 
@@ -23,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         'assets/images/splash.png',
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        fit: BoxFit.fill,
+        fit: BoxFit.cover,
       ),
     );
   }

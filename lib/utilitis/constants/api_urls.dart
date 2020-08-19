@@ -20,4 +20,6 @@ class Urls {
       'https://evening-escarpment-40235.herokuapp.com/api/banks';
   static String branches = '/branches/';
   static String services = '/services/';
+  static String tokenGen =
+      'https://evening-escarpment-40235.herokuapp.com/api/customer/token/gen';
 }

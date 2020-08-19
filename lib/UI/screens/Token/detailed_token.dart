@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:virtualQ/UI/widgets/app_bar.dart';
-
-import '../../widgets/reusable_widgets.dart';
+import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class DetailedToken extends StatefulWidget {
   @override
@@ -17,7 +15,7 @@ class _DetailedTokenState extends State<DetailedToken> {
       body: ListView(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(25, 10, 25, 20),
+            padding: const EdgeInsets.fromLTRB(25, 30, 25, 20),
             child: ReusableWidgets().customContainer(Column(
               children: <Widget>[
                 Container(
@@ -51,6 +49,16 @@ class _DetailedTokenState extends State<DetailedToken> {
                 ),
               ],
             )),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(30, 60, 30, 10),
+            child: ReusableWidgets()
+                .customButton(context, 'Completed Successfully'),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+            child:
+                ReusableWidgets().customButton(context, 'Cancel Appointment'),
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
+import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:virtualQ/Services/authentication_helper.dart';
@@ -22,12 +23,31 @@ class _NewAppointmentState extends State<NewAppointment> {
   final _formKey = GlobalKey<FormState>();
   Future services;
   String _value = '';
+  bool _isLoading = false;
   String hintText = '';
   // String _curTokens = '';
   // String _totalTokens = '';
 
   bool _hideTextField = true;
   bool _selectedDate = false;
+
+  Future generateToken({String date, String id, String doc}) async {
+    Map data = {
+      "token_date": date,
+      "service": id,
+      "doc_ids": doc,
+    };
+
+    var response = await http.post(
+      Urls.tokenGen,
+      body: jsonEncode(data),
+      headers: {"Content-Type": "application/json"},
+    );
+    var jsonData = json.decode(response.body);
+    print(jsonData);
+    print(response.statusCode);
+  }
+
   widgetCheck(int id) {
     for (var one in data) {
       if (one['id'] == id) {
@@ -56,13 +76,16 @@ class _NewAppointmentState extends State<NewAppointment> {
       lastDate: new DateTime(2020, 12, 31),
     );
     if (picked != null)
-      setState(() {
-        _value = picked.toString();
+      setState(
+        () {
+          _value = picked.toString();
+          print(_value);
 
-        _value = _value.substring(0, _value.indexOf(' 0'));
-        print(_value);
-        _selectedDate = true;
-      });
+          _value = _value.substring(0, _value.indexOf(' 0'));
+          print(_value);
+          _selectedDate = true;
+        },
+      );
   }
 
   final TextEditingController idController = new TextEditingController();
@@ -279,14 +302,26 @@ class _NewAppointmentState extends State<NewAppointment> {
                   FadeAnimation(
                     1.2,
                     Padding(
-                      padding: EdgeInsets.fromLTRB(25, 50, 25, 20),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, 'tokensuccess');
-                        },
-                        child: ReusableWidgets()
-                            .customButton(context, 'Generate Token'),
-                      ),
+                      padding: EdgeInsets.fromLTRB(25, 30, 25, 20),
+                      child: _isLoading
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : InkWell(
+                              onTap: () {
+                                if (_formKey.currentState.validate()) {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  generateToken(
+                                      date: _value,
+                                      id: selPurpose,
+                                      doc: idController.text);
+                                }
+                              },
+                              child: ReusableWidgets()
+                                  .customButton(context, 'Generate Token'),
+                            ),
                     ),
                   ),
                 ],

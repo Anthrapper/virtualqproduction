@@ -4,7 +4,6 @@ import 'package:virtualQ/router/router.dart';
 
 void main() {
   FluroRouter.setupRouter();
-
   runApp(MyApp());
 }
 

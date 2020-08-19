@@ -16,9 +16,9 @@ class _HomePageState extends State<HomePage> {
       appBar: CustomAppBar('Home'),
       drawer: Drawer(
         elevation: 10,
-        child: drawerItems,
+        child: MyDrawer(),
       ),
-      body: Column(
+      body: ListView(
         children: [
           Padding(
             padding: EdgeInsets.fromLTRB(20, 20, 20, 50),

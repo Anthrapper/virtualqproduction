@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:virtualQ/Services/authentication_helper.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class SelectBank extends StatefulWidget {
   @override
@@ -10,17 +13,64 @@ class SelectBank extends StatefulWidget {
 }
 
 class _SelectBankState extends State<SelectBank> {
-  List data = List();
-  String selBatch;
+  final storage = new FlutterSecureStorage();
+  bool _bankSelected = false;
 
-  List deptData = List();
-  Future<String> getBatchApi() async {
-    var res = await http.get('batchApi');
+  List bankData = List();
+  List branchData = List();
+
+  String selBank;
+  String selBranch;
+
+  Future<String> getBanks() async {
+    AuthenticationHelper().checkTokenStatus();
+    String loginToken = await storage.read(key: 'accesstoken');
+
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $loginToken',
+    };
+    var res = await http.get(Urls.banks, headers: requestHeaders);
     var resBody = json.decode(res.body);
+    print(resBody);
+
     setState(() {
-      data = resBody;
+      bankData = resBody;
     });
     return "Sucess";
+  }
+
+  Future<String> getBranch(String id) async {
+    AuthenticationHelper().checkTokenStatus();
+    String loginToken = await storage.read(key: 'accesstoken');
+
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $loginToken',
+    };
+
+    var res = await http.get(Urls.banks + '/' + id + Urls.branches,
+        headers: requestHeaders);
+    var resBody = json.decode(res.body);
+    print(resBody);
+    setState(() {
+      branchData = resBody;
+      _bankSelected = false;
+    });
+    return "Sucess";
+  }
+
+  @override
+  void initState() {
+    getBanks();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -48,41 +98,73 @@ class _SelectBankState extends State<SelectBank> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-              child: Column(
-                children: <Widget>[
-                  ReusableWidgets().customContainer(
-                    Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 8),
-                          child: Icon(
-                            Icons.assistant_photo,
-                            color: Colors.grey,
-                            size: 31,
+              child: ReusableWidgets().customContainer(
+                Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(25, 0, 25, 5),
+                      child: DropdownButton(
+                        isExpanded: true,
+                        autofocus: true,
+                        icon: Icon(Icons.arrow_drop_down),
+                        iconSize: 36,
+                        dropdownColor: Colors.grey[200],
+                        hint: Text(
+                          'Choose Bank',
+                          style: TextStyle(
+                            color: Colors.grey[400],
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 18),
-                            child: DropdownButton(
+                        value: selBank,
+                        items: bankData.map((item) {
+                          return DropdownMenuItem(
+                            child: Text(
+                              item['name'],
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                            ),
+                            value: item['id'].toString(),
+                          );
+                        }).toList(),
+                        onChanged: (newVal) {
+                          setState(
+                            () {
+                              selBank = newVal;
+                              _bankSelected = true;
+                            },
+                          );
+                          getBranch(selBank);
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(25, 0, 25, 5),
+                      child: _bankSelected
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : DropdownButton(
                               isExpanded: true,
                               autofocus: true,
                               icon: Icon(Icons.arrow_drop_down),
                               iconSize: 36,
                               dropdownColor: Colors.grey[200],
                               hint: Text(
-                                'Choose Bank',
+                                'Choose Branch',
                                 style: TextStyle(
                                   color: Colors.grey[400],
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              value: selBatch,
-                              items: data.map((item) {
+                              value: selBranch,
+                              items: branchData.map((item) {
                                 return DropdownMenuItem(
                                   child: Text(
-                                    item['batch'],
+                                    item['name'],
                                     style: TextStyle(
                                       fontSize: 15,
                                     ),
@@ -93,18 +175,15 @@ class _SelectBankState extends State<SelectBank> {
                               onChanged: (newVal) {
                                 setState(
                                   () {
-                                    selBatch = newVal;
-                                    print(selBatch);
+                                    selBranch = newVal;
+                                    print(selBranch);
                                   },
                                 );
                               },
                             ),
-                          ),
-                        ),
-                      ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             FadeAnimation(
@@ -113,7 +192,9 @@ class _SelectBankState extends State<SelectBank> {
                 padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
                 child: InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, 'tokenform');
+                    if (selBank != null && selBranch != null) {
+                      Navigator.pushNamed(context, 'tokenform/$selBranch');
+                    }
                   },
                   child: ReusableWidgets().customButton(
                     context,

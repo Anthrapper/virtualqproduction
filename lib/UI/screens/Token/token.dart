@@ -20,7 +20,7 @@ class Token extends StatelessWidget {
         ),
         ReusableWidgets().customText('Name: xyz'),
         ReusableWidgets().customText('Purpose: xyz'),
-        ReusableWidgets().customText('Date: xyz'),
+        ReusableWidgets().customText('Date & Time: xyz'),
         ReusableWidgets().customText('Token Number: xyz'),
       ],
     );

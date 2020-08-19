@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:virtualQ/Services/authentication_helper.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/utilitis/screensize.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -66,13 +68,89 @@ class ReusableWidgets {
     );
   }
 
+  customDialog(
+      BuildContext context, String title, String desc, AlertType alertType) {
+    Alert(
+      context: context,
+      type: alertType,
+      title: title,
+      desc: desc,
+      buttons: [
+        DialogButton(
+          gradient: LinearGradient(
+            colors: [
+              Colors.lightBlue,
+              Colors.lightBlueAccent[200],
+            ],
+          ),
+          child: Text(
+            "Ok",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.pop(context),
+          height: 60,
+          width: 100,
+        )
+      ],
+    ).show();
+  }
+
+  logOutDialog(
+    BuildContext context,
+    String title,
+    String desc,
+  ) {
+    return Alert(
+      context: context,
+      title: title,
+      desc: desc,
+      image: Image.asset(
+        "assets/images/logout.png",
+        height: 100,
+        width: 100,
+      ),
+      buttons: [
+        DialogButton(
+          child: Text(
+            "Yes",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            AuthenticationHelper().removeToken();
+            Navigator.pushNamedAndRemoveUntil(
+                context, 'apphome', (route) => false);
+          },
+          gradient: LinearGradient(
+            colors: [
+              Colors.green[600],
+              Colors.greenAccent[700],
+            ],
+          ),
+        ),
+        DialogButton(
+          child: Text(
+            "No",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.pop(context),
+          gradient: LinearGradient(
+            colors: [
+              Colors.lightBlue,
+              Colors.lightBlueAccent[200],
+            ],
+          ),
+        )
+      ],
+    ).show();
+  }
+
   Widget customButton(
     BuildContext context,
     String text,
   ) {
     screenSize = ScreenSize().getSize(context);
     return Container(
-      height: screenSize.height /20,
+      height: screenSize.height / 20,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         gradient: LinearGradient(
@@ -100,6 +178,7 @@ class ReusableWidgets {
     TextEditingController controller,
     FaIcon icon,
     bool secureText,
+    Function validator,
   ) {
     return Container(
       padding: EdgeInsets.all(8.0),
@@ -114,7 +193,7 @@ class ReusableWidgets {
         textAlign: TextAlign.justify,
         controller: controller,
         obscureText: secureText,
-        validator: reqValidator,
+        validator: validator,
         decoration: InputDecoration(
           prefixIcon: Padding(
             padding: EdgeInsets.only(top: 12),

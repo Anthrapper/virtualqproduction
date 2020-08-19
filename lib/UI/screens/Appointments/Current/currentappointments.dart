@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/screens/Token/token.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
@@ -15,10 +16,17 @@ class _CurrentAppointmentsState extends State<CurrentAppointments> {
       appBar: CustomAppBar('Current Appointments'),
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(30),
           children: [
-            ReusableWidgets().customContainer(
-              Token(),
+            FadeAnimation(
+              0.7,
+              Card(
+                elevation: 8,
+                shadowColor: Colors.grey,
+                child: ReusableWidgets().customContainer(
+                  Token(),
+                ),
+              ),
             )
           ],
         ),

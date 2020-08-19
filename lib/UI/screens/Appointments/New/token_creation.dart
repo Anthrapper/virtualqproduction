@@ -20,14 +20,14 @@ class NewAppointment extends StatefulWidget {
 class _NewAppointmentState extends State<NewAppointment> {
   final storage = new FlutterSecureStorage();
   final _formKey = GlobalKey<FormState>();
+  Future services;
   String _value = '';
   String hintText = '';
-  bool _hideTextField = false;
+  bool _hideTextField = true;
   bool _selectedDate = false;
   widgetCheck(int id) {
     for (var one in data) {
       if (one['id'] == id) {
-        print('entered loop');
         List services = one['service']['service_requirements'];
 
         if (services.isNotEmpty) {
@@ -65,9 +65,8 @@ class _NewAppointmentState extends State<NewAppointment> {
   final TextEditingController idController = new TextEditingController();
   List data = List();
   String selPurpose;
-
   List deptData = List();
-  Future<Null> getServiceList() async {
+  Future getServiceList() async {
     AuthenticationHelper().checkTokenStatus();
     String loginToken = await storage.read(key: 'accesstoken');
     Map<String, String> requestHeaders = {
@@ -80,22 +79,20 @@ class _NewAppointmentState extends State<NewAppointment> {
       url,
       headers: requestHeaders,
     );
-    var resBody = json.decode(res.body);
-    //print(resBody);
-
-    setState(() {
-      data = resBody;
-    });
+    if (res.statusCode == 200) {
+      var resBody = json.decode(res.body);
+      setState(() {
+        data = resBody;
+      });
+    } else {
+      throw Exception("Failed to get Services");
+    }
   }
 
   @override
   void initState() {
-    getServiceList();
-    setState(() {
-      _hideTextField = true;
-    });
-
     super.initState();
+    services = getServiceList();
   }
 
   @override
@@ -108,153 +105,156 @@ class _NewAppointmentState extends State<NewAppointment> {
     return Scaffold(
       appBar: CustomAppBar('Create New Appointment'),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                ReusableWidgets()
-                    .customImage(context, 'assets/images/booking.png'),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                  child: ReusableWidgets().customContainer(
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 8),
-                                child: Icon(
-                                  Icons.assistant_photo,
-                                  color: Colors.grey,
-                                  size: 31,
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
-                                  child: DropdownButton(
-                                    isExpanded: true,
-                                    autofocus: true,
-                                    elevation: 10,
-                                    icon: Icon(Icons.arrow_drop_down),
-                                    iconSize: 36,
-                                    dropdownColor: Colors.grey[200],
-                                    hint: Text(
-                                      'Choose Purpose',
-                                      style: TextStyle(
-                                        color: Colors.grey[400],
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    value: selPurpose,
-                                    items: data.map((item) {
-                                      return DropdownMenuItem(
-                                        child: Text(
-                                          item['service_name'],
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                        value: item['id'].toString(),
-                                      );
-                                    }).toList(),
-                                    onChanged: (newVal) {
-                                      setState(
-                                        () {
-                                          selPurpose = newVal;
-                                          print(selPurpose);
-                                          widgetCheck(int.parse(selPurpose));
-                                        },
-                                      );
-                                    },
+        child: FutureBuilder(
+          future: services,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return ListView(
+                children: <Widget>[
+                  ReusableWidgets()
+                      .customImage(context, 'assets/images/booking.png'),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                    child: ReusableWidgets().customContainer(
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: 8),
+                                  child: Icon(
+                                    Icons.assistant_photo,
+                                    color: Colors.grey,
+                                    size: 31,
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Icon(
-                                  Icons.date_range,
-                                  color: Colors.grey,
-                                  size: 31,
-                                ),
-                              ),
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () {
-                                    _selectDate();
-                                  },
+                                Expanded(
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    child: _selectedDate
-                                        ? Text(
-                                            _value,
-                                            textAlign: TextAlign.left,
+                                    padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
+                                    child: DropdownButton(
+                                      isExpanded: true,
+                                      autofocus: true,
+                                      elevation: 10,
+                                      icon: Icon(Icons.arrow_drop_down),
+                                      iconSize: 36,
+                                      dropdownColor: Colors.grey[200],
+                                      hint: Text(
+                                        'Choose Purpose',
+                                        style: TextStyle(
+                                          color: Colors.grey[400],
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      value: selPurpose,
+                                      items: data.map((item) {
+                                        return DropdownMenuItem(
+                                          child: Text(
+                                            item['service_name'],
                                             style: TextStyle(
-                                              color: Colors.grey[400],
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          )
-                                        : Text(
-                                            'Select Date',
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              color: Colors.grey[400],
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
                                             ),
                                           ),
+                                          value: item['id'].toString(),
+                                        );
+                                      }).toList(),
+                                      onChanged: (newVal) {
+                                        setState(
+                                          () {
+                                            selPurpose = newVal;
+                                            print(selPurpose);
+                                            widgetCheck(int.parse(selPurpose));
+                                          },
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          _hideTextField
-                              ? Center(
-                                  child: SizedBox(),
-                                )
-                              : ReusableWidgets().customTextfield(
-                                  hintText,
-                                  idController,
-                                  FaIcon(
-                                    FontAwesomeIcons.idCard,
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(8),
+                                  child: Icon(
+                                    Icons.date_range,
+                                    color: Colors.grey,
+                                    size: 31,
                                   ),
-                                  true,
-                                  FormValidator().reqValidator,
                                 ),
-                        ],
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      _selectDate();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 0, 0),
+                                      child: _selectedDate
+                                          ? Text(
+                                              _value,
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                color: Colors.grey[400],
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )
+                                          : Text(
+                                              'Select Date',
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                color: Colors.grey[400],
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            _hideTextField
+                                ? Center(
+                                    child: SizedBox(),
+                                  )
+                                : ReusableWidgets().customTextfield(
+                                    hintText,
+                                    idController,
+                                    FaIcon(
+                                      FontAwesomeIcons.idCard,
+                                    ),
+                                    true,
+                                    FormValidator().reqValidator,
+                                  ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                FadeAnimation(
-                  1.2,
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, 'tokensuccess');
-                      },
-                      child: ReusableWidgets()
-                          .customButton(context, 'Generate Token'),
+                  FadeAnimation(
+                    1.2,
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(25, 50, 25, 20),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, 'tokensuccess');
+                        },
+                        child: ReusableWidgets()
+                            .customButton(context, 'Generate Token'),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
+                ],
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
         ),
       ),
     );

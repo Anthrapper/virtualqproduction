@@ -77,6 +77,11 @@ class _SelectBankState extends State<SelectBank> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -213,8 +218,6 @@ class _SelectBankState extends State<SelectBank> {
                     ),
                   ],
                 );
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
               }
               return Center(
                 child: CircularProgressIndicator(),

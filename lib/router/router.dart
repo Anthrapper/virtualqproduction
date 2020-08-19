@@ -9,6 +9,7 @@ import 'package:virtualQ/UI/screens/Login/otpverify.dart';
 import 'package:virtualQ/UI/screens/Login/password_reset.dart';
 import 'package:virtualQ/UI/screens/Registeration/otp_verification.dart';
 import 'package:virtualQ/UI/screens/Registeration/registeration.dart';
+import 'package:virtualQ/UI/screens/Token/detailed_token.dart';
 import 'package:virtualQ/UI/screens/Token/token_generated.dart';
 import 'package:virtualQ/UI/screens/home/home.dart';
 import 'package:virtualQ/UI/screens/welcome_screen/welcomescreen.dart';
@@ -63,6 +64,10 @@ class FluroRouter {
     handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
         TokenSuccess(),
   );
+  static Handler _tokenDetails = Handler(
+    handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+        DetailedToken(),
+  );
   static void setupRouter() {
     router.define(
       'login',
@@ -113,6 +118,10 @@ class FluroRouter {
     router.define(
       'tokensuccess',
       handler: _tokenSuccess,
+    );
+    router.define(
+      'detailedtoken',
+      handler: _tokenDetails,
     );
   }
 }

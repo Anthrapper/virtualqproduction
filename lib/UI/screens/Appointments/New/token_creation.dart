@@ -23,6 +23,9 @@ class _NewAppointmentState extends State<NewAppointment> {
   Future services;
   String _value = '';
   String hintText = '';
+  // String _curTokens = '';
+  // String _totalTokens = '';
+
   bool _hideTextField = true;
   bool _selectedDate = false;
   widgetCheck(int id) {
@@ -49,7 +52,7 @@ class _NewAppointmentState extends State<NewAppointment> {
     DateTime picked = await showDatePicker(
       context: context,
       initialDate: new DateTime.now(),
-      firstDate: new DateTime(2020, 8, 18),
+      firstDate: new DateTime.now(),
       lastDate: new DateTime(2020, 12, 31),
     );
     if (picked != null)
@@ -216,6 +219,44 @@ class _NewAppointmentState extends State<NewAppointment> {
                                   ),
                                 ),
                               ],
+                            ),
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Icon(
+                                      Icons.bookmark,
+                                      color: Colors.grey,
+                                      size: 31,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      'Current Bookings:',
+                                      style: TextStyle(
+                                        color: Colors.grey[400],
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 15),
+                                      child: Text(
+                                        '50/ 70',
+                                        style: TextStyle(
+                                          color: Colors.lightBlue,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             _hideTextField
                                 ? Center(

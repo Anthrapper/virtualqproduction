@@ -20,11 +20,14 @@ class _CurrentAppointmentsState extends State<CurrentAppointments> {
           children: [
             FadeAnimation(
               0.7,
-              Card(
-                elevation: 8,
-                shadowColor: Colors.grey,
-                child: ReusableWidgets().customContainer(
-                  Token(),
+              ReusableWidgets().customContainer(
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, 'detailedtoken');
+                  },
+                  child: ReusableWidgets().customContainer(
+                    Token(),
+                  ),
                 ),
               ),
             )

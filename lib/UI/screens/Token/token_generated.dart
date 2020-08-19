@@ -23,8 +23,13 @@ class _TokenSuccessState extends State<TokenSuccess> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(25, 10, 25, 20),
-              child: ReusableWidgets().customContainer(
-                Token(),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, 'detailedtoken');
+                },
+                child: ReusableWidgets().customContainer(
+                  Token(),
+                ),
               ),
             ),
           ],

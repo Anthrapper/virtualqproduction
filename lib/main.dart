@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: 'apphome',
+      initialRoute: 'splashscreen',
       onGenerateRoute: FluroRouter.router.generator,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

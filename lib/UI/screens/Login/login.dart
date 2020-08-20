@@ -141,23 +141,45 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
                 FadeAnimation(
                   1.7,
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, 'forgotpass');
-                    },
-                    child: Text(
-                      "Forgot Password?",
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.black,
+                  Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'forgotpass');
+                          },
+                          child: Text(
+                            "Forgot Password?",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.lightBlue[900],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'verify');
+                          },
+                          child: Text(
+                            "Verify account ",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.lightBlue[900],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                )
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
@@ -25,7 +26,7 @@ class _DetailedTokenState extends State<DetailedToken> {
                     'Token Number:                   80',
                     style: TextStyle(
                       fontSize: 20,
-                      color: Colors.lightBlue,
+                      color: Colors.lightBlue[900],
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -35,30 +36,35 @@ class _DetailedTokenState extends State<DetailedToken> {
                 ReusableWidgets().customText('Branch: xyz'),
                 ReusableWidgets().customText('Date & Time: xyz'),
                 ReusableWidgets().customText('Purpose: xyz'),
-                Container(
-                  margin: const EdgeInsets.all(15),
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Current Queue Status:    80 / 90',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.lightBlue,
-                      fontWeight: FontWeight.bold,
+                Row(
+                  children: [
+                    ReusableWidgets().customText('Update Status'),
+                    Padding(
+                      padding: EdgeInsets.only(left: 70),
+                      child: InkWell(
+                        onTap: () {},
+                        child: FaIcon(
+                          FontAwesomeIcons.windowClose,
+                          size: 30,
+                          color: Colors.lightBlue[900],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 40),
+                      child: InkWell(
+                        onTap: () {},
+                        child: FaIcon(
+                          Icons.assignment_turned_in,
+                          size: 30,
+                          color: Colors.lightBlue[900],
+                        ),
+                      ),
+                    ),
+                  ],
+                )
               ],
             )),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(30, 60, 30, 10),
-            child: ReusableWidgets()
-                .customButton(context, 'Completed Successfully'),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-            child:
-                ReusableWidgets().customButton(context, 'Cancel Appointment'),
           ),
         ],
       ),

@@ -25,7 +25,7 @@ class _SelectBankState extends State<SelectBank> {
   String selBranch;
 
   Future getBanks() async {
-    AuthenticationHelper().checkTokenStatus();
+    await AuthenticationHelper().checkTokenStatus();
     String loginToken = await storage.read(key: 'accesstoken');
 
     Map<String, String> requestHeaders = {
@@ -47,7 +47,7 @@ class _SelectBankState extends State<SelectBank> {
   }
 
   Future getBranch(String id) async {
-    AuthenticationHelper().checkTokenStatus();
+    await AuthenticationHelper().checkTokenStatus();
     String loginToken = await storage.read(key: 'accesstoken');
 
     Map<String, String> requestHeaders = {

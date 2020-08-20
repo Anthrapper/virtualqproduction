@@ -22,4 +22,6 @@ class Urls {
   static String services = '/services/';
   static String tokenGen =
       'https://evening-escarpment-40235.herokuapp.com/api/customer/token/gen';
+  static String tokenList =
+      'https://evening-escarpment-40235.herokuapp.com/api/customer/token/list';
 }

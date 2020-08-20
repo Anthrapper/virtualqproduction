@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:virtualQ/UI/screens/Token/token.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
@@ -23,13 +22,34 @@ class _TokenSuccessState extends State<TokenSuccess> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(25, 10, 25, 20),
+              child: ReusableWidgets().customContainer(Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Token Deatails',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.lightBlue[900],
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  ReusableWidgets().customText('Token Number: xyz'),
+                  ReusableWidgets().customText('Service: xyz'),
+                  ReusableWidgets().customText('Date : xyz'),
+                ],
+              )),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(25, 20, 25, 10),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, 'detailedtoken');
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, 'home', (route) => false);
                 },
-                child: ReusableWidgets().customContainer(
-                  Token(),
-                ),
+                child: ReusableWidgets().customButton(context, 'Return Home'),
               ),
             ),
           ],

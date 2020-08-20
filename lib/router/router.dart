@@ -3,10 +3,11 @@ import 'package:fluro/fluro.dart';
 import 'package:virtualQ/UI/screens/Appointments/Current/currentappointments.dart';
 import 'package:virtualQ/UI/screens/Appointments/New/selectbank.dart';
 import 'package:virtualQ/UI/screens/Appointments/New/token_creation.dart';
-import 'package:virtualQ/UI/screens/Login/forgotpass.dart';
+import 'package:virtualQ/UI/screens/Login/forgot_pass/forgotpass.dart';
 import 'package:virtualQ/UI/screens/Login/login.dart';
-import 'package:virtualQ/UI/screens/Login/otpverify.dart';
-import 'package:virtualQ/UI/screens/Login/password_reset.dart';
+import 'package:virtualQ/UI/screens/Login/forgot_pass/otpverify.dart';
+import 'package:virtualQ/UI/screens/Login/forgot_pass/password_reset.dart';
+import 'package:virtualQ/UI/screens/Login/verify_account/verify_account.dart';
 import 'package:virtualQ/UI/screens/Registeration/otp_verification.dart';
 import 'package:virtualQ/UI/screens/Registeration/registeration.dart';
 import 'package:virtualQ/UI/screens/Token/detailed_token.dart';
@@ -73,6 +74,10 @@ class FluroRouter {
     handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
         SplashScreen(),
   );
+  static Handler _verify = Handler(
+    handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+        VerifyAccount(),
+  );
   static void setupRouter() {
     router.define(
       'login',
@@ -131,6 +136,10 @@ class FluroRouter {
     router.define(
       'splashscreen',
       handler: _splashScreen,
+    );
+    router.define(
+      'verify',
+      handler: _verify,
     );
   }
 }

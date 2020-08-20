@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:virtualQ/Services/authentication_helper.dart';
 import 'package:virtualQ/Services/validator.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
@@ -25,27 +26,54 @@ class _NewAppointmentState extends State<NewAppointment> {
   String _value = '';
   bool _isLoading = false;
   String hintText = '';
-  // String _curTokens = '';
-  // String _totalTokens = '';
-
+  String _date = '';
   bool _hideTextField = true;
   bool _selectedDate = false;
 
   Future generateToken({String date, String id, String doc}) async {
+    await AuthenticationHelper().checkTokenStatus();
+    String loginToken = await storage.read(key: 'accesstoken');
+
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $loginToken',
+    };
     Map data = {
       "token_date": date,
       "service": id,
-      "doc_ids": doc,
+      "doc_ids": "{ 'id': $doc}",
     };
 
     var response = await http.post(
       Urls.tokenGen,
       body: jsonEncode(data),
-      headers: {"Content-Type": "application/json"},
+      headers: requestHeaders,
     );
     var jsonData = json.decode(response.body);
     print(jsonData);
     print(response.statusCode);
+    if (response.statusCode == 201) {
+      setState(() {
+        _isLoading = false;
+      });
+      Navigator.pushNamedAndRemoveUntil(
+          context, 'tokensuccess', (route) => false);
+    } else if (response.statusCode == 400) {
+      setState(() {
+        _isLoading = false;
+      });
+      if (jsonData['user'][0] == 'User already generated a token') {
+        ReusableWidgets().customDialog(
+          context,
+          'Failed',
+          'You have already generated a token for the selectd date',
+          AlertType.error,
+        );
+      }
+    } else {
+      throw Exception('failed to generate token');
+    }
   }
 
   widgetCheck(int id) {
@@ -81,6 +109,8 @@ class _NewAppointmentState extends State<NewAppointment> {
           _value = picked.toString();
           print(_value);
 
+          _date = _value.replaceFirst(RegExp(' '), 'T');
+          print(_date);
           _value = _value.substring(0, _value.indexOf(' 0'));
           print(_value);
           _selectedDate = true;
@@ -93,7 +123,7 @@ class _NewAppointmentState extends State<NewAppointment> {
   String selPurpose;
   List deptData = List();
   Future getServiceList() async {
-    AuthenticationHelper().checkTokenStatus();
+    await AuthenticationHelper().checkTokenStatus();
     String loginToken = await storage.read(key: 'accesstoken');
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
@@ -243,44 +273,6 @@ class _NewAppointmentState extends State<NewAppointment> {
                                 ),
                               ],
                             ),
-                            Container(
-                              child: Row(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.all(8),
-                                    child: Icon(
-                                      Icons.bookmark,
-                                      color: Colors.grey,
-                                      size: 31,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Text(
-                                      'Current Bookings:',
-                                      style: TextStyle(
-                                        color: Colors.grey[400],
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 15),
-                                      child: Text(
-                                        '50/ 70',
-                                        style: TextStyle(
-                                          color: Colors.lightBlue,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                             _hideTextField
                                 ? Center(
                                     child: SizedBox(),
@@ -310,13 +302,15 @@ class _NewAppointmentState extends State<NewAppointment> {
                           : InkWell(
                               onTap: () {
                                 if (_formKey.currentState.validate()) {
-                                  setState(() {
-                                    _isLoading = true;
-                                  });
-                                  generateToken(
-                                      date: _value,
-                                      id: selPurpose,
-                                      doc: idController.text);
+                                  if (_value != null && selPurpose != null) {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    generateToken(
+                                        date: _date,
+                                        id: selPurpose,
+                                        doc: idController.text);
+                                  }
                                 }
                               },
                               child: ReusableWidgets()

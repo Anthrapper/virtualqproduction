@@ -29,6 +29,32 @@ class _NewAppointmentState extends State<NewAppointment> {
   String _date = '';
   bool _hideTextField = true;
   bool _selectedDate = false;
+  customDialog() {
+    Alert(
+      context: context,
+      type: AlertType.success,
+      title: 'Done!',
+      desc: 'Token Generated Successfully',
+      buttons: [
+        DialogButton(
+          gradient: LinearGradient(
+            colors: [
+              Colors.lightBlue,
+              Colors.lightBlueAccent[200],
+            ],
+          ),
+          child: Text(
+            "Ok",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.pushNamedAndRemoveUntil(
+              context, 'home', (route) => false),
+          height: 60,
+          width: 100,
+        )
+      ],
+    ).show();
+  }
 
   Future generateToken({String date, String id, String doc}) async {
     await AuthenticationHelper().checkTokenStatus();
@@ -57,6 +83,7 @@ class _NewAppointmentState extends State<NewAppointment> {
       setState(() {
         _isLoading = false;
       });
+
       Navigator.pushNamedAndRemoveUntil(
           context, 'tokensuccess', (route) => false);
     } else if (response.statusCode == 400) {

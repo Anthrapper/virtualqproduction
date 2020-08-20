@@ -48,58 +48,78 @@ class _CurrentAppointmentsState extends State<CurrentAppointments> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar('Current Appointments'),
       body: SafeArea(
-        child: ListView.builder(
-          itemCount: tokenData == null ? 0 : tokenData.length,
-          itemBuilder: (context, index) {
-            String tokenNumber = tokenData[index]["order_number"];
-            String branch = tokenData[index]["branch"];
-            String date = tokenData[index]["token_date"];
-            String service = tokenData[index]["service"];
-            date = date.substring(0, date.indexOf('T'));
-            return Column(
-              children: [
-                FadeAnimation(
-                  0.7,
-                  ReusableWidgets().customContainer(
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, 'detailedtoken');
-                      },
-                      child: ReusableWidgets().customContainer(
-                        Column(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.all(7),
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Token Deatails',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.lightBlue[900],
-                                  fontWeight: FontWeight.bold,
+        child: FutureBuilder(
+          future: tokenList,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return ListView.builder(
+                itemCount: tokenData == null ? 0 : tokenData.length,
+                itemBuilder: (context, index) {
+                  String tokenNumber = tokenData[index]["order_number"];
+                  String branch = tokenData[index]["branch"];
+                  String date = tokenData[index]["token_date"];
+                  String service = tokenData[index]["service"];
+                  date = date.substring(0, date.indexOf('T'));
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: FadeAnimation(
+                          0.7,
+                          ReusableWidgets().customContainer(
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, 'detailedtoken');
+                              },
+                              child: ReusableWidgets().customContainer(
+                                Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.all(7),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Token Deatails',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.lightBlue[900],
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    ReusableWidgets().customText(
+                                        'Token Number:    $tokenNumber'),
+                                    ReusableWidgets()
+                                        .customText('Branch:    $branch'),
+                                    ReusableWidgets()
+                                        .customText('Service:    $service'),
+                                    ReusableWidgets()
+                                        .customText('Date :        $date'),
+                                  ],
                                 ),
                               ),
                             ),
-                            ReusableWidgets()
-                                .customText('Token Number:    $tokenNumber'),
-                            ReusableWidgets().customText('Branch:    $branch'),
-                            ReusableWidgets()
-                                .customText('Service:    $service'),
-                            ReusableWidgets().customText('Date :        $date'),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
+                      )
+                    ],
+                  );
+                },
+                padding: EdgeInsets.all(30),
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(),
             );
           },
-          padding: EdgeInsets.all(30),
         ),
       ),
     );

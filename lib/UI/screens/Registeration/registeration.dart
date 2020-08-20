@@ -7,7 +7,7 @@ import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'dart:async';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -43,7 +43,8 @@ class _SignUpFormState extends State<SignUpForm> {
           _isLoading = false;
         },
       );
-      Navigator.pushNamed(context, 'otpverification/$phone');
+      Navigator.pushNamedAndRemoveUntil(
+          context, 'otpverification/$phone', (route) => false);
     } else if (response.statusCode == 400) {
       setState(
         () {
@@ -167,7 +168,10 @@ class _SignUpFormState extends State<SignUpForm> {
                           ? Center(
                               child: CircularProgressIndicator(),
                             )
-                          : ReusableWidgets().customButton(context, 'Register'),
+                          : Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: ReusableWidgets()
+                                  .customButton(context, 'Register')),
                     ),
                   ),
                 ),

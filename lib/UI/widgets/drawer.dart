@@ -62,7 +62,7 @@ class MyDrawer extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(left: 20),
                   child: Text(
-                    'Technical Support',
+                    'Change Password',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

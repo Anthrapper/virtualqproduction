@@ -6,6 +6,7 @@ import 'package:virtualQ/Services/validator.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:async';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
@@ -60,6 +61,8 @@ class _LoginPageState extends State<LoginPage> {
           AlertType.error,
         );
       }
+    } else {
+      throw Exception('Something Went Wrong');
     }
   }
 
@@ -148,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                   Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 10),
+                        padding: EdgeInsets.only(top: 5),
                         child: InkWell(
                           onTap: () {
                             Navigator.pushNamed(context, 'forgotpass');
@@ -163,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 20),
+                        padding: EdgeInsets.fromLTRB(0, 15, 0, 10),
                         child: InkWell(
                           onTap: () {
                             Navigator.pushNamed(context, 'verify');

@@ -74,7 +74,7 @@ class _CurrentAppointmentsState extends State<CurrentAppointments> {
                       Padding(
                         padding: EdgeInsets.only(top: 10),
                         child: FadeAnimation(
-                          0.7,
+                          0.4,
                           ReusableWidgets().customContainer(
                             InkWell(
                               onTap: () {

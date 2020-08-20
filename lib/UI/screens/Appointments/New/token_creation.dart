@@ -49,8 +49,8 @@ class _NewAppointmentState extends State<NewAppointment> {
           ),
           onPressed: () => Navigator.pushNamedAndRemoveUntil(
               context, 'home', (route) => false),
-          height: 60,
-          width: 100,
+          height: 30,
+          width: 200,
         )
       ],
     ).show();
@@ -84,8 +84,7 @@ class _NewAppointmentState extends State<NewAppointment> {
         _isLoading = false;
       });
 
-      Navigator.pushNamedAndRemoveUntil(
-          context, 'tokensuccess', (route) => false);
+      customDialog();
     } else if (response.statusCode == 400) {
       setState(() {
         _isLoading = false;

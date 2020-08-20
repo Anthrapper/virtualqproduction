@@ -59,6 +59,8 @@ class ReusableWidgets {
       alignment: Alignment.bottomLeft,
       child: Text(
         text,
+        softWrap: true,
+        overflow: TextOverflow.fade,
         style: TextStyle(
           color: Colors.blueGrey,
           fontWeight: FontWeight.w800,

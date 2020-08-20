@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:virtualQ/Services/authentication_helper.dart';
 import 'package:virtualQ/Services/validator.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:http/http.dart' as http;
@@ -19,7 +19,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController phoneController = new TextEditingController();
   final TextEditingController passController = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final storage = new FlutterSecureStorage();
 
   bool _isLoading = false;
 
@@ -38,8 +37,8 @@ class _LoginPageState extends State<LoginPage> {
     print(jsonData);
     print(response.statusCode);
     if (response.statusCode == 200) {
-      await storage.write(key: 'accesstoken', value: jsonData['access']);
-      await storage.write(key: 'refreshtoken', value: jsonData['refresh']);
+      AuthenticationHelper()
+          .storeToken(jsonData['access'], jsonData['refresh']);
       setState(
         () {
           _isLoading = false;

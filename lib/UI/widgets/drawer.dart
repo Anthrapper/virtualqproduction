@@ -48,7 +48,9 @@ class MyDrawer extends StatelessWidget {
         ),
         SizedBox(height: 20),
         FlatButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, 'passwordreset');
+          },
           child: Row(
             children: [
               Padding(

@@ -21,7 +21,9 @@ class Urls {
   static String branches = '/branches/';
   static String services = '/services/';
   static String tokenGen =
-      'https://evening-escarpment-40235.herokuapp.com/api/customer/token/gen';
+      'https://evening-escarpment-40235.herokuapp.com/api/customer/token/gen/';
   static String tokenList =
-      'https://evening-escarpment-40235.herokuapp.com/api/customer/token/list';
+      'https://evening-escarpment-40235.herokuapp.com/api/customer/token/list/';
+  static String tokenUpdate =
+      "https://evening-escarpment-40235.herokuapp.com/api/customer/token/status/update/";
 }

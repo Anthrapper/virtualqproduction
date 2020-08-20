@@ -8,7 +8,12 @@ import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class AuthenticationHelper {
   final storage = FlutterSecureStorage();
-  removeToken() async {
+  Future storeToken(String access, String refresh) async {
+    await storage.write(key: 'accesstoken', value: access);
+    await storage.write(key: 'refreshtoken', value: refresh);
+  }
+
+  Future removeToken() async {
     await storage.delete(key: 'accesstoken');
     await storage.delete(key: 'refreshtoken');
   }

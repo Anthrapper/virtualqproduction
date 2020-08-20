@@ -8,7 +8,6 @@ import 'package:virtualQ/UI/widgets/app_bar.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class PasswordReset extends StatefulWidget {
@@ -43,6 +42,7 @@ class _PasswordResetState extends State<PasswordReset> {
       );
 
       print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 204) {
         Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
       }

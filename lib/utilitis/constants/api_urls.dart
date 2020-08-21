@@ -1,7 +1,4 @@
 class Urls {
-  static String passwordReset =
-      'https://www.alumni-cucek.ml/api/auth/account/password/reset';
-
   static String loginApi =
       'https://evening-escarpment-40235.herokuapp.com/api/token/';
   static String forgotPassOtp =

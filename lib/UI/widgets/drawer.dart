@@ -21,7 +21,9 @@ class MyDrawer extends StatelessWidget {
         ),
         SizedBox(height: 40),
         FlatButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, 'contactbank');
+          },
           child: Row(
             children: [
               Padding(

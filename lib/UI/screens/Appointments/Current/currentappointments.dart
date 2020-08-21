@@ -65,7 +65,7 @@ class _CurrentAppointmentsState extends State<CurrentAppointments> {
                 itemCount: tokenData == null ? 0 : tokenData.length,
                 itemBuilder: (context, index) {
                   String tokenNumber = tokenData[index]["order_number"];
-                  String branch = tokenData[index]["branch"];
+                  String bank = tokenData[index]["bank"];
                   String date = tokenData[index]["token_date"];
                   String service = tokenData[index]["service"];
                   date = date.substring(0, date.indexOf('T'));
@@ -98,7 +98,7 @@ class _CurrentAppointmentsState extends State<CurrentAppointments> {
                                     ReusableWidgets().customText(
                                         'Token Number:    $tokenNumber'),
                                     ReusableWidgets()
-                                        .customText('Branch:    $branch'),
+                                        .customText('Bank:         $bank'),
                                     ReusableWidgets()
                                         .customText('Service:    $service'),
                                     ReusableWidgets()

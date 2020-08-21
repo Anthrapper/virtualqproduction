@@ -91,10 +91,39 @@ class _DetailedTokenState extends State<DetailedToken> {
                       ReusableWidgets().customText('Branch:  $branch'),
                       ReusableWidgets().customText('Date:       $date'),
                       ReusableWidgets().customText('Purpose:  $service'),
-                      // IconButton(
-                      //   onPressed: () {},
-                      //   icon: (Icons.cancel),
-                      // ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 8, 20, 5),
+                        child: RaisedButton(
+                          color: Colors.blueGrey[100],
+                          onPressed: () {},
+                          child: Center(
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(80, 10, 0, 5),
+                                  child: Text(
+                                    'Cancel Token',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.red[800],
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 10),
+                                    child: Icon(
+                                      Icons.cancel,
+                                      color: Colors.red[800],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

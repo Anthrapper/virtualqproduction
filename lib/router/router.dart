@@ -11,6 +11,7 @@ import 'package:virtualQ/UI/screens/Login/verify_account/verify_account.dart';
 import 'package:virtualQ/UI/screens/Registeration/otp_verification.dart';
 import 'package:virtualQ/UI/screens/Registeration/registeration.dart';
 import 'package:virtualQ/UI/screens/Token/detailed_token.dart';
+import 'package:virtualQ/UI/screens/home/contact_bank.dart';
 import 'package:virtualQ/UI/screens/home/home.dart';
 import 'package:virtualQ/UI/screens/welcome_screen/splash_screen.dart';
 import 'package:virtualQ/UI/screens/welcome_screen/welcomescreen.dart';
@@ -74,6 +75,10 @@ class FluroRouter {
     handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
         VerifyAccount(),
   );
+  static Handler _contactBank = Handler(
+    handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+        Contact(),
+  );
   static void setupRouter() {
     router.define(
       'login',
@@ -133,6 +138,10 @@ class FluroRouter {
     router.define(
       'verify',
       handler: _verify,
+    );
+    router.define(
+      'contactbank',
+      handler: _contactBank,
     );
   }
 }

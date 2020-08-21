@@ -7,7 +7,6 @@ import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class PasswordReset extends StatefulWidget {
@@ -21,37 +20,30 @@ class _PasswordResetState extends State<PasswordReset> {
   final _formKey = GlobalKey<FormState>();
   final storage = new FlutterSecureStorage();
   bool _isLoading = false;
+  Future resetPassword(String pass) async {
+    String loginToken = await storage.read(key: 'accesstoken');
+    print(loginToken);
+    var data = {'password': pass};
+    var headers = {
+      'Authorization': 'Bearer $loginToken',
+    };
+    var response =
+        await http.post(Urls.passReset, headers: headers, body: data);
 
-  @override
-  Widget build(BuildContext context) {
-    Future<Null> resetPassword(String pass) async {
-      String loginToken = await storage.read(key: 'accesstoken');
-      print(loginToken);
-      Map data = {
-        "password": pass,
-      };
-      Map<String, String> requestHeaders = {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer $loginToken',
-      };
-      var response = await http.post(
-        Urls.passwordReset,
-        body: jsonEncode(data),
-        headers: requestHeaders,
-      );
-
-      print(response.statusCode);
-      print(response.body);
-      if (response.statusCode == 204) {
-        Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-      }
-
+    print(response.statusCode);
+    print(response.body);
+    if (response.statusCode == 200) {
+      Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+    } else {
       setState(() {
         _isLoading = false;
       });
+      throw Exception("Something went wrong");
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar('Password Reset'),
       body: SafeArea(

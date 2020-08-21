@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:virtualQ/Services/authentication_helper.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
@@ -35,6 +36,53 @@ class _DetailedTokenState extends State<DetailedToken> {
         await http.post(Urls.tokenUpdate, headers: requestHeaders, body: data);
     print(res.body);
     print(res.statusCode);
+    if (res.statusCode == 200) {
+      print('success');
+      Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+    } else {
+      throw Exception("something went wrong");
+    }
+  }
+
+  tokenDialog(String title, String desc, String id) {
+    return Alert(
+      context: context,
+      title: title,
+      desc: desc,
+      type: AlertType.warning,
+      buttons: [
+        DialogButton(
+          child: Text(
+            "Yes",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            tokenStatus(id);
+          },
+          gradient: LinearGradient(
+            colors: [
+              Colors.green[600],
+              Colors.greenAccent[700],
+            ],
+          ),
+        ),
+        DialogButton(
+          child: Text(
+            "No",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          gradient: LinearGradient(
+            colors: [
+              Colors.lightBlue,
+              Colors.lightBlueAccent[200],
+            ],
+          ),
+        )
+      ],
+    ).show();
   }
 
   Future getToken() async {
@@ -116,7 +164,11 @@ class _DetailedTokenState extends State<DetailedToken> {
                         child: RaisedButton(
                           color: Colors.blueGrey[100],
                           onPressed: () {
-                            tokenStatus('10');
+                            tokenDialog(
+                              'Token Cancellation',
+                              'Are you sure you want to cancel the token?',
+                              '10',
+                            );
                           },
                           child: Center(
                             child: Row(
@@ -151,7 +203,11 @@ class _DetailedTokenState extends State<DetailedToken> {
                         child: RaisedButton(
                           color: Colors.blueGrey[100],
                           onPressed: () {
-                            tokenStatus('15');
+                            tokenDialog(
+                              'Token Status Updation',
+                              'Are you sure you want to update token status to done?',
+                              '15',
+                            );
                           },
                           child: Center(
                             child: Row(

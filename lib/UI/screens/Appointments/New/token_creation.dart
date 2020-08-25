@@ -133,12 +133,10 @@ class _NewAppointmentState extends State<NewAppointment> {
       setState(
         () {
           _value = picked.toString();
-          print(_value);
 
-          _date = _value.replaceFirst(RegExp(' '), 'T');
+          _date = _value.replaceFirst(RegExp(' 00:00:00.000'), 'T10:00:00.000');
           print(_date);
           _value = _value.substring(0, _value.indexOf(' 0'));
-          print(_value);
           _selectedDate = true;
         },
       );

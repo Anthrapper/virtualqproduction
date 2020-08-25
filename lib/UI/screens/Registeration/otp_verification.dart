@@ -23,7 +23,7 @@ class _OtpVerificationState extends State<OtpVerification> {
       context: context,
       type: AlertType.success,
       title: 'Account Verified',
-      desc: 'Account has been created and verifued successfully, Please login',
+      desc: 'Account has been created and verified successfully, Please login',
       buttons: [
         DialogButton(
           gradient: LinearGradient(

@@ -7,7 +7,6 @@ import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class CurrentAppointments extends StatefulWidget {
@@ -68,7 +67,10 @@ class _CurrentAppointmentsState extends State<CurrentAppointments> {
                   String bank = tokenData[index]["bank"];
                   String date = tokenData[index]["token_date"];
                   String service = tokenData[index]["service"];
-                  date = date.substring(0, date.indexOf('T'));
+                  date = date.substring(
+                    0,
+                    date.indexOf('T'),
+                  );
                   return Column(
                     children: [
                       Padding(
@@ -103,6 +105,19 @@ class _CurrentAppointmentsState extends State<CurrentAppointments> {
                                         .customText('Service:    $service'),
                                     ReusableWidgets()
                                         .customText('Date :        $date'),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                      child: Text(
+                                        '''Time for token number 1 to 75 is 
+10.00 am to 2.00 pm and 76 to 100 is 2.30 pm to 3.30 pm''',
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.w900,
+                                            fontSize: 17,
+                                            height: 1.4),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),

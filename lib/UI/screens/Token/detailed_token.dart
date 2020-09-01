@@ -1,164 +1,95 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:virtualQ/Services/authentication_helper.dart';
+import 'package:get/get.dart';
+import 'package:virtualQ/Services/Controllers/token_views/detailed_controller.dart';
+import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
-import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
-class DetailedToken extends StatefulWidget {
-  @override
-  _DetailedTokenState createState() => _DetailedTokenState();
-}
-
-class _DetailedTokenState extends State<DetailedToken> {
-  Future tokenList;
-  String userName = '';
-  int id;
-  String bank = '';
-  String branch = '';
-  String date = '';
-  String service = '';
-  String counter = '';
-  String token = '';
-  final storage = new FlutterSecureStorage();
-  tokenStatus(String status) async {
-    await AuthenticationHelper().checkTokenStatus();
-    String loginToken = await storage.read(key: 'accesstoken');
-
-    Map<String, String> requestHeaders = {
-      'Authorization': 'Bearer $loginToken',
-    };
-    var data = {"id": id.toString(), "status": status};
-    var res =
-        await http.post(Urls.tokenUpdate, headers: requestHeaders, body: data);
-    print(res.body);
-    print(res.statusCode);
-    if (res.statusCode == 200) {
-      print('success');
-      Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-    } else {
-      throw Exception("something went wrong");
-    }
-  }
-
-  tokenDialog(String title, String desc, String id) {
-    return Alert(
-      context: context,
-      title: title,
-      desc: desc,
-      type: AlertType.warning,
-      buttons: [
-        DialogButton(
-          child: Text(
-            "Yes",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () {
-            tokenStatus(id);
-          },
-          gradient: LinearGradient(
-            colors: [
-              Colors.green[600],
-              Colors.greenAccent[700],
-            ],
-          ),
-        ),
-        DialogButton(
-          child: Text(
-            "No",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          gradient: LinearGradient(
-            colors: [
-              Colors.lightBlue,
-              Colors.lightBlueAccent[200],
-            ],
-          ),
-        )
-      ],
-    ).show();
-  }
-
-  Future getToken() async {
-    await AuthenticationHelper().checkTokenStatus();
-    String loginToken = await storage.read(key: 'accesstoken');
-
-    Map<String, String> requestHeaders = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $loginToken',
-    };
-    var res = await http.get(Urls.tokenList, headers: requestHeaders);
-    if (res.statusCode == 200) {
-      var resBody = json.decode(res.body);
-      print(resBody[0]);
-
-      setState(() {
-        userName = resBody[0]['username'];
-        bank = resBody[0]['bank'];
-        id = resBody[0]['id'];
-        print(id);
-        branch = resBody[0]['branch'];
-        date = resBody[0]['token_date'];
-        date = date.substring(0, date.indexOf('T'));
-        service = resBody[0]['service'];
-        token = resBody[0]['order_number'];
-        counter = resBody[0]['counter_number'];
-      });
-    } else {
-      throw Exception('Failed to load Banks');
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    tokenList = getToken();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+class DetailedToken extends StatelessWidget {
+  final DetailedController _detailedController = Get.put(DetailedController());
+  final ReusableWidgets _reusableWidgets = ReusableWidgets();
 
   @override
   Widget build(BuildContext context) {
+    tokenDialog(String title, String desc, String id) {
+      return Alert(
+        context: context,
+        title: title,
+        desc: desc,
+        type: AlertType.warning,
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Yes",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () {
+              _detailedController.tokenStatus(id);
+            },
+            gradient: LinearGradient(
+              colors: [
+                Colors.green[600],
+                Colors.greenAccent[700],
+              ],
+            ),
+          ),
+          DialogButton(
+            child: Text(
+              "No",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            gradient: LinearGradient(
+              colors: [
+                Colors.lightBlue,
+                Colors.lightBlueAccent[200],
+              ],
+            ),
+          )
+        ],
+      ).show();
+    }
+
     return Scaffold(
       appBar: CustomAppBar('Token Details'),
       body: FutureBuilder(
-        future: tokenList,
+        future: _detailedController.getToken(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(25, 30, 25, 20),
-                child: ReusableWidgets().customContainer(
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(25, 30, 25, 20),
+              child: FadeAnimation(
+                1,
+                _reusableWidgets.customContainer(
                   Column(
                     children: <Widget>[
                       Container(
                         margin: const EdgeInsets.all(15),
                         alignment: Alignment.topLeft,
-                        child: Text(
-                          'Token Number:                   $token',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.lightBlue[900],
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: Obx(() => Text(
+                              'Token Number:                   ${_detailedController.token.value}',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.lightBlue[900],
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )),
                       ),
-                      ReusableWidgets().customText('Name:   $userName'),
-                      ReusableWidgets().customText('Bank:     $bank'),
-                      ReusableWidgets().customText('Branch:  $branch'),
-                      ReusableWidgets().customText('Date:       $date'),
-                      ReusableWidgets().customText('Counter Nmber:  $counter'),
-                      ReusableWidgets().customText('Purpose:  $service'),
+                      Obx(() => _reusableWidgets.customText(
+                          'Name:   ${_detailedController.userName.value}')),
+                      Obx(() => _reusableWidgets.customText(
+                          'Bank:     ${_detailedController.bank.value}')),
+                      Obx(() => _reusableWidgets.customText(
+                          'Branch:  ${_detailedController.branch.value}')),
+                      Obx(() => _reusableWidgets.customText(
+                          'Date:       ${_detailedController.date.value}')),
+                      Obx(() => _reusableWidgets.customText(
+                          'Counter Number:  ${_detailedController.counter.value}')),
+                      Obx(() => _reusableWidgets.customText(
+                          'Purpose:  ${_detailedController.service.value}')),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(20, 8, 20, 5),
                         child: RaisedButton(

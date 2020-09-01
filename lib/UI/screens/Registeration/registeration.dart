@@ -1,67 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:get/get.dart';
+import 'package:virtualQ/Services/Controllers/Registration_Controller/signup_controller.dart';
 import 'package:virtualQ/Services/validator.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'dart:async';
-import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
-class SignUpForm extends StatefulWidget {
-  @override
-  _SignUpFormState createState() => _SignUpFormState();
-}
+class SignUpForm extends StatelessWidget {
+  final ReusableWidgets _reusableWidgets = ReusableWidgets();
+  final SignupController _signupController = Get.put(SignupController());
 
-class _SignUpFormState extends State<SignUpForm> {
-  final TextEditingController phoneController = new TextEditingController();
-  final TextEditingController passController = new TextEditingController();
-  final TextEditingController nameController = new TextEditingController();
-  final TextEditingController confController = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
-
-  Future<Null> signUp(String phone, String name, String password) async {
-    Map data = {
-      "contact": phone,
-      "name": name,
-      "password": password,
-    };
-
-    var response = await http.post(
-      Urls.signUp,
-      body: jsonEncode(data),
-      headers: {"Content-Type": "application/json"},
-    );
-    var jsonData = json.decode(response.body);
-    print(jsonData);
-    if (response.statusCode == 201) {
-      setState(
-        () {
-          _isLoading = false;
-        },
-      );
-      Navigator.pushNamedAndRemoveUntil(
-          context, 'otpverification/$phone', (route) => false);
-    } else if (response.statusCode == 400) {
-      setState(
-        () {
-          _isLoading = false;
-        },
-      );
-
-      if (jsonData['non_field_errors'][0] == 'contact already taken') {
-        ReusableWidgets().customDialog(
-          context,
-          'Registration Failed',
-          'An account already exists with the same number, please login',
-          AlertType.error,
-        );
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +23,7 @@ class _SignUpFormState extends State<SignUpForm> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 20),
                   child: Text(
                     'Sign Up',
                     style: TextStyle(
@@ -83,38 +33,37 @@ class _SignUpFormState extends State<SignUpForm> {
                     ),
                   ),
                 ),
-                ReusableWidgets()
-                    .customImage(context, 'assets/images/signup.png'),
+                _reusableWidgets.customImage('assets/images/signup.png'),
                 Form(
                   key: _formKey,
                   child: Padding(
-                    padding: EdgeInsets.all(18.0),
-                    child: ReusableWidgets().customContainer(
+                    padding: const EdgeInsets.all(18.0),
+                    child: _reusableWidgets.customContainer(
                       Column(
                         children: <Widget>[
-                          ReusableWidgets().customTextfield(
+                          _reusableWidgets.customTextfield(
                             'Enter Your Name',
-                            nameController,
+                            _signupController.nameController,
                             FaIcon(Icons.supervised_user_circle),
                             false,
                             FormValidator().reqValidator,
                           ),
-                          ReusableWidgets().customTextfield(
+                          _reusableWidgets.customTextfield(
                             'Contact',
-                            phoneController,
+                            _signupController.phoneController,
                             FaIcon(Icons.phone),
                             false,
                             FormValidator().mobileValidator,
                           ),
-                          ReusableWidgets().customTextfield(
+                          _reusableWidgets.customTextfield(
                             'Password',
-                            passController,
+                            _signupController.passController,
                             FaIcon(Icons.security),
                             true,
                             FormValidator().passwordValidator,
                           ),
                           Container(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
@@ -124,14 +73,15 @@ class _SignUpFormState extends State<SignUpForm> {
                             ),
                             child: TextFormField(
                               textAlign: TextAlign.justify,
-                              controller: confController,
+                              controller: _signupController.confController,
                               obscureText: true,
                               validator: (val) => MatchValidator(
                                       errorText: 'passwords do not match')
-                                  .validateMatch(val, passController.text),
+                                  .validateMatch(val,
+                                      _signupController.passController.text),
                               decoration: InputDecoration(
                                 prefixIcon: Padding(
-                                  padding: EdgeInsets.only(top: 12),
+                                  padding: const EdgeInsets.only(top: 12),
                                   child: Icon(Icons.security),
                                 ),
                                 border: InputBorder.none,
@@ -156,22 +106,17 @@ class _SignUpFormState extends State<SignUpForm> {
                     InkWell(
                       onTap: () {
                         if (_formKey.currentState.validate()) {
-                          setState(() {
-                            _isLoading = true;
-                          });
-
-                          signUp(phoneController.text, nameController.text,
-                              passController.text);
+                          _reusableWidgets.progressIndicator();
+                          _signupController.signUp(
+                            _signupController.phoneController.text,
+                            _signupController.nameController.text,
+                            _signupController.passController.text,
+                          );
                         }
                       },
-                      child: _isLoading
-                          ? Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15),
-                              child: ReusableWidgets()
-                                  .customButton(context, 'Register')),
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: _reusableWidgets.customButton('Register')),
                     ),
                   ),
                 ),

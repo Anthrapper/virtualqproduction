@@ -1,26 +1,218 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:virtualQ/Services/authentication_helper.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/utilitis/screensize.dart';
+import 'package:get/get.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class ReusableWidgets {
-  ScreenSize screenSize;
   final reqValidator = RequiredValidator(errorText: 'This Field Is Required');
+  Widget customSvg(String text) {
+    return FadeAnimation(
+      0.5,
+      Container(
+        padding: EdgeInsets.only(top: 10),
+        height: Get.height / 2.7,
+        width: Get.width / 1.2,
+        child: SvgPicture.asset(text),
+      ),
+    );
+  }
 
-  Widget customImage(BuildContext context, String text) {
-    screenSize = ScreenSize().getSize(context);
+  Widget customImage(String text) {
     return FadeAnimation(
       0.5,
       Container(
         padding: EdgeInsets.only(top: 30),
-        height: screenSize.height / 2.6,
+        height: Get.height / 2.6,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(text),
             fit: BoxFit.fill,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future progressIndicator() {
+    return Get.dialog(
+      Center(
+        child: CircularProgressIndicator(
+          semanticsLabel: 'Processing..',
+        ),
+      ),
+      barrierDismissible: false,
+    );
+  }
+
+  snackBar(String title, String desc) {
+    return Get.snackbar(
+      title,
+      desc,
+      backgroundColor: Colors.grey[400],
+      dismissDirection: SnackDismissDirection.HORIZONTAL,
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
+  Future okButtonDialog(
+      String title, String desc, Function nav, IconData icon) {
+    return Get.dialog(
+      Center(
+        child: Container(
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromRGBO(143, 148, 251, .2),
+                blurRadius: 20.0,
+                offset: Offset(0, 10),
+              ),
+            ],
+          ),
+          height: Get.height / 3,
+          width: Get.width / 1.4,
+          child: Scaffold(
+            body: Column(
+              children: [
+                Container(
+                  alignment: Alignment.topCenter,
+                  child: Icon(
+                    icon,
+                    size: 90,
+                    color: Colors.red[700],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Text(
+                    title,
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 13, 20, 15),
+                  child: Text(
+                    desc,
+                    style: TextStyle(fontSize: 17, color: Colors.blue[900]),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: FlatButton(
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10.0)),
+                    color: Colors.blue,
+                    child: Text(
+                      'Ok',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    onPressed: () {
+                      nav();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+    );
+  }
+
+  Future twoButtonDialog(String title, String desc, Function nav, IconData icon,
+      {Function work}) {
+    return Get.dialog(
+      Center(
+        child: Container(
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromRGBO(143, 148, 251, .2),
+                blurRadius: 20.0,
+                offset: Offset(0, 10),
+              ),
+            ],
+          ),
+          height: Get.height / 2.8,
+          width: Get.width / 1.4,
+          child: Scaffold(
+            body: Column(
+              children: [
+                Container(
+                  alignment: Alignment.topCenter,
+                  child: Icon(
+                    icon,
+                    size: 90,
+                    color: Colors.red[700],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Text(
+                    title,
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                  child: Text(
+                    desc,
+                    style: TextStyle(fontSize: 17),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.fromLTRB(30, 3, 15, 2),
+                      child: FlatButton(
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(10.0)),
+                        color: Colors.blue,
+                        child: Text(
+                          'No',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: () {
+                          Get.back();
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25.0),
+                      child: FlatButton(
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(10.0)),
+                        color: Colors.blue,
+                        child: Text(
+                          'Yes',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: () {
+                          work();
+                          nav();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -97,62 +289,11 @@ class ReusableWidgets {
     ).show();
   }
 
-  logOutDialog(
-    BuildContext context,
-    String title,
-    String desc,
-  ) {
-    return Alert(
-      context: context,
-      title: title,
-      desc: desc,
-      image: Image.asset(
-        "assets/images/logout.png",
-        height: 100,
-        width: 100,
-      ),
-      buttons: [
-        DialogButton(
-          child: Text(
-            "Yes",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () {
-            AuthenticationHelper().removeToken();
-            Navigator.pushNamedAndRemoveUntil(
-                context, 'apphome', (route) => false);
-          },
-          gradient: LinearGradient(
-            colors: [
-              Colors.green[600],
-              Colors.greenAccent[700],
-            ],
-          ),
-        ),
-        DialogButton(
-          child: Text(
-            "No",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () => Navigator.pop(context),
-          gradient: LinearGradient(
-            colors: [
-              Colors.lightBlue,
-              Colors.lightBlueAccent[200],
-            ],
-          ),
-        )
-      ],
-    ).show();
-  }
-
   Widget customButton(
-    BuildContext context,
     String text,
   ) {
-    screenSize = ScreenSize().getSize(context);
     return Container(
-      height: screenSize.height / 20,
+      height: Get.height / 20,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         gradient: LinearGradient(
@@ -183,7 +324,7 @@ class ReusableWidgets {
     Function validator,
   ) {
     return Container(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -198,7 +339,7 @@ class ReusableWidgets {
         validator: validator,
         decoration: InputDecoration(
           prefixIcon: Padding(
-            padding: EdgeInsets.only(top: 12),
+            padding: const EdgeInsets.only(top: 12),
             child: icon,
           ),
           border: InputBorder.none,

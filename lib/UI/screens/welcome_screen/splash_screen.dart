@@ -1,30 +1,15 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:virtualQ/Services/authentication_helper.dart';
+import 'package:get/get.dart';
+import 'package:virtualQ/Services/Controllers/Splash_Screen/splash_controller.dart';
 
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-
-    Timer(Duration(seconds: 3), () {
-      AuthenticationHelper().checkLoginStatus(context);
-    });
-  }
-
+class SplashScreen extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Image.asset(
         'assets/images/splash.png',
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+        height: Get.height,
+        width: Get.width,
         fit: BoxFit.cover,
       ),
     );

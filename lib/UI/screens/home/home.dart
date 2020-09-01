@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
 import 'package:virtualQ/UI/widgets/drawer.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
+  final ReusableWidgets _reusableWidgets = ReusableWidgets();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,9 +18,8 @@ class _HomePageState extends State<HomePage> {
       body: ListView(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 50),
-            child: ReusableWidgets()
-                .customImage(context, 'assets/images/waiting.png'),
+            padding: EdgeInsets.fromLTRB(20, 60, 20, 50),
+            child: _reusableWidgets.customSvg('assets/images/home.svg'),
           ),
           FadeAnimation(
             1,
@@ -33,8 +29,7 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Navigator.pushNamed(context, 'bankselection');
                 },
-                child:
-                    ReusableWidgets().customButton(context, 'New Appointment'),
+                child: ReusableWidgets().customButton('Generate New Token'),
               ),
             ),
           ),
@@ -44,10 +39,9 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.fromLTRB(40, 10, 40, 20),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, 'currentappointments');
+                  Get.toNamed('/currentappointments');
                 },
-                child: ReusableWidgets()
-                    .customButton(context, 'Current Appointments'),
+                child: _reusableWidgets.customButton('Current Tokens'),
               ),
             ),
           ),

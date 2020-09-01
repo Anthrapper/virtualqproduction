@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:virtualQ/Services/authentication_helper.dart';
 import 'package:virtualQ/Services/validator.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
@@ -13,13 +13,12 @@ import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class NewAppointment extends StatefulWidget {
-  final String selBranch;
-  NewAppointment(this.selBranch);
   @override
   _NewAppointmentState createState() => _NewAppointmentState();
 }
 
 class _NewAppointmentState extends State<NewAppointment> {
+  final ReusableWidgets _reusableWidgets = ReusableWidgets();
   final storage = new FlutterSecureStorage();
   final _formKey = GlobalKey<FormState>();
   Future services;
@@ -29,31 +28,12 @@ class _NewAppointmentState extends State<NewAppointment> {
   String _date = '';
   bool _hideTextField = true;
   bool _selectedDate = false;
-  customDialog() {
-    Alert(
-      context: context,
-      type: AlertType.success,
-      title: 'Done!',
-      desc: 'Token Generated Successfully',
-      buttons: [
-        DialogButton(
-          gradient: LinearGradient(
-            colors: [
-              Colors.lightBlue,
-              Colors.lightBlueAccent[200],
-            ],
-          ),
-          child: Text(
-            "Ok",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () => Navigator.pushNamedAndRemoveUntil(
-              context, 'home', (route) => false),
-          height: 30,
-          width: 200,
-        )
-      ],
-    ).show();
+  gotoHome() {
+    Get.offAllNamed('/home');
+  }
+
+  pop() {
+    Get.back();
   }
 
   Future generateToken({String date, String id, String doc}) async {
@@ -84,19 +64,15 @@ class _NewAppointmentState extends State<NewAppointment> {
         _isLoading = false;
       });
 
-      customDialog();
+      _reusableWidgets.okButtonDialog('Success', 'Token Generated Successfully',
+          gotoHome, Icons.assignment_turned_in);
     } else if (response.statusCode == 400) {
       setState(() {
         _isLoading = false;
       });
-      if (jsonData['user'][0] == 'User already generated a token') {
-        ReusableWidgets().customDialog(
-          context,
-          'Failed',
-          'You have already generated a token for the selectd date',
-          AlertType.error,
-        );
-      }
+
+      _reusableWidgets.okButtonDialog(
+          'Failed', jsonData['message'][0], pop, Icons.error);
     } else {
       throw Exception('failed to generate token');
     }
@@ -154,13 +130,16 @@ class _NewAppointmentState extends State<NewAppointment> {
       'Accept': 'application/json',
       'Authorization': 'Bearer $loginToken',
     };
-    var url = Urls.banks + Urls.branches + widget.selBranch + Urls.services;
+    var url =
+        Urls.banks + Urls.branches + Get.parameters['branch'] + Urls.services;
+    print(url);
     var res = await http.get(
       url,
       headers: requestHeaders,
     );
     if (res.statusCode == 200) {
       var resBody = json.decode(res.body);
+      print(resBody);
       setState(() {
         data = resBody;
       });
@@ -191,11 +170,10 @@ class _NewAppointmentState extends State<NewAppointment> {
             if (snapshot.connectionState == ConnectionState.done) {
               return ListView(
                 children: <Widget>[
-                  ReusableWidgets()
-                      .customImage(context, 'assets/images/booking.png'),
+                  _reusableWidgets.customSvg('assets/images/booking.svg'),
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    child: ReusableWidgets().customContainer(
+                    child: _reusableWidgets.customContainer(
                       Form(
                         key: _formKey,
                         child: Column(
@@ -301,7 +279,7 @@ class _NewAppointmentState extends State<NewAppointment> {
                                 ? Center(
                                     child: SizedBox(),
                                   )
-                                : ReusableWidgets().customTextfield(
+                                : _reusableWidgets.customTextfield(
                                     hintText,
                                     idController,
                                     FaIcon(
@@ -337,8 +315,8 @@ class _NewAppointmentState extends State<NewAppointment> {
                                   }
                                 }
                               },
-                              child: ReusableWidgets()
-                                  .customButton(context, 'Generate Token'),
+                              child: _reusableWidgets
+                                  .customButton('Generate Token'),
                             ),
                     ),
                   ),

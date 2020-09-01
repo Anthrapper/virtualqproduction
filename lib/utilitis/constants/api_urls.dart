@@ -1,26 +1,16 @@
 class Urls {
-  static String loginApi =
-      'https://evening-escarpment-40235.herokuapp.com/api/token/';
-  static String forgotPassOtp =
-      'https://evening-escarpment-40235.herokuapp.com/api/user/reset/';
-  static String passwordTokenGen =
-      'https://evening-escarpment-40235.herokuapp.com/api/user/password/token/';
-  static String passReset =
-      'https://evening-escarpment-40235.herokuapp.com/api/user/password/change/';
-  static String signUp =
-      'https://evening-escarpment-40235.herokuapp.com/api/user/create/';
-  static String signUpVerify =
-      'https://evening-escarpment-40235.herokuapp.com/api/user/verify/';
-  static String refreshToken =
-      'https://evening-escarpment-40235.herokuapp.com/api/token/refresh/';
-  static String banks =
-      'https://evening-escarpment-40235.herokuapp.com/api/banks';
+  static String baseUrl = 'https://dev.virtualqueue.gq/api/';
+  static String loginApi = baseUrl + 'token/';
+  static String forgotPassOtp = baseUrl + 'user/reset/';
+  static String passwordTokenGen = baseUrl + 'user/password/token/';
+  static String passReset = baseUrl + 'user/password/change/';
+  static String signUp = baseUrl + 'user/create/';
+  static String signUpVerify = baseUrl + 'user/verify/';
+  static String refreshToken = baseUrl + 'token/refresh/';
+  static String banks = baseUrl + 'banks';
   static String branches = '/branches/';
   static String services = '/services/';
-  static String tokenGen =
-      'https://evening-escarpment-40235.herokuapp.com/api/customer/token/gen/';
-  static String tokenList =
-      'https://evening-escarpment-40235.herokuapp.com/api/customer/token/list/';
-  static String tokenUpdate =
-      "https://evening-escarpment-40235.herokuapp.com/api/customer/token/status/update/";
+  static String tokenGen = baseUrl + 'customer/token/gen/';
+  static String tokenList = baseUrl + 'customer/token/list/';
+  static String tokenUpdate = baseUrl + "customer/token/status/update/";
 }

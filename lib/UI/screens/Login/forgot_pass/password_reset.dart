@@ -1,46 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:get/get.dart';
+import 'package:virtualQ/Services/Controllers/Login_Controllers/reset_controller.dart';
 import 'package:virtualQ/Services/validator.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
-import 'package:http/http.dart' as http;
-import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
-class PasswordReset extends StatefulWidget {
-  @override
-  _PasswordResetState createState() => _PasswordResetState();
-}
+class PasswordReset extends StatelessWidget {
+  final PasswordResetController _passwordResetController =
+      Get.put(PasswordResetController());
+  final ReusableWidgets _reusableWidgets = ReusableWidgets();
 
-class _PasswordResetState extends State<PasswordReset> {
-  final TextEditingController pass = new TextEditingController();
-  final TextEditingController confPass = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final storage = new FlutterSecureStorage();
-  bool _isLoading = false;
-  Future resetPassword(String pass) async {
-    String loginToken = await storage.read(key: 'accesstoken');
-    print(loginToken);
-    var data = {'password': pass};
-    var headers = {
-      'Authorization': 'Bearer $loginToken',
-    };
-    var response =
-        await http.post(Urls.passReset, headers: headers, body: data);
-
-    print(response.statusCode);
-    print(response.body);
-    if (response.statusCode == 200) {
-      Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-    } else {
-      setState(() {
-        _isLoading = false;
-      });
-      throw Exception("Something went wrong");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,26 +23,26 @@ class _PasswordResetState extends State<PasswordReset> {
         child: ListView(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(20, 50, 20, 40),
-              child: ReusableWidgets()
-                  .customImage(context, 'assets/images/reset.png'),
+              padding: const EdgeInsets.fromLTRB(20, 50, 20, 40),
+              child: _reusableWidgets.customImage('assets/images/reset.png'),
             ),
             Form(
+              autovalidate: true,
               key: _formKey,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
-                child: ReusableWidgets().customContainer(
+                padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+                child: _reusableWidgets.customContainer(
                   Column(
                     children: [
-                      ReusableWidgets().customTextfield(
+                      _reusableWidgets.customTextfield(
                         'Enter Password',
-                        pass,
+                        _passwordResetController.pass,
                         FaIcon(Icons.security),
                         true,
                         FormValidator().passwordValidator,
                       ),
                       Container(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
@@ -79,14 +52,15 @@ class _PasswordResetState extends State<PasswordReset> {
                         ),
                         child: TextFormField(
                           textAlign: TextAlign.justify,
-                          controller: confPass,
+                          controller: _passwordResetController.confPass,
                           obscureText: true,
                           validator: (val) => MatchValidator(
                                   errorText: 'passwords do not match')
-                              .validateMatch(val, pass.text),
+                              .validateMatch(
+                                  val, _passwordResetController.pass.text),
                           decoration: InputDecoration(
                             prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 12),
+                              padding: const EdgeInsets.only(top: 12),
                               child: Icon(Icons.security),
                             ),
                             border: InputBorder.none,
@@ -108,25 +82,17 @@ class _PasswordResetState extends State<PasswordReset> {
               1.2,
               Padding(
                 padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
-                child: _isLoading
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : InkWell(
-                        child: ReusableWidgets()
-                            .customButton(context, 'Reset Password'),
-                        onTap: () {
-                          if (_formKey.currentState.validate()) {
-                            setState(() {
-                              _isLoading = true;
-                            });
-
-                            resetPassword(
-                              pass.text,
-                            );
-                          }
-                        },
-                      ),
+                child: InkWell(
+                  child: _reusableWidgets.customButton('Reset Password'),
+                  onTap: () {
+                    if (_formKey.currentState.validate()) {
+                      _reusableWidgets.progressIndicator();
+                      _passwordResetController.resetPassword(
+                        _passwordResetController.pass.text,
+                      );
+                    }
+                  },
+                ),
               ),
             ),
           ],

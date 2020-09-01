@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
-}
-
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class WelcomeScreen extends StatelessWidget {
+  final ReusableWidgets _reusableWidgets = ReusableWidgets();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         children: [
           Container(
-            padding: EdgeInsets.only(top: 60),
+            padding: const EdgeInsets.only(top: 60),
             child: Center(
               child: Text(
                 'Welcome To VirtualQ',
@@ -38,26 +35,25 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-            child:
-                ReusableWidgets().customImage(context, 'assets/images/q.png'),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            child: _reusableWidgets.customSvg('assets/images/q.svg'),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(30, 80, 30, 0),
+            padding: const EdgeInsets.fromLTRB(30, 80, 30, 0),
             child: InkWell(
               onTap: () {
-                Navigator.pushNamed(context, 'login');
+                Get.toNamed('/login');
               },
-              child: ReusableWidgets().customButton(context, 'Login'),
+              child: _reusableWidgets.customButton('Login'),
             ),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
             child: InkWell(
               onTap: () {
-                Navigator.pushNamed(context, 'register');
+                Get.toNamed('/register');
               },
-              child: ReusableWidgets().customButton(context, 'Register'),
+              child: _reusableWidgets.customButton('Register'),
             ),
           ),
         ],

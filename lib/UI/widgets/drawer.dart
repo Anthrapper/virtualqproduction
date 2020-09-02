@@ -17,13 +17,13 @@ class MyDrawer extends StatelessWidget {
         DrawerHeader(
           child: Center(
             child: FaIcon(
-              FontAwesomeIcons.user,
+              FontAwesomeIcons.userAlt,
               size: 100,
               color: Colors.white,
             ),
           ),
           decoration: BoxDecoration(
-            color: Colors.blue[900],
+            color: Colors.blue[300],
           ),
         ),
         SizedBox(height: 40),
@@ -35,7 +35,7 @@ class MyDrawer extends StatelessWidget {
                 padding: EdgeInsets.all(8),
                 child: FaIcon(
                   FontAwesomeIcons.blenderPhone,
-                  color: Colors.lightBlueAccent[200],
+                  color: Colors.blue[300],
                 ),
               ),
               Expanded(
@@ -64,7 +64,7 @@ class MyDrawer extends StatelessWidget {
                 padding: EdgeInsets.all(8),
                 child: FaIcon(
                   FontAwesomeIcons.terminal,
-                  color: Colors.lightBlueAccent[200],
+                  color: Colors.blue[300],
                 ),
               ),
               Expanded(
@@ -100,7 +100,7 @@ class MyDrawer extends StatelessWidget {
                 child: Icon(
                   Icons.backspace,
                   size: 30,
-                  color: Colors.lightBlueAccent[200],
+                  color: Colors.blue[300],
                 ),
               ),
               Expanded(
@@ -133,7 +133,7 @@ class MyDrawer extends StatelessWidget {
                 child: Icon(
                   Icons.add_to_home_screen,
                   size: 40,
-                  color: Colors.lightBlueAccent[200],
+                  color: Colors.blue[300],
                 ),
               ),
               Expanded(

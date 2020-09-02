@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,23 +22,27 @@ class VerificationController extends GetxController {
       "contact": phone,
     };
 
-    var response = await http.post(
-      Urls.forgotPassOtp,
-      body: jsonEncode(data),
-      headers: {"Content-Type": "application/json"},
-    );
-    var jsonData = json.decode(response.body);
-    print(jsonData);
-    print(response.statusCode);
-    if (Get.isDialogOpen) {
-      Get.back();
-    }
-    if (response.statusCode == 201) {
-      Get.offAllNamed('/regverification/$phone');
-    }
-    if (response.statusCode == 404) {
-      _reusableWidgets.snackBar(
-          'Wrong Number', 'No account exists with the given number');
+    try {
+      var response = await http.post(
+        Urls.forgotPassOtp,
+        body: jsonEncode(data),
+        headers: {"Content-Type": "application/json"},
+      );
+      var jsonData = json.decode(response.body);
+      print(jsonData);
+      print(response.statusCode);
+      if (Get.isDialogOpen) {
+        Get.back();
+      }
+      if (response.statusCode == 201) {
+        Get.offAllNamed('/regverification/$phone');
+      }
+      if (response.statusCode == 404) {
+        _reusableWidgets.snackBar(
+            'Wrong Number', 'No account exists with the given number');
+      }
+    } on SocketException {
+      _reusableWidgets.noInternet();
     }
   }
 

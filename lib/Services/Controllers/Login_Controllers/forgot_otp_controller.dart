@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -24,23 +25,27 @@ class ForgotOtpController extends GetxController {
       "contact": Get.parameters['phone'],
     };
 
-    var response = await http.post(
-      Urls.forgotPassOtp,
-      body: jsonEncode(data),
-      headers: {"Content-Type": "application/json"},
-    );
-    var jsonData = json.decode(response.body);
-    print(jsonData);
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      Get.snackbar(
-        'Success',
-        'An Otp has been sent to your number',
-        snackPosition: SnackPosition.BOTTOM,
-        dismissDirection: SnackDismissDirection.HORIZONTAL,
+    try {
+      var response = await http.post(
+        Urls.forgotPassOtp,
+        body: jsonEncode(data),
+        headers: {"Content-Type": "application/json"},
       );
-    } else {
-      throw Exception('Unknown error');
+      var jsonData = json.decode(response.body);
+      print(jsonData);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        Get.snackbar(
+          'Success',
+          'An Otp has been sent to your number',
+          snackPosition: SnackPosition.BOTTOM,
+          dismissDirection: SnackDismissDirection.HORIZONTAL,
+        );
+      } else {
+        throw Exception('Unknown error');
+      }
+    } on SocketException {
+      _reusableWidgets.noInternet();
     }
   }
 

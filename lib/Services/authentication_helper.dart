@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:get/get.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:http/http.dart' as http;
+import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class AuthenticationHelper {
@@ -40,18 +42,27 @@ class AuthenticationHelper {
           Map data = {
             'refresh': refreshToken,
           };
-          var response = await http.post(
-            Urls.refreshToken,
-            body: jsonEncode(data),
-            headers: {"Content-Type": "application/json"},
-          );
-          var jsonData = json.decode(response.body);
-          print(jsonData);
-          if (response.statusCode == 200) {
-            print('new access token recieved');
-            await storage.write(key: 'accesstoken', value: jsonData['access']);
+          try {
+            var response = await http.post(
+              Urls.refreshToken,
+              body: jsonEncode(data),
+              headers: {"Content-Type": "application/json"},
+            );
+            var jsonData = json.decode(response.body);
+            print(jsonData);
+            if (response.statusCode == 200) {
+              print('new access token recieved');
+              await storage.write(
+                  key: 'accesstoken', value: jsonData['access']);
 
-            Get.offAllNamed('home');
+              Get.offAllNamed('home');
+            } else {
+              print('error getting token');
+              Get.offAllNamed('apphome');
+            }
+          } on SocketException catch (e) {
+            print(e);
+            ReusableWidgets().noInternet();
           }
         } else {
           print('refresh token expired you need to login again');
@@ -79,17 +90,21 @@ class AuthenticationHelper {
         Map data = {
           'refresh': refreshToken,
         };
-        var response = await http.post(
-          Urls.refreshToken,
-          body: jsonEncode(data),
-          headers: {"Content-Type": "application/json"},
-        );
-        var jsonData = json.decode(response.body);
-        print(jsonData);
-        if (response.statusCode == 200) {
-          print('new access token recieved');
-          await storage.write(key: 'accesstoken', value: jsonData['access']);
-          return jsonData['access'];
+        try {
+          var response = await http.post(
+            Urls.refreshToken,
+            body: jsonEncode(data),
+            headers: {"Content-Type": "application/json"},
+          );
+          var jsonData = json.decode(response.body);
+          print(jsonData);
+          if (response.statusCode == 200) {
+            print('new access token recieved');
+            await storage.write(key: 'accesstoken', value: jsonData['access']);
+            return jsonData['access'];
+          }
+        } on SocketException {
+          ReusableWidgets().noInternet();
         }
       } else {
         print('refresh token expired');

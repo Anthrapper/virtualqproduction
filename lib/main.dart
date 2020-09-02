@@ -18,12 +18,11 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       getPages: Router.route,
       initialRoute: '/splashscreen',
-      defaultTransition: Transition.upToDown,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: GoogleFonts.lato().fontFamily,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        primaryColor: Colors.blue,
+        primaryColor: Colors.lightBlue[700],
         textTheme: TextTheme().apply(fontFamily: GoogleFonts.lato().fontFamily),
       ),
     );

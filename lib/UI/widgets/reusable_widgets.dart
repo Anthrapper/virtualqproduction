@@ -144,72 +144,83 @@ class ReusableWidgets {
               ),
             ],
           ),
-          height: Get.height / 2.8,
-          width: Get.width / 1.4,
+          height: Get.height / 2.4,
+          width: Get.width / 1.2,
           child: Scaffold(
             body: Column(
               children: [
-                Container(
-                  alignment: Alignment.topCenter,
-                  child: Icon(
-                    icon,
-                    size: 90,
-                    color: Colors.red[700],
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Center(
+                    child: Icon(
+                      icon,
+                      size: 120,
+                      color: Colors.red[600],
+                    ),
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 15),
                   child: Text(
                     title,
-                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                  padding: const EdgeInsets.fromLTRB(20, 15, 20, 20),
                   child: Text(
                     desc,
-                    style: TextStyle(fontSize: 17),
+                    style: TextStyle(fontSize: 19),
                     textAlign: TextAlign.center,
                   ),
                 ),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.fromLTRB(30, 3, 15, 2),
-                      child: FlatButton(
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(10.0)),
-                        color: Colors.blue,
-                        child: Text(
-                          'No',
-                          style: TextStyle(
-                            color: Colors.white,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 8, 15, 5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: Get.width * 0.35,
+                        height: Get.height * 0.05,
+                        child: FlatButton(
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0)),
+                          color: Colors.blue,
+                          child: Text(
+                            'No',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.only(left: 15),
+                          width: Get.width * 0.35,
+                          height: Get.height * 0.05,
+                          child: FlatButton(
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(10.0)),
+                            color: Colors.blue,
+                            child: Text(
+                              'Yes',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            onPressed: () {
+                              work();
+                              nav();
+                            },
                           ),
                         ),
-                        onPressed: () {
-                          Get.back();
-                        },
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
-                      child: FlatButton(
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(10.0)),
-                        color: Colors.blue,
-                        child: Text(
-                          'Yes',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        onPressed: () {
-                          work();
-                          nav();
-                        },
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -262,6 +273,21 @@ class ReusableWidgets {
     );
   }
 
+  noInternet() {
+    if (Get.isDialogOpen) {
+      Get.back();
+    }
+    Get.snackbar(
+      'Error Connecting',
+      'Check Your Internet Connection',
+      duration: Duration(seconds: 8),
+      backgroundColor: Colors.blueGrey[100],
+      icon: Icon(Icons.signal_cellular_connected_no_internet_4_bar),
+      isDismissible: false,
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
   customDialog(
       BuildContext context, String title, String desc, AlertType alertType) {
     Alert(
@@ -298,8 +324,8 @@ class ReusableWidgets {
         borderRadius: BorderRadius.circular(10),
         gradient: LinearGradient(
           colors: [
-            Colors.lightBlue,
-            Colors.lightBlueAccent[200],
+            Colors.lightBlue[800],
+            Colors.lightBlue[600],
           ],
         ),
       ),

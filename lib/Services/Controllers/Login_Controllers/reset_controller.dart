@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:virtualQ/Services/authentication_helper.dart';
+import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class PasswordResetController extends GetxController {
@@ -23,15 +26,19 @@ class PasswordResetController extends GetxController {
     var headers = {
       'Authorization': 'Bearer $loginToken',
     };
-    var response =
-        await http.post(Urls.passReset, headers: headers, body: data);
-    if (Get.isDialogOpen) {
-      Get.back();
-    }
-    print(response.statusCode);
-    print(response.body);
-    if (response.statusCode == 200) {
-      Get.offAllNamed('/home');
+    try {
+      var response =
+          await http.post(Urls.passReset, headers: headers, body: data);
+      if (Get.isDialogOpen) {
+        Get.back();
+      }
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        Get.offAllNamed('/home');
+      }
+    } on SocketException {
+      ReusableWidgets().noInternet();
     }
   }
 

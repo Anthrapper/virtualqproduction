@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -24,32 +25,37 @@ class LoginController extends GetxController {
       "username": phone,
       "password": pass,
     };
-    var response = await http.post(
-      Urls.loginApi,
-      body: jsonEncode(data),
-      headers: {"Content-Type": "application/json"},
-    );
-    var jsonData = json.decode(response.body);
-    print(jsonData);
-    print(response.statusCode);
-    if (Get.isDialogOpen) {
-      Get.back();
-    }
-
-    if (response.statusCode == 200) {
-      _authenticationHelper.storeToken(jsonData['access'], jsonData['refresh']);
-
-      Get.offAllNamed('home');
-    } else if (response.statusCode == 401) {
-      if (jsonData['detail'] ==
-          'No active account found with the given credentials') {
-        _reusableWidgets.snackBar(
-          'Login Failed',
-          'Unable to login with given credentials',
-        );
+    try {
+      var response = await http.post(
+        Urls.loginApi,
+        body: jsonEncode(data),
+        headers: {"Content-Type": "application/json"},
+      );
+      var jsonData = json.decode(response.body);
+      print(jsonData);
+      print(response.statusCode);
+      if (Get.isDialogOpen) {
+        Get.back();
       }
-    } else {
-      throw Exception('Something Went Wrong');
+
+      if (response.statusCode == 200) {
+        _authenticationHelper.storeToken(
+            jsonData['access'], jsonData['refresh']);
+
+        Get.offAllNamed('home');
+      } else if (response.statusCode == 401) {
+        if (jsonData['detail'] ==
+            'No active account found with the given credentials') {
+          _reusableWidgets.snackBar(
+            'Login Failed',
+            'Unable to login with given credentials',
+          );
+        }
+      } else {
+        throw Exception('Something Went Wrong');
+      }
+    } on SocketException {
+      _reusableWidgets.noInternet();
     }
   }
 

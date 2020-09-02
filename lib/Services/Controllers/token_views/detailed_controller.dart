@@ -16,8 +16,7 @@ class DetailedController extends GetxController {
   var token = ''.obs;
   final AuthenticationHelper _authenticationHelper = AuthenticationHelper();
   Future getToken() async {
-    await _authenticationHelper.checkTokenStatus();
-    var loginToken = await _authenticationHelper.readAccessToken();
+    var loginToken = await _authenticationHelper.checkTokenStatus();
     print(loginToken);
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
@@ -45,8 +44,7 @@ class DetailedController extends GetxController {
   }
 
   tokenStatus(String status) async {
-    await _authenticationHelper.checkTokenStatus();
-    var token = await _authenticationHelper.readAccessToken();
+    var token = await _authenticationHelper.checkTokenStatus();
     print(token);
     Map<String, String> requestHeaders = {
       'Authorization': 'Bearer $token',

@@ -11,7 +11,7 @@ class SplashController extends GetxController {
   }
 
   Future checkAuth() async {
-    Timer(Duration(milliseconds: 2700), () {
+    Timer(Duration(milliseconds: 2300), () {
       _authenticationHelper.checkLoginStatus();
     });
   }

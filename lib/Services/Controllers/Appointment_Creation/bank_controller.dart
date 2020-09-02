@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:virtualQ/Services/authentication_helper.dart';
@@ -11,7 +12,6 @@ class BankController extends GetxController {
   var branch = ''.obs;
   var showBranch = true.obs;
 
-  // var bank = .obs;
   @override
   void onInit() {
     getBanks();
@@ -32,17 +32,19 @@ class BankController extends GetxController {
       'Accept': 'application/json',
       'Authorization': 'Bearer $loginToken',
     };
-    var res = await http.get(Urls.banks, headers: requestHeaders);
-    if (res.statusCode == 200) {
-      var resbody = json.decode(res.body);
+    try {
+      var res = await http.get(Urls.banks, headers: requestHeaders);
+      if (res.statusCode == 200) {
+        var resbody = json.decode(res.body);
 
-      bankData.value = resbody;
-      if (Get.isDialogOpen) {
-        Get.back();
+        bankData.value = resbody;
+        if (Get.isDialogOpen) {
+          Get.back();
+        }
+        print(bankData);
       }
-      print(bankData);
-    } else {
-      throw Exception('Failed to load Banks');
+    } on SocketException {
+      ReusableWidgets().noInternet();
     }
   }
 
@@ -68,5 +70,10 @@ class BankController extends GetxController {
     } else {
       throw Exception('Failed to load Branches');
     }
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
   }
 }

@@ -14,6 +14,7 @@ class NewAppointment extends StatefulWidget {
 
 class _NewAppointmentState extends State<NewAppointment> {
   String sePurpose;
+  String timeslot;
   final ReusableWidgets _reusableWidgets = ReusableWidgets();
 
   final TokenCreationController _tokenCreationController =
@@ -37,6 +38,56 @@ class _NewAppointmentState extends State<NewAppointment> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
+                      InkWell(
+                        onTap: () {
+                          _tokenCreationController.selectDate();
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Icon(
+                                Icons.date_range,
+                                color: Colors.grey,
+                                size: 31,
+                              ),
+                            ),
+                            Obx(
+                              () => Padding(
+                                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                child: _tokenCreationController
+                                        .selectedDate.value
+                                    ? Text(
+                                        _tokenCreationController.value.value,
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      )
+                                    : Text(
+                                        'Select Date',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 156),
+                              child: Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.black,
+                                size: 39,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       Row(
                         children: [
                           Padding(
@@ -58,12 +109,11 @@ class _NewAppointmentState extends State<NewAppointment> {
                                   elevation: 10,
                                   icon: Icon(Icons.arrow_drop_down),
                                   iconSize: 36,
-                                  dropdownColor:
-                                      Colors.grey[200].withOpacity(0.8),
+                                  dropdownColor: Colors.grey[50],
                                   hint: Text(
                                     'Choose Purpose',
                                     style: TextStyle(
-                                      color: Colors.grey[400],
+                                      color: Colors.grey[700],
                                       fontSize: 17,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -75,8 +125,10 @@ class _NewAppointmentState extends State<NewAppointment> {
                                       child: Text(
                                         item['service_name'],
                                         style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.lightBlue[900]),
+                                          color: Colors.grey[700],
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                       value: item['id'].toString(),
                                     );
@@ -85,6 +137,9 @@ class _NewAppointmentState extends State<NewAppointment> {
                                     setState(() {
                                       sePurpose = newVal;
                                     });
+                                    _reusableWidgets.progressIndicator();
+                                    _tokenCreationController
+                                        .getTimeSlots(sePurpose);
                                     _tokenCreationController
                                         .widgetCheck(int.parse(sePurpose));
                                   },
@@ -97,43 +152,59 @@ class _NewAppointmentState extends State<NewAppointment> {
                       Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.only(left: 8),
                             child: Icon(
-                              Icons.date_range,
+                              Icons.access_time,
                               color: Colors.grey,
                               size: 31,
                             ),
                           ),
                           Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                _tokenCreationController.selectDate();
-                              },
-                              child: Obx(() => Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    child: _tokenCreationController
-                                            .selectedDate.value
-                                        ? Text(
-                                            _tokenCreationController
-                                                .value.value,
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              color: Colors.grey[400],
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          )
-                                        : Text(
-                                            'Select Date',
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              color: Colors.grey[400],
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                  )),
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
+                              child: Obx(
+                                () => DropdownButton(
+                                  iconEnabledColor: Colors.black,
+                                  isExpanded: true,
+                                  autofocus: true,
+                                  elevation: 10,
+                                  icon: Icon(Icons.arrow_drop_down),
+                                  iconSize: 36,
+                                  dropdownColor: Colors.grey[50],
+                                  hint: Text(
+                                    'Choose Time Slot',
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  value: timeslot,
+                                  items: _tokenCreationController
+                                      .timeSlots.value
+                                      .map((item) {
+                                    return DropdownMenuItem(
+                                      child: Text(
+                                        "${item['from_time'].toString().substring(0, 5)}   to  ${item['to_time'].toString().substring(0, 5)}",
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      value: item['id'].toString(),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newVal) {
+                                    setState(
+                                      () {
+                                        timeslot = newVal;
+                                        print(timeslot);
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
                           ),
                         ],

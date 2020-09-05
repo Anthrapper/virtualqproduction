@@ -41,12 +41,14 @@ class _SelectBankState extends State<SelectBank> {
                         isExpanded: true,
                         autofocus: true,
                         icon: Icon(Icons.arrow_drop_down),
+                        iconEnabledColor: Colors.black,
+                        iconDisabledColor: Colors.grey[200],
                         iconSize: 36,
-                        dropdownColor: Colors.grey[200],
+                        dropdownColor: Colors.grey[50],
                         hint: Text(
                           'Choose Bank',
                           style: TextStyle(
-                            color: Colors.grey[400],
+                            color: Colors.grey[700],
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
                           ),
@@ -57,7 +59,9 @@ class _SelectBankState extends State<SelectBank> {
                             child: Text(
                               item['name'],
                               style: TextStyle(
-                                fontSize: 15,
+                                color: Colors.grey[700],
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             value: item['id'].toString(),
@@ -93,12 +97,14 @@ class _SelectBankState extends State<SelectBank> {
                               isExpanded: true,
                               autofocus: true,
                               icon: Icon(Icons.arrow_drop_down),
+                              iconEnabledColor: Colors.black,
+                              iconDisabledColor: Colors.grey[200],
                               iconSize: 36,
-                              dropdownColor: Colors.grey[200],
+                              dropdownColor: Colors.grey[50],
                               hint: Text(
                                 'Choose Branch',
                                 style: TextStyle(
-                                  color: Colors.grey[400],
+                                  color: Colors.grey[700],
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -110,7 +116,9 @@ class _SelectBankState extends State<SelectBank> {
                                   child: Text(
                                     item['name'],
                                     style: TextStyle(
-                                      fontSize: 15,
+                                      color: Colors.grey[700],
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   value: item['id'].toString(),

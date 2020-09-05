@@ -140,7 +140,7 @@ class MyDrawer extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(left: 16),
                   child: Text(
-                    'Dark Mode',
+                    'Change Theme',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

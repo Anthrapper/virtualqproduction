@@ -144,7 +144,7 @@ class ReusableWidgets {
               ),
             ],
           ),
-          height: Get.height / 2.4,
+          height: Get.height / 2.0,
           width: Get.width / 1.2,
           child: Scaffold(
             body: Column(
@@ -359,8 +359,10 @@ class ReusableWidgets {
         ),
       ),
       child: TextFormField(
+        style: TextStyle(color: Colors.black),
         textAlign: TextAlign.justify,
         controller: controller,
+        cursorColor: Colors.blueGrey,
         obscureText: secureText,
         validator: validator,
         decoration: InputDecoration(

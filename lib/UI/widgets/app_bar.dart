@@ -11,6 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8),
       child: AppBar(
+        backgroundColor: Colors.blue[400],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(15),

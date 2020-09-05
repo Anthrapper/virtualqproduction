@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,8 +9,13 @@ import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class TokenCreationController extends GetxController {
+  final AuthenticationHelper _authenticationHelper = AuthenticationHelper();
+  final ReusableWidgets _reusableWidgets = ReusableWidgets();
+
   TextEditingController idController;
+  var today = new DateTime.now();
   var data = [].obs;
+  var timeSlots = [].obs;
   var date = ''.obs;
   var value = ''.obs;
   var hintText = ''.obs;
@@ -31,20 +37,48 @@ class TokenCreationController extends GetxController {
 
   Future selectDate() async {
     DateTime picked = await showDatePicker(
-      context: Get.context,
-      initialDate: new DateTime.now(),
-      firstDate: new DateTime.now(),
-      lastDate: new DateTime(2020, 12, 31),
-    );
+        context: Get.context,
+        initialDate: today,
+        firstDate: today,
+        lastDate: today.add(Duration(days: 7)));
     if (picked != null) {
       value.value = DateFormat('dd-MM-yyyy').format(picked);
       selectedDate.value = true;
     }
   }
 
-  final ReusableWidgets _reusableWidgets = ReusableWidgets();
+  Future getTimeSlots(String id) async {
+    var loginToken = await _authenticationHelper.checkTokenStatus();
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $loginToken',
+    };
+    var url = Urls.timeSlotBase + id + Urls.timeSlot;
+    print(url);
+    try {
+      var res = await http.get(
+        url,
+        headers: requestHeaders,
+      );
+      if (res.statusCode == 200) {
+        var resBody = json.decode(res.body);
+        print(resBody);
+
+        timeSlots.value = resBody;
+        if (Get.isDialogOpen) {
+          Get.back();
+        }
+      } else {
+        throw Exception("Failed to get time slots");
+      }
+    } on SocketException {
+      _reusableWidgets.noInternet();
+    }
+  }
+
   Future getServiceList() async {
-    var loginToken = await AuthenticationHelper().checkTokenStatus();
+    var loginToken = await _authenticationHelper.checkTokenStatus();
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -90,13 +124,14 @@ class TokenCreationController extends GetxController {
   }
 
   Future generateToken({String date, String id, String doc}) async {
-    var loginToken = await AuthenticationHelper().checkTokenStatus();
+    var loginToken = await _authenticationHelper.checkTokenStatus();
 
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'Bearer $loginToken',
     };
+
     Map data = {
       "token_date": date,
       "service": id,

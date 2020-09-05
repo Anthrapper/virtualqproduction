@@ -13,4 +13,7 @@ class Urls {
   static String tokenGen = baseUrl + 'customer/token/gen/';
   static String tokenList = baseUrl + 'customer/token/list/';
   static String tokenUpdate = baseUrl + "customer/token/status/update/";
+  static String timeSlotBase =
+      'https://dev.virtualqueue.gq/api/banks/branches/services/';
+  static String timeSlot = '/slots/';
 }

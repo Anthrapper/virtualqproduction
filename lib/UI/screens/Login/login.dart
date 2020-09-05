@@ -18,22 +18,8 @@ class LoginPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.only(top: 20),
-                child: Text(
-                  'Login',
-                  style: TextStyle(
-                    color: Colors.lightBlue[900],
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                child: _reusableWidgets.customImage('assets/images/signin.png'),
-              ),
+              _heading(),
+              _image(),
               Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: _reusableWidgets.customContainer(
@@ -122,6 +108,28 @@ class LoginPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _heading() {
+    return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.only(top: 20),
+      child: Text(
+        'Login',
+        style: TextStyle(
+          color: Colors.lightBlue[900],
+          fontSize: 40,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Widget _image() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+      child: _reusableWidgets.customSvg('assets/images/signin.svg'),
     );
   }
 }

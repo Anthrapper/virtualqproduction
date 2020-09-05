@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -27,26 +28,30 @@ class SignupController extends GetxController {
       "password": password,
     };
 
-    var response = await http.post(
-      Urls.signUp,
-      body: jsonEncode(data),
-      headers: {"Content-Type": "application/json"},
-    );
-    if (Get.isDialogOpen) {
-      Get.back();
-    }
-    var jsonData = json.decode(response.body);
-    print(jsonData);
-    if (response.statusCode == 201) {
-      String phone = phoneController.text;
-      Get.offAllNamed('/regverification/$phone');
-    } else if (response.statusCode == 400) {
-      if (jsonData['non_field_errors'][0] == 'contact already taken') {
-        _reusableWidgets.snackBar(
-          'Registration Failed',
-          'Contact Already exists, please verify or login',
-        );
+    try {
+      var response = await http.post(
+        Urls.signUp,
+        body: jsonEncode(data),
+        headers: {"Content-Type": "application/json"},
+      );
+      if (Get.isDialogOpen) {
+        Get.back();
       }
+      var jsonData = json.decode(response.body);
+      print(jsonData);
+      if (response.statusCode == 201) {
+        String phone = phoneController.text;
+        Get.offAllNamed('/regverification/$phone');
+      } else if (response.statusCode == 400) {
+        if (jsonData['non_field_errors'][0] == 'contact already taken') {
+          _reusableWidgets.snackBar(
+            'Registration Failed',
+            'Contact Already exists, please verify or login',
+          );
+        }
+      }
+    } on SocketException {
+      _reusableWidgets.noInternet();
     }
   }
 

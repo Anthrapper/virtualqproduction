@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:virtualQ/Services/authentication_helper.dart';
 import 'package:http/http.dart' as http;
+import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
@@ -23,23 +26,27 @@ class DetailedController extends GetxController {
       'Accept': 'application/json',
       'Authorization': 'Bearer $loginToken',
     };
-    var res = await http.get(Urls.tokenList, headers: requestHeaders);
-    if (res.statusCode == 200) {
-      var resBody = json.decode(res.body);
-      print(resBody[0]);
+    try {
+      var res = await http.get(Urls.tokenList, headers: requestHeaders);
+      if (res.statusCode == 200) {
+        var resBody = json.decode(res.body);
+        print(resBody[0]);
 
-      userName.value = resBody[0]['username'].toString();
-      bank.value = resBody[0]['bank'].toString();
-      id.value = resBody[0]['id'].toString();
-      print(id);
-      branch.value = resBody[0]['branch'];
-      date.value = resBody[0]['token_date'].toString();
-      // date.value = date.value.substring(0, date.indexOf('T'));
-      service.value = resBody[0]['service'];
-      token.value = resBody[0]['order_number'];
-      counter.value = resBody[0]['counter_number'];
-    } else {
-      throw Exception('Failed to load Banks');
+        userName.value = resBody[0]['username'].toString();
+        bank.value = resBody[0]['bank'].toString();
+        id.value = resBody[0]['id'].toString();
+        print(id);
+        branch.value = resBody[0]['branch'];
+        date.value = resBody[0]['token_date'].toString();
+        // date.value = date.value.substring(0, date.indexOf('T'));
+        service.value = resBody[0]['service'];
+        token.value = resBody[0]['order_number'];
+        counter.value = resBody[0]['counter_number'];
+      } else {
+        throw Exception('Failed to load Banks');
+      }
+    } on SocketException {
+      ReusableWidgets().noInternet();
     }
   }
 

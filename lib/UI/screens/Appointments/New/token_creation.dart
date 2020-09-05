@@ -5,6 +5,7 @@ import 'package:virtualQ/Services/Controllers/Appointment_Creation/creation_cont
 import 'package:virtualQ/Services/validator.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
+import 'package:virtualQ/UI/widgets/dropdown.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class NewAppointment extends StatefulWidget {
@@ -13,6 +14,15 @@ class NewAppointment extends StatefulWidget {
 }
 
 class _NewAppointmentState extends State<NewAppointment> {
+  serviceOnChanged(String val) {
+    setState(() {
+      sePurpose = val;
+    });
+    _reusableWidgets.progressIndicator();
+    _tokenCreationController.getTimeSlots(sePurpose);
+    _tokenCreationController.widgetCheck(int.parse(sePurpose));
+  }
+
   String sePurpose;
   String timeslot;
   final ReusableWidgets _reusableWidgets = ReusableWidgets();
@@ -21,6 +31,14 @@ class _NewAppointmentState extends State<NewAppointment> {
       Get.put(TokenCreationController());
 
   final _formKey = GlobalKey<FormState>();
+  timeOnchanged(String val) {
+    setState(
+      () {
+        timeslot = val;
+        print(timeslot);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,51 +118,15 @@ class _NewAppointmentState extends State<NewAppointment> {
                           ),
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
-                              child: Obx(
-                                () => DropdownButton(
-                                  iconEnabledColor: Colors.black,
-                                  isExpanded: true,
-                                  autofocus: true,
-                                  elevation: 10,
-                                  icon: Icon(Icons.arrow_drop_down),
-                                  iconSize: 36,
-                                  dropdownColor: Colors.grey[50],
-                                  hint: Text(
-                                    'Choose Purpose',
-                                    style: TextStyle(
-                                      color: Colors.grey[700],
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  value: sePurpose,
-                                  items: _tokenCreationController.data.value
-                                      .map((item) {
-                                    return DropdownMenuItem(
-                                      child: Text(
-                                        item['service_name'],
-                                        style: TextStyle(
-                                          color: Colors.grey[700],
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      value: item['id'].toString(),
-                                    );
-                                  }).toList(),
-                                  onChanged: (newVal) {
-                                    setState(() {
-                                      sePurpose = newVal;
-                                    });
-                                    _reusableWidgets.progressIndicator();
-                                    _tokenCreationController
-                                        .getTimeSlots(sePurpose);
-                                    _tokenCreationController
-                                        .widgetCheck(int.parse(sePurpose));
-                                  },
-                                ),
-                              ),
+                              padding: EdgeInsets.fromLTRB(0, 0, 20, 5),
+                              child: Obx(() => CustomDropDown(
+                                    hintText: 'Choose Purpose',
+                                    drValue: sePurpose,
+                                    data: _tokenCreationController.data.value,
+                                    dText: 'service_name',
+                                    misc: true,
+                                    onChanged: serviceOnChanged,
+                                  )),
                             ),
                           ),
                         ],
@@ -161,50 +143,16 @@ class _NewAppointmentState extends State<NewAppointment> {
                           ),
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
-                              child: Obx(
-                                () => DropdownButton(
-                                  iconEnabledColor: Colors.black,
-                                  isExpanded: true,
-                                  autofocus: true,
-                                  elevation: 10,
-                                  icon: Icon(Icons.arrow_drop_down),
-                                  iconSize: 36,
-                                  dropdownColor: Colors.grey[50],
-                                  hint: Text(
-                                    'Choose Time Slot',
-                                    style: TextStyle(
-                                      color: Colors.grey[700],
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  value: timeslot,
-                                  items: _tokenCreationController
-                                      .timeSlots.value
-                                      .map((item) {
-                                    return DropdownMenuItem(
-                                      child: Text(
-                                        "${item['from_time'].toString().substring(0, 5)}   to  ${item['to_time'].toString().substring(0, 5)}",
-                                        style: TextStyle(
-                                          color: Colors.grey[700],
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      value: item['id'].toString(),
-                                    );
-                                  }).toList(),
-                                  onChanged: (newVal) {
-                                    setState(
-                                      () {
-                                        timeslot = newVal;
-                                        print(timeslot);
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
+                              padding: EdgeInsets.fromLTRB(0, 0, 20, 5),
+                              child: Obx(() => CustomDropDown(
+                                    hintText: 'Choose Time Slot',
+                                    drValue: timeslot,
+                                    data: _tokenCreationController
+                                        .timeSlots.value,
+                                    dText: 'from_time',
+                                    onChanged: timeOnchanged,
+                                    misc: false,
+                                  )),
                             ),
                           ),
                         ],

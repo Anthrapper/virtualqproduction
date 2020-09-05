@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:virtualQ/Services/authentication_helper.dart';
+import 'package:virtualQ/Services/functions.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
@@ -143,6 +144,7 @@ class TokenCreationController extends GetxController {
       body: jsonEncode(data),
       headers: requestHeaders,
     );
+    print(Urls.tokenGen);
     var jsonData = json.decode(response.body);
     print(jsonData);
     print(response.statusCode);
@@ -150,15 +152,11 @@ class TokenCreationController extends GetxController {
       _reusableWidgets.okButtonDialog('Success', 'Token Generated Successfully',
           gotoHome, Icons.assignment_turned_in);
     } else if (response.statusCode == 400) {
-      _reusableWidgets.okButtonDialog(
-          'Failed', jsonData['message'][0], pop, Icons.error);
+      _reusableWidgets.okButtonDialog('Failed', jsonData['message'][0],
+          ReusableFunctions().pop, Icons.error);
     } else {
       throw Exception('failed to generate token');
     }
-  }
-
-  pop() {
-    Get.back();
   }
 
   gotoHome() {

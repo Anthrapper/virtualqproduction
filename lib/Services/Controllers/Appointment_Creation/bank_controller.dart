@@ -1,9 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:virtualQ/Services/authentication_helper.dart';
+import 'package:virtualQ/Services/api_calls.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
+import 'package:virtualQ/utilitis/constants/api_constants.dart';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class BankController extends GetxController {
@@ -25,22 +24,15 @@ class BankController extends GetxController {
   }
 
   Future getBanks() async {
-    var loginToken = await AuthenticationHelper().checkTokenStatus();
-
-    Map<String, String> requestHeaders = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $loginToken',
-    };
     try {
-      var res = await http.get(Urls.banks, headers: requestHeaders);
-      if (res.statusCode == 200) {
-        var resbody = json.decode(res.body);
+      var getData = await ApiCalls().getRequest(
+        url: Urls.banks,
+        header: await ApiConstants().getHeader(),
+      );
 
-        bankData.value = resbody;
-        if (Get.isDialogOpen) {
-          Get.back();
-        }
+      if (getData[0] == 200) {
+        bankData.value = getData[1];
+
         print(bankData);
       }
     } on SocketException {
@@ -49,26 +41,16 @@ class BankController extends GetxController {
   }
 
   Future getBranch(String id) async {
-    String loginToken = await AuthenticationHelper().checkTokenStatus();
-
-    Map<String, String> requestHeaders = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $loginToken',
-    };
-
-    var res = await http.get(Urls.banks + '/' + id + Urls.branches,
-        headers: requestHeaders);
-    if (res.statusCode == 200) {
-      var resBody = json.decode(res.body);
-      print(resBody);
-
-      branchData.value = resBody;
-      if (Get.isDialogOpen) {
-        Get.back();
+    try {
+      var getData = await ApiCalls().getRequest(
+        url: Urls.banks + '/' + id + Urls.branches,
+        header: await ApiConstants().getHeader(),
+      );
+      if (getData[0] == 200) {
+        branchData.value = getData[1];
       }
-    } else {
-      throw Exception('Failed to load Branches');
+    } on SocketException {
+      ReusableWidgets().noInternet();
     }
   }
 

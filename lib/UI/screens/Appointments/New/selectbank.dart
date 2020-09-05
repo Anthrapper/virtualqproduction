@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:virtualQ/Services/Controllers/Appointment_Creation/bank_controller.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/widgets/app_bar.dart';
+import 'package:virtualQ/UI/widgets/dropdown.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class SelectBank extends StatefulWidget {
@@ -15,6 +16,28 @@ class _SelectBankState extends State<SelectBank> {
 
   String bank;
   final ReusableWidgets _reusableWidgets = ReusableWidgets();
+  dOnchanged(String val) {
+    print(val);
+    _bankController.branch.value = val;
+  }
+
+  bankOntapped() {
+    _bankController.showBranch.value = true;
+    print('tapped');
+    setState(() {
+      _bankController.branch.value = null;
+    });
+  }
+
+  bankOnchanged(String val) {
+    _bankController.showBranch.value = false;
+
+    setState(() {
+      bank = val;
+    });
+    _reusableWidgets.progressIndicator();
+    _bankController.getBranch(bank);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,101 +55,29 @@ class _SelectBankState extends State<SelectBank> {
             child: _reusableWidgets.customContainer(
               Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(25, 0, 25, 5),
-                    child: Obx(
-                      () => DropdownButton(
-                        elevation: 20,
-                        isDense: true,
-                        isExpanded: true,
-                        autofocus: true,
-                        icon: Icon(Icons.arrow_drop_down),
-                        iconEnabledColor: Colors.black,
-                        iconDisabledColor: Colors.grey[200],
-                        iconSize: 36,
-                        dropdownColor: Colors.grey[50],
-                        hint: Text(
-                          'Choose Bank',
-                          style: TextStyle(
-                            color: Colors.grey[700],
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        value: bank,
-                        items: _bankController.bankData.value.map((item) {
-                          return DropdownMenuItem(
-                            child: Text(
-                              item['name'],
-                              style: TextStyle(
-                                color: Colors.grey[700],
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            value: item['id'].toString(),
-                          );
-                        }).toList(),
-                        onTap: () {
-                          _bankController.showBranch.value = true;
-                          print('tapped');
-                          setState(() {
-                            _bankController.branch.value = null;
-                          });
-                        },
-                        onChanged: (newVal) {
-                          _bankController.showBranch.value = false;
-
-                          setState(() {
-                            bank = newVal;
-                          });
-                          _reusableWidgets.progressIndicator();
-                          _bankController.getBranch(bank);
-                        },
-                      ),
+                  Obx(
+                    () => CustomDropDown(
+                      hintText: 'Choose Bank',
+                      drValue: bank,
+                      data: _bankController.bankData.value,
+                      onChanged: bankOnchanged,
+                      dText: 'name',
+                      onTap: bankOntapped,
+                      misc: true,
                     ),
                   ),
                   _bankController.showBranch.value
                       ? SizedBox()
-                      : Obx(
-                          () => Padding(
-                            padding: EdgeInsets.fromLTRB(25, 0, 25, 5),
-                            child: DropdownButton(
-                              elevation: 20,
-                              isDense: true,
-                              isExpanded: true,
-                              autofocus: true,
-                              icon: Icon(Icons.arrow_drop_down),
-                              iconEnabledColor: Colors.black,
-                              iconDisabledColor: Colors.grey[200],
-                              iconSize: 36,
-                              dropdownColor: Colors.grey[50],
-                              hint: Text(
-                                'Choose Branch',
-                                style: TextStyle(
-                                  color: Colors.grey[700],
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              value: _bankController.branch.value,
-                              items:
-                                  _bankController.branchData.value.map((item) {
-                                return DropdownMenuItem(
-                                  child: Text(
-                                    item['name'],
-                                    style: TextStyle(
-                                      color: Colors.grey[700],
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  value: item['id'].toString(),
-                                );
-                              }).toList(),
-                              onChanged: (newVal) {
-                                _bankController.branch.value = newVal;
-                              },
+                      : Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Obx(
+                            () => CustomDropDown(
+                              hintText: 'Choose Branch',
+                              drValue: _bankController.branch.value,
+                              data: _bankController.branchData.value,
+                              onChanged: dOnchanged,
+                              dText: 'name',
+                              misc: true,
                             ),
                           ),
                         ),

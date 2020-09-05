@@ -1,14 +1,12 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:virtualQ/Services/authentication_helper.dart';
+import 'package:virtualQ/Services/api_calls.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
+import 'package:virtualQ/utilitis/constants/api_constants.dart';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class PasswordResetController extends GetxController {
-  final AuthenticationHelper _authenticationHelper = AuthenticationHelper();
   TextEditingController pass;
   TextEditingController confPass;
 
@@ -20,21 +18,22 @@ class PasswordResetController extends GetxController {
   }
 
   Future resetPassword(String pass) async {
-    var loginToken = await _authenticationHelper.readAccessToken();
-    print(loginToken);
     var data = {'password': pass};
-    var headers = {
-      'Authorization': 'Bearer $loginToken',
-    };
+
     try {
-      var response =
-          await http.post(Urls.passReset, headers: headers, body: data);
+      var headers = await ApiConstants().getHeader();
+      print(headers);
+      List postData = await ApiCalls().postRequest(
+        body: data,
+        url: Urls.passReset,
+        headers: headers,
+      );
+      print(postData);
       if (Get.isDialogOpen) {
         Get.back();
       }
-      print(response.statusCode);
-      print(response.body);
-      if (response.statusCode == 200) {
+
+      if (postData[0] == 200) {
         Get.offAllNamed('/home');
       }
     } on SocketException {

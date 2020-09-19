@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:virtualQ/Services/Controllers/Welcome_Controller/welcome_controller.dart';
 import 'package:virtualQ/UI/Animation/fadeanimation.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  final WelcomeController _welcomeController = Get.put(WelcomeController());
   final ReusableWidgets _reusableWidgets = ReusableWidgets();
   @override
   Widget build(BuildContext context) {
@@ -15,14 +17,60 @@ class WelcomeScreen extends StatelessWidget {
           FadeAnimation(
             1,
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
               child: _reusableWidgets.customSvg('assets/images/q.svg'),
+            ),
+          ),
+          FadeAnimation(
+            1.2,
+            Padding(
+              padding: EdgeInsets.only(top: 30),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 60),
+                    child: Obx(
+                      () => FlatButton(
+                        onPressed: () {
+                          _welcomeController.changeColorOne();
+                          Get.updateLocale(Locale('en'));
+                        },
+                        child: Text(
+                          'English',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: _welcomeController.buttonOneColor.value,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Obx(() => FlatButton(
+                          onPressed: () {
+                            _welcomeController.changeColorTwo();
+                            Get.updateLocale(Locale('ml'));
+                          },
+                          child: Text(
+                            'മലയാളം',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: _welcomeController.buttonTwoColor.value,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )),
+                  ),
+                ],
+              ),
             ),
           ),
           FadeAnimation(
             1.3,
             Padding(
-              padding: const EdgeInsets.fromLTRB(30, 80, 30, 0),
+              padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
               child: InkWell(
                 onTap: () {
                   Get.toNamed('/login');
@@ -51,7 +99,7 @@ class WelcomeScreen extends StatelessWidget {
 
 Widget _heading() {
   return Container(
-    padding: const EdgeInsets.only(top: 60),
+    padding: const EdgeInsets.only(top: 30),
     child: Center(
       child: Text(
         'Welcome To VirtualQ',

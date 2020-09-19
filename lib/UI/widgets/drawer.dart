@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:virtualQ/Services/authentication_helper.dart';
+import 'package:virtualQ/UI/widgets/icon_button.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -10,6 +11,14 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     gotoHome() {
       Get.offAllNamed('/apphome');
+    }
+
+    contact() {
+      Get.toNamed('/contact');
+    }
+
+    passwordreset() {
+      Get.toNamed('/passwordreset');
     }
 
     return ListView(
@@ -27,60 +36,16 @@ class MyDrawer extends StatelessWidget {
           ),
         ),
         SizedBox(height: 40),
-        FlatButton(
-          onPressed: () {},
-          child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: FaIcon(
-                  FontAwesomeIcons.blenderPhone,
-                  color: Colors.blue[300],
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Text(
-                    'Contact Bank',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        ButtonWithIcon(
+          icon: FontAwesomeIcons.handsHelping,
+          text: 'Contact',
+          onPressed: contact,
         ),
         SizedBox(height: 20),
-        FlatButton(
-          onPressed: () {
-            Get.toNamed('/passwordreset');
-          },
-          child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: FaIcon(
-                  FontAwesomeIcons.terminal,
-                  color: Colors.blue[300],
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Text(
-                    'Change Password',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        ButtonWithIcon(
+          onPressed: passwordreset,
+          text: 'Change Password',
+          icon: Icons.security,
         ),
         SizedBox(height: 20),
         FlatButton(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:virtualQ/Services/Controllers/Translations/translations.dart';
 import 'package:virtualQ/utilitis/router/routes.dart';
 import 'package:get/get.dart';
 
@@ -19,6 +20,8 @@ class MyApp extends StatelessWidget {
       getPages: Router.route,
       initialRoute: '/splashscreen',
       debugShowCheckedModeBanner: false,
+      translations: Messages(),
+      locale: Locale('en'),
       theme: ThemeData(
         fontFamily: GoogleFonts.lato().fontFamily,
         visualDensity: VisualDensity.adaptivePlatformDensity,

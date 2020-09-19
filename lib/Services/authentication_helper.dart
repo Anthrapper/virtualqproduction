@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:http/http.dart' as http;
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
+import 'package:virtualQ/utilitis/constants/api_constants.dart';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class AuthenticationHelper {
@@ -46,7 +47,7 @@ class AuthenticationHelper {
             var response = await http.post(
               Urls.refreshToken,
               body: jsonEncode(data),
-              headers: {"Content-Type": "application/json"},
+              headers: ApiConstants().jsonHeader,
             );
             var jsonData = json.decode(response.body);
             print(jsonData);

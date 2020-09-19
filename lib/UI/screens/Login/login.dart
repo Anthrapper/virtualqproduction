@@ -116,7 +116,7 @@ class LoginPage extends StatelessWidget {
       alignment: Alignment.center,
       padding: const EdgeInsets.only(top: 20),
       child: Text(
-        'Login',
+        'login'.tr,
         style: TextStyle(
           color: Colors.lightBlue[900],
           fontSize: 40,

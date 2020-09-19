@@ -1,9 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
+import 'package:virtualQ/Services/api_calls.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
+import 'package:virtualQ/utilitis/constants/api_constants.dart';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class ForgotController extends GetxController {
@@ -25,21 +25,16 @@ class ForgotController extends GetxController {
     };
 
     try {
-      var response = await http.post(
-        Urls.forgotPassOtp,
-        body: jsonEncode(data),
-        headers: {"Content-Type": "application/json"},
+      var postData = await ApiCalls().postRequest(
+        url: Urls.forgotPassOtp,
+        body: data,
+        headers: ApiConstants().jsonHeader,
       );
-      var jsonData = json.decode(response.body);
-      print(jsonData);
-      print(response.statusCode);
-      if (Get.isDialogOpen) {
-        Get.back();
-      }
-      if (response.statusCode == 201) {
+
+      if (postData[0] == 201) {
         Get.toNamed('/otp/$phone');
       }
-      if (response.statusCode == 404) {
+      if (postData[0] == 404) {
         _reusableWidgets.snackBar(
             'Wrong Number', 'No account exists with the given number');
       }

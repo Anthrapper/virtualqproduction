@@ -4,9 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:virtualQ/Services/api_calls.dart';
 import 'package:virtualQ/Services/authentication_helper.dart';
 import 'package:virtualQ/Services/functions.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
+import 'package:virtualQ/utilitis/constants/api_constants.dart';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class TokenCreationController extends GetxController {
@@ -49,29 +51,14 @@ class TokenCreationController extends GetxController {
   }
 
   Future getTimeSlots(String id) async {
-    var loginToken = await _authenticationHelper.checkTokenStatus();
-    Map<String, String> requestHeaders = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $loginToken',
-    };
-    var url = Urls.timeSlotBase + id + Urls.timeSlot;
-    print(url);
     try {
-      var res = await http.get(
-        url,
-        headers: requestHeaders,
+      var getData = await ApiCalls().getRequest(
+        header: await ApiConstants().getHeader(),
+        url: Urls.timeSlotBase + id + Urls.timeSlot,
       );
-      if (res.statusCode == 200) {
-        var resBody = json.decode(res.body);
-        print(resBody);
 
-        timeSlots.value = resBody;
-        if (Get.isDialogOpen) {
-          Get.back();
-        }
-      } else {
-        throw Exception("Failed to get time slots");
+      if (getData[0] == 200) {
+        timeSlots.value = getData[1];
       }
     } on SocketException {
       _reusableWidgets.noInternet();
@@ -79,29 +66,20 @@ class TokenCreationController extends GetxController {
   }
 
   Future getServiceList() async {
-    var loginToken = await _authenticationHelper.checkTokenStatus();
-    Map<String, String> requestHeaders = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $loginToken',
-    };
-    var url =
-        Urls.banks + Urls.branches + Get.parameters['branch'] + Urls.services;
-    print(url);
-    var res = await http.get(
-      url,
-      headers: requestHeaders,
-    );
-    if (res.statusCode == 200) {
-      var resBody = json.decode(res.body);
-      print(resBody);
+    try {
+      var getData = await ApiCalls().getRequest(
+        header: await ApiConstants().getHeader(),
+        url: Urls.banks +
+            Urls.branches +
+            Get.parameters['branch'] +
+            Urls.services,
+      );
 
-      data.value = resBody;
-      if (Get.isDialogOpen) {
-        Get.back();
+      if (getData[0] == 200) {
+        data.value = getData[1];
       }
-    } else {
-      throw Exception("Failed to get Services");
+    } on SocketException {
+      _reusableWidgets.noInternet();
     }
   }
 

@@ -22,16 +22,12 @@ class PasswordResetController extends GetxController {
 
     try {
       var headers = await ApiConstants().getHeader();
-      print(headers);
+
       List postData = await ApiCalls().postRequest(
         body: data,
         url: Urls.passReset,
         headers: headers,
       );
-      print(postData);
-      if (Get.isDialogOpen) {
-        Get.back();
-      }
 
       if (postData[0] == 200) {
         Get.offAllNamed('/home');

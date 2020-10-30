@@ -60,104 +60,115 @@ class _NewAppointmentState extends State<NewAppointment> {
                         onTap: () {
                           _tokenCreationController.selectDate();
                         },
+                        child: Card(
+                          elevation: 1,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Icon(
+                                  Icons.date_range,
+                                  color: Colors.grey,
+                                  size: 31,
+                                ),
+                              ),
+                              Obx(
+                                () => Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  child: _tokenCreationController
+                                          .selectedDate.value
+                                      ? Text(
+                                          _tokenCreationController.value.value,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.grey[700],
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      : Text(
+                                          'Select Date',
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.grey[700],
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(left: Get.width * 0.3),
+                                  child: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.black,
+                                    size: 39,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Card(
+                        elevation: 1,
                         child: Row(
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(8),
+                              padding: EdgeInsets.only(left: 8),
                               child: Icon(
-                                Icons.date_range,
+                                Icons.assistant_photo,
                                 color: Colors.grey,
                                 size: 31,
                               ),
                             ),
-                            Obx(
-                              () => Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                child: _tokenCreationController
-                                        .selectedDate.value
-                                    ? Text(
-                                        _tokenCreationController.value.value,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          color: Colors.grey[700],
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
-                                    : Text(
-                                        'Select Date',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          color: Colors.grey[700],
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                              ),
-                            ),
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsets.only(left: Get.width * 0.3),
-                                child: Icon(
-                                  Icons.arrow_drop_down,
-                                  color: Colors.black,
-                                  size: 39,
-                                ),
+                                padding: EdgeInsets.fromLTRB(0, 0, 20, 5),
+                                child: Obx(() => CustomDropDown(
+                                      hintText: 'Choose Purpose',
+                                      drValue: sePurpose,
+                                      data: _tokenCreationController.data.value,
+                                      dText: 'service_name',
+                                      misc: true,
+                                      onChanged: serviceOnChanged,
+                                    )),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 8),
-                            child: Icon(
-                              Icons.assistant_photo,
-                              color: Colors.grey,
-                              size: 31,
+                      Card(
+                        elevation: 1,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 8),
+                              child: Icon(
+                                Icons.access_time,
+                                color: Colors.grey,
+                                size: 31,
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 0, 20, 5),
-                              child: Obx(() => CustomDropDown(
-                                    hintText: 'Choose Purpose',
-                                    drValue: sePurpose,
-                                    data: _tokenCreationController.data.value,
-                                    dText: 'service_name',
-                                    misc: true,
-                                    onChanged: serviceOnChanged,
-                                  )),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(0, 0, 20, 5),
+                                child: Obx(() => CustomDropDown(
+                                      hintText: 'Choose Time Slot',
+                                      drValue: timeslot,
+                                      data: _tokenCreationController
+                                          .timeSlots.value,
+                                      dText: 'from_time',
+                                      onChanged: timeOnchanged,
+                                      misc: false,
+                                    )),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 8),
-                            child: Icon(
-                              Icons.access_time,
-                              color: Colors.grey,
-                              size: 31,
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 0, 20, 5),
-                              child: Obx(() => CustomDropDown(
-                                    hintText: 'Choose Time Slot',
-                                    drValue: timeslot,
-                                    data: _tokenCreationController
-                                        .timeSlots.value,
-                                    dText: 'from_time',
-                                    onChanged: timeOnchanged,
-                                    misc: false,
-                                  )),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       _tokenCreationController.hideTextField.value
                           ? Center(

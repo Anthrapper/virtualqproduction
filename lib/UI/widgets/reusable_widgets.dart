@@ -127,12 +127,17 @@ class ReusableWidgets {
     );
   }
 
-  Future twoButtonDialog(String title, String desc, Function nav, IconData icon,
-      {Function work}) {
+  Future twoButtonDialog(
+    String title,
+    String desc,
+    Function nav,
+    IconData icon, {
+    Function work,
+  }) {
     return Get.dialog(
       Center(
         child: Container(
-          padding: EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
@@ -144,7 +149,7 @@ class ReusableWidgets {
               ),
             ],
           ),
-          height: Get.height / 2.0,
+          height: Get.height / 2.3,
           width: Get.width / 1.2,
           child: Scaffold(
             body: Column(

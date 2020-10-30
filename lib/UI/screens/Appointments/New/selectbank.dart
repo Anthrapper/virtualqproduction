@@ -47,7 +47,8 @@ class _SelectBankState extends State<SelectBank> {
           child: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 60, 20, 40),
+            padding:
+                EdgeInsets.fromLTRB(20, Get.height / 25, 20, Get.height / 16),
             child: _reusableWidgets.customSvg('assets/images/bank.svg'),
           ),
           Padding(
@@ -56,28 +57,36 @@ class _SelectBankState extends State<SelectBank> {
               Column(
                 children: [
                   Obx(
-                    () => CustomDropDown(
-                      hintText: 'Choose Bank',
-                      drValue: bank,
-                      data: _bankController.bankData.value,
-                      onChanged: bankOnchanged,
-                      dText: 'name',
-                      onTap: bankOntapped,
-                      misc: true,
+                    () => Card(
+                      elevation: 1,
+                      shadowColor: Colors.grey,
+                      child: CustomDropDown(
+                        hintText: 'Choose Bank',
+                        drValue: bank,
+                        data: _bankController.bankData.value,
+                        onChanged: bankOnchanged,
+                        dText: 'name',
+                        onTap: bankOntapped,
+                        misc: true,
+                      ),
                     ),
                   ),
                   _bankController.showBranch.value
                       ? SizedBox()
                       : Padding(
-                          padding: EdgeInsets.only(top: 20),
+                          padding: const EdgeInsets.only(top: 20),
                           child: Obx(
-                            () => CustomDropDown(
-                              hintText: 'Choose Branch',
-                              drValue: _bankController.branch.value,
-                              data: _bankController.branchData.value,
-                              onChanged: dOnchanged,
-                              dText: 'name',
-                              misc: true,
+                            () => Card(
+                              shadowColor: Colors.grey,
+                              elevation: 1,
+                              child: CustomDropDown(
+                                hintText: 'Choose Branch',
+                                drValue: _bankController.branch.value,
+                                data: _bankController.branchData.value,
+                                onChanged: dOnchanged,
+                                dText: 'name',
+                                misc: true,
+                              ),
                             ),
                           ),
                         ),

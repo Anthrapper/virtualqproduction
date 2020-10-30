@@ -7,20 +7,20 @@ import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 
 class MyDrawer extends StatelessWidget {
   final ReusableWidgets _reusableWidgets = ReusableWidgets();
+  logOutFunction() {
+    _reusableWidgets.twoButtonDialog(
+      'Log Out',
+      'Are you sure you want to log out?',
+      () {
+        Get.offAllNamed('/apphome');
+      },
+      Icons.exit_to_app_sharp,
+      work: AuthenticationHelper().removeToken,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    gotoHome() {
-      Get.offAllNamed('/apphome');
-    }
-
-    contact() {
-      Get.toNamed('/contact');
-    }
-
-    passwordreset() {
-      Get.toNamed('/passwordreset');
-    }
-
     return ListView(
       children: <Widget>[
         DrawerHeader(
@@ -37,86 +37,34 @@ class MyDrawer extends StatelessWidget {
         ),
         SizedBox(height: 40),
         ButtonWithIcon(
-          icon: FontAwesomeIcons.handsHelping,
+          icon: Icons.live_help,
           text: 'Contact',
-          onPressed: contact,
+          onPressed: () {
+            Get.toNamed('/contact');
+          },
         ),
         SizedBox(height: 20),
         ButtonWithIcon(
-          onPressed: passwordreset,
+          onPressed: () {
+            Get.toNamed('/passwordreset');
+          },
           text: 'Change Password',
           icon: Icons.security,
         ),
         SizedBox(height: 20),
-        FlatButton(
-          onPressed: () {
-            _reusableWidgets.twoButtonDialog(
-              'Log Out',
-              'Are you sure you want to log out?',
-              gotoHome,
-              Icons.assignment_late,
-              work: AuthenticationHelper().removeToken,
-            );
-          },
-          child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: Icon(
-                  Icons.backspace,
-                  size: 30,
-                  color: Colors.blue[300],
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 25),
-                  child: Text(
-                    'Log Out',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        ButtonWithIcon(
+          onPressed: logOutFunction,
+          text: 'Log Out',
+          icon: Icons.exit_to_app_sharp,
         ),
         SizedBox(
           height: 20,
         ),
-        FlatButton(
-          onPressed: () {
-            Get.changeTheme(
-                Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
-          },
-          child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: Icon(
-                  Icons.add_to_home_screen,
-                  size: 40,
-                  color: Colors.blue[300],
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16),
-                  child: Text(
-                    'Change Theme',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        ButtonWithIcon(
+          onPressed: () {},
+          text: 'Change Language',
+          icon: Icons.language_sharp,
         ),
-        SizedBox(height: 20),
       ],
     );
   }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class ButtonWithIcon extends StatelessWidget {
   final String text;
   final IconData icon;
   final Function onPressed;
   ButtonWithIcon({this.onPressed, this.icon, this.text});
+
   @override
   Widget build(BuildContext context) {
     return FlatButton(
@@ -13,9 +14,10 @@ class ButtonWithIcon extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            child: FaIcon(
+            child: Icon(
               icon,
               color: Colors.blue[300],
+              size: Get.height / 25,
             ),
           ),
           SizedBox(

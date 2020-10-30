@@ -27,7 +27,7 @@ class PasswordReset extends StatelessWidget {
               child: _reusableWidgets.customImage('assets/images/reset.png'),
             ),
             Form(
-              autovalidate: true,
+              // autovalidate: true,
               key: _formKey,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),

@@ -15,7 +15,7 @@ import 'package:virtualQ/UI/screens/home/home.dart';
 import 'package:virtualQ/UI/screens/welcome_screen/splash_screen.dart';
 import 'package:virtualQ/UI/screens/welcome_screen/welcomescreen.dart';
 
-class Router {
+class Routes {
   static final route = [
     GetPage(
       name: '/login',

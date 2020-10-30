@@ -95,12 +95,14 @@ class _NewAppointmentState extends State<NewAppointment> {
                                       ),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 156),
-                              child: Icon(
-                                Icons.arrow_drop_down,
-                                color: Colors.black,
-                                size: 39,
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(left: Get.width * 0.3),
+                                child: Icon(
+                                  Icons.arrow_drop_down,
+                                  color: Colors.black,
+                                  size: 39,
+                                ),
                               ),
                             ),
                           ],

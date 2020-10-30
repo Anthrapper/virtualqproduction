@@ -46,6 +46,10 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
+              FlatButton(
+                onPressed: _loginController.showNotification,
+                child: Text('Click to show sample noti'),
+              ),
               FadeAnimation(
                 1.5,
                 Padding(

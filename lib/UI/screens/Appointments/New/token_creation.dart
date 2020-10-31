@@ -198,6 +198,7 @@ class _NewAppointmentState extends State<NewAppointment> {
                       if (_tokenCreationController.value.value != null &&
                           sePurpose != null) {
                         _tokenCreationController.generateToken(
+                            timeslot: timeslot,
                             date: _tokenCreationController.date.value,
                             id: sePurpose,
                             doc: _tokenCreationController.idController.text);

@@ -5,18 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:virtualQ/Services/api_calls.dart';
-import 'package:virtualQ/Services/authentication_helper.dart';
 import 'package:virtualQ/Services/functions.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'package:virtualQ/utilitis/constants/api_constants.dart';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class TokenCreationController extends GetxController {
-  final AuthenticationHelper _authenticationHelper = AuthenticationHelper();
   final ReusableWidgets _reusableWidgets = ReusableWidgets();
 
   TextEditingController idController;
-  var today = new DateTime.now();
   var data = [].obs;
   var timeSlots = [].obs;
   var date = ''.obs;
@@ -35,17 +32,21 @@ class TokenCreationController extends GetxController {
   @override
   void onReady() {
     _reusableWidgets.progressIndicator();
-    super.onInit();
+    super.onReady();
   }
 
   Future selectDate() async {
     DateTime picked = await showDatePicker(
-        context: Get.context,
-        initialDate: today,
-        firstDate: today,
-        lastDate: today.add(Duration(days: 7)));
+      context: Get.context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(
+        Duration(days: 600),
+      ),
+    );
     if (picked != null) {
       value.value = DateFormat('dd-MM-yyyy').format(picked);
+      date.value = picked.toString();
       selectedDate.value = true;
     }
   }
@@ -102,25 +103,19 @@ class TokenCreationController extends GetxController {
     }
   }
 
-  Future generateToken({String date, String id, String doc}) async {
-    var loginToken = await _authenticationHelper.checkTokenStatus();
-
-    Map<String, String> requestHeaders = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $loginToken',
-    };
-
+  Future generateToken(
+      {String date, String id, String doc, String timeslot}) async {
     Map data = {
       "token_date": date,
       "service": id,
       "doc_ids": "{ 'id': $doc}",
+      "service_time_slot": 1,
     };
 
     var response = await http.post(
       Urls.tokenGen,
       body: jsonEncode(data),
-      headers: requestHeaders,
+      headers: await ApiConstants().getHeader(),
     );
     print(Urls.tokenGen);
     var jsonData = json.decode(response.body);

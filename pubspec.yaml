@@ -9,6 +9,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  flutter_secure_storage: 3.3.5
   flutter_local_notifications: 3.0.1
   flutter:
     sdk: flutter
@@ -17,7 +18,6 @@ dependencies:
   form_field_validator: ^1.0.1
   font_awesome_flutter: ^8.8.1
   pin_entry_text_field: ^0.1.4
-  flutter_secure_storage:
   flutter_svg: ^0.18.1
   rflutter_alert: ^1.0.3
   jwt_decoder: ^1.0.1

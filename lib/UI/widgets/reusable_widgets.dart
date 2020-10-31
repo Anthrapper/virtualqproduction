@@ -74,8 +74,8 @@ class ReusableWidgets {
               ),
             ],
           ),
-          height: Get.height / 3,
-          width: Get.width / 1.4,
+          height: Get.height / 2.7,
+          width: Get.width / 1.3,
           child: Scaffold(
             body: Column(
               children: [

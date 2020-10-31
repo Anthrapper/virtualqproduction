@@ -22,8 +22,7 @@ class AuthenticationHelper {
   }
 
   Future<String> readAccessToken() async {
-    String loginToken = await storage.read(key: 'accesstoken');
-    return loginToken;
+    return await storage.read(key: 'accesstoken');
   }
 
   checkLoginStatus() async {

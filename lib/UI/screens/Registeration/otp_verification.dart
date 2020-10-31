@@ -26,40 +26,34 @@ class OtpVerification extends StatelessWidget {
                 child:
                     _reusableWidgets.customSvg('assets/images/forgotpass.svg'),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                child: _reusableWidgets.customContainer(
-                  Form(
-                    key: _formKey,
-                    child: Container(
-                      margin: const EdgeInsets.all(8),
-                      child: PinEntryTextField(
-                        fields: 4,
-                        showFieldAsBox: false,
-                        onSubmit: (String pin) {
-                          print(pin);
-                          if (_formKey.currentState.validate()) {
-                            _reusableWidgets.progressIndicator();
-                            _otpController.verifyOtp(pin);
-                          }
-                        },
-                      ),
+              _reusableWidgets.customContainer(
+                Form(
+                  key: _formKey,
+                  child: Container(
+                    margin: const EdgeInsets.all(8),
+                    child: PinEntryTextField(
+                      fields: 4,
+                      showFieldAsBox: false,
+                      onSubmit: (String pin) {
+                        print(pin);
+                        if (_formKey.currentState.validate()) {
+                          _reusableWidgets.progressIndicator();
+                          _otpController.verifyOtp(pin);
+                        }
+                      },
                     ),
                   ),
                 ),
               ),
               FadeAnimation(
                 1.2,
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
-                  child: InkWell(
-                    onTap: () {
-                      _reusableWidgets.progressIndicator();
-                      _otpController.getOtp();
-                    },
-                    child: _reusableWidgets.customButton(
-                      'Resend Otp',
-                    ),
+                InkWell(
+                  onTap: () {
+                    _reusableWidgets.progressIndicator();
+                    _otpController.getOtp();
+                  },
+                  child: _reusableWidgets.customButton(
+                    'Resend Otp',
                   ),
                 ),
               ),

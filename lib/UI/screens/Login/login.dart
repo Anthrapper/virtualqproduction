@@ -20,53 +20,43 @@ class LoginPage extends StatelessWidget {
             children: <Widget>[
               _heading(),
               _image(),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 23, vertical: 20),
-                child: _reusableWidgets.customContainer(
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: <Widget>[
-                        _reusableWidgets.customTextfield(
-                          'Enter Phone Number',
-                          _loginController.phoneController,
-                          FaIcon(Icons.phone),
-                          false,
-                          FormValidator().mobileValidator,
-                        ),
-                        _reusableWidgets.customTextfield(
-                          'Password',
-                          _loginController.passController,
-                          FaIcon(Icons.security),
-                          true,
-                          FormValidator().reqValidator,
-                        ),
-                      ],
-                    ),
+              _reusableWidgets.customContainer(
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      _reusableWidgets.customTextfield(
+                        'Enter Phone Number',
+                        _loginController.phoneController,
+                        FaIcon(Icons.phone),
+                        false,
+                        FormValidator().mobileValidator,
+                      ),
+                      _reusableWidgets.customTextfield(
+                        'Password',
+                        _loginController.passController,
+                        FaIcon(Icons.security),
+                        true,
+                        FormValidator().reqValidator,
+                      ),
+                    ],
                   ),
                 ),
               ),
               FadeAnimation(
                 1.5,
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: InkWell(
-                    onTap: () {
-                      if (_formKey.currentState.validate()) {
-                        _reusableWidgets.progressIndicator();
-                        _loginController.login(
-                          _loginController.phoneController.text,
-                          _loginController.passController.text,
-                        );
-                      }
-                    },
-                    child: _reusableWidgets.customButton('Login'),
-                  ),
+                InkWell(
+                  onTap: () {
+                    if (_formKey.currentState.validate()) {
+                      _reusableWidgets.progressIndicator();
+                      _loginController.login(
+                        _loginController.phoneController.text,
+                        _loginController.passController.text,
+                      );
+                    }
+                  },
+                  child: _reusableWidgets.customButton('Login'),
                 ),
-              ),
-              SizedBox(
-                height: 15,
               ),
               FadeAnimation(
                 1.7,

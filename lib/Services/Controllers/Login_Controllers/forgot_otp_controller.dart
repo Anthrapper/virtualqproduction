@@ -57,7 +57,7 @@ class ForgotOtpController extends GetxController {
       if (postData[0] == 201) {
         if (postData[1]['status'] == 'failed') {
           _reusableWidgets.snackBar(
-              'Wrong Otp', 'Wrong otp provided, please try again');
+              'Wrong Otp', 'Wrong otp provided, please try again', Icons.error);
         }
       }
       if (postData[0] == 200) {

@@ -33,8 +33,7 @@ class ForgotPass extends StatelessWidget {
             Form(
               key: _formKey,
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: Get.height * 0.08, horizontal: Get.width * 0.06),
+                padding: EdgeInsets.symmetric(vertical: Get.height * 0.07),
                 child: _reusableWidgets.customContainer(
                   _reusableWidgets.customTextfield(
                     'Enter Phone Number',

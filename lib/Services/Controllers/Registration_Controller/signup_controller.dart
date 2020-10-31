@@ -47,6 +47,7 @@ class SignupController extends GetxController {
           _reusableWidgets.snackBar(
             'Registration Failed',
             'Contact Already exists, please verify or login',
+            Icons.error,
           );
         }
       }

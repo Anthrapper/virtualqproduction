@@ -32,8 +32,8 @@ class VerificationController extends GetxController {
         Get.offAllNamed('/regverification/$phone');
       }
       if (postData[0] == 404) {
-        _reusableWidgets.snackBar(
-            'Wrong Number', 'No account exists with the given number');
+        _reusableWidgets.snackBar('Wrong Number',
+            'No account exists with the given number', Icons.error);
       }
     } on SocketException {
       _reusableWidgets.noInternet();

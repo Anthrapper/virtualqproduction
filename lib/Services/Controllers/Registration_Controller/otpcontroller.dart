@@ -65,14 +65,15 @@ class OtpController extends GetxController {
     }
     if (response.statusCode == 201) {
       if (jsonData['status'] == 'verified') {
-        _reusableWidgets.okButtonDialog(
-            'Account Verified',
-            'Account has been verified successfully, Please login',
-            gotoHome,
-            Icons.assignment_turned_in);
+        _reusableWidgets
+            .snackBar(
+                'Account Verified',
+                'Account has been verified successfully, Please login',
+                Icons.assignment_turned_in)
+            .then((value) => gotoHome());
       } else if (jsonData['status'] == 'failed') {
-        _reusableWidgets.snackBar(
-            'Verification Failed', 'Wrong OTP provided, please re enter OTP');
+        _reusableWidgets.snackBar('Verification Failed',
+            'Wrong OTP provided, please re enter OTP', Icons.error);
       }
     }
   }

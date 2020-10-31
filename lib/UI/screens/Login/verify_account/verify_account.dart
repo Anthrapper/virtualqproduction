@@ -21,14 +21,11 @@ class VerifyAccount extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 50, 20, 60),
-              child: _reusableWidgets.customSvg('assets/images/verify.svg'),
-            ),
+            _reusableWidgets.customSvg('assets/images/verify.svg'),
             Form(
               key: _formKey,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+                padding: EdgeInsets.symmetric(vertical: Get.height * 0.05),
                 child: _reusableWidgets.customContainer(
                   _reusableWidgets.customTextfield(
                     'Enter Phone Number',
@@ -42,18 +39,15 @@ class VerifyAccount extends StatelessWidget {
             ),
             FadeAnimation(
               1.2,
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
-                child: InkWell(
-                  child: _reusableWidgets.customButton('Get OTP'),
-                  onTap: () {
-                    if (_formKey.currentState.validate()) {
-                      _reusableWidgets.progressIndicator();
-                      _verificationController
-                          .getOtp(_verificationController.phoneController.text);
-                    }
-                  },
-                ),
+              InkWell(
+                child: _reusableWidgets.customButton('Get OTP'),
+                onTap: () {
+                  if (_formKey.currentState.validate()) {
+                    _reusableWidgets.progressIndicator();
+                    _verificationController
+                        .getOtp(_verificationController.phoneController.text);
+                  }
+                },
               ),
             ),
           ],

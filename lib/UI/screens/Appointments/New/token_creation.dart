@@ -48,143 +48,138 @@ class _NewAppointmentState extends State<NewAppointment> {
         child: ListView(
           children: <Widget>[
             _reusableWidgets.customSvg('assets/images/booking.svg'),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
-              child: _reusableWidgets.customContainer(
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          _tokenCreationController.selectDate();
-                        },
-                        child: Card(
-                          elevation: 1,
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Icon(
-                                  Icons.date_range,
-                                  color: Colors.grey,
-                                  size: 31,
-                                ),
+            _reusableWidgets.customContainer(
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {
+                        _tokenCreationController.selectDate();
+                      },
+                      child: Card(
+                        elevation: 1,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Icon(
+                                Icons.date_range,
+                                color: Colors.grey,
+                                size: 31,
                               ),
-                              Obx(
-                                () => Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                  child: _tokenCreationController
-                                          .selectedDate.value
-                                      ? Text(
-                                          _tokenCreationController.value.value,
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            color: Colors.grey[700],
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )
-                                      : Text(
-                                          'Select Date',
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            color: Colors.grey[700],
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                            ),
+                            Obx(
+                              () => Padding(
+                                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                child: _tokenCreationController
+                                        .selectedDate.value
+                                    ? Text(
+                                        _tokenCreationController.value.value,
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
                                         ),
+                                      )
+                                    : Text(
+                                        'Select Date',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(left: Get.width * 0.3),
+                                child: Icon(
+                                  Icons.arrow_drop_down,
+                                  color: Colors.black,
+                                  size: 39,
                                 ),
                               ),
-                              Expanded(
-                                child: Padding(
-                                  padding:
-                                      EdgeInsets.only(left: Get.width * 0.3),
-                                  child: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: Colors.black,
-                                    size: 39,
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Card(
+                      elevation: 1,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 8),
+                            child: Icon(
+                              Icons.assistant_photo,
+                              color: Colors.grey,
+                              size: 31,
+                            ),
                           ),
-                        ),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, 20, 5),
+                              child: Obx(() => CustomDropDown(
+                                    hintText: 'Choose Purpose',
+                                    drValue: sePurpose,
+                                    data: _tokenCreationController.data.value,
+                                    dText: 'service_name',
+                                    misc: true,
+                                    onChanged: serviceOnChanged,
+                                  )),
+                            ),
+                          ),
+                        ],
                       ),
-                      Card(
-                        elevation: 1,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 8),
-                              child: Icon(
-                                Icons.assistant_photo,
-                                color: Colors.grey,
-                                size: 31,
-                              ),
+                    ),
+                    Card(
+                      elevation: 1,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 8),
+                            child: Icon(
+                              Icons.access_time,
+                              color: Colors.grey,
+                              size: 31,
                             ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(0, 0, 20, 5),
-                                child: Obx(() => CustomDropDown(
-                                      hintText: 'Choose Purpose',
-                                      drValue: sePurpose,
-                                      data: _tokenCreationController.data.value,
-                                      dText: 'service_name',
-                                      misc: true,
-                                      onChanged: serviceOnChanged,
-                                    )),
-                              ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, 20, 5),
+                              child: Obx(() => CustomDropDown(
+                                    hintText: 'Choose Time Slot',
+                                    drValue: timeslot,
+                                    data: _tokenCreationController
+                                        .timeSlots.value,
+                                    dText: 'from_time',
+                                    onChanged: timeOnchanged,
+                                    misc: false,
+                                  )),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      Card(
-                        elevation: 1,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 8),
-                              child: Icon(
-                                Icons.access_time,
-                                color: Colors.grey,
-                                size: 31,
-                              ),
+                    ),
+                    _tokenCreationController.hideTextField.value
+                        ? Center(
+                            child: SizedBox(),
+                          )
+                        : _reusableWidgets.customTextfield(
+                            _tokenCreationController.hintText.value,
+                            _tokenCreationController.idController,
+                            FaIcon(
+                              FontAwesomeIcons.idCard,
                             ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(0, 0, 20, 5),
-                                child: Obx(() => CustomDropDown(
-                                      hintText: 'Choose Time Slot',
-                                      drValue: timeslot,
-                                      data: _tokenCreationController
-                                          .timeSlots.value,
-                                      dText: 'from_time',
-                                      onChanged: timeOnchanged,
-                                      misc: false,
-                                    )),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      _tokenCreationController.hideTextField.value
-                          ? Center(
-                              child: SizedBox(),
-                            )
-                          : _reusableWidgets.customTextfield(
-                              _tokenCreationController.hintText.value,
-                              _tokenCreationController.idController,
-                              FaIcon(
-                                FontAwesomeIcons.idCard,
-                              ),
-                              true,
-                              FormValidator().reqValidator,
-                            ),
-                    ],
-                  ),
+                            true,
+                            FormValidator().reqValidator,
+                          ),
+                  ],
                 ),
               ),
             ),

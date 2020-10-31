@@ -47,39 +47,36 @@ class _SelectBankState extends State<SelectBank> {
           child: ListView(
         children: [
           _reusableWidgets.customSvg('assets/images/bank.svg'),
-          Padding(
-            padding: EdgeInsets.fromLTRB(25, Get.height * 0.05, 25, 10),
-            child: _reusableWidgets.customContainer(
-              Column(
-                children: [
-                  Obx(
-                    () => CustomDropDown(
-                      hintText: 'Choose Bank',
-                      drValue: bank,
-                      data: _bankController.bankData.value,
-                      onChanged: bankOnchanged,
-                      dText: 'name',
-                      onTap: bankOntapped,
-                      misc: true,
-                    ),
+          _reusableWidgets.customContainer(
+            Column(
+              children: [
+                Obx(
+                  () => CustomDropDown(
+                    hintText: 'Choose Bank',
+                    drValue: bank,
+                    data: _bankController.bankData.value,
+                    onChanged: bankOnchanged,
+                    dText: 'name',
+                    onTap: bankOntapped,
+                    misc: true,
                   ),
-                  _bankController.showBranch.value
-                      ? SizedBox()
-                      : Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: Obx(
-                            () => CustomDropDown(
-                              hintText: 'Choose Branch',
-                              drValue: _bankController.branch.value,
-                              data: _bankController.branchData.value,
-                              onChanged: dOnchanged,
-                              dText: 'name',
-                              misc: true,
-                            ),
+                ),
+                _bankController.showBranch.value
+                    ? SizedBox()
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Obx(
+                          () => CustomDropDown(
+                            hintText: 'Choose Branch',
+                            drValue: _bankController.branch.value,
+                            data: _bankController.branchData.value,
+                            onChanged: dOnchanged,
+                            dText: 'name',
+                            misc: true,
                           ),
                         ),
-                ],
-              ),
+                      ),
+              ],
             ),
           ),
           FadeAnimation(

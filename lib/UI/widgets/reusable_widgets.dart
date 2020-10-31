@@ -47,81 +47,16 @@ class ReusableWidgets {
     );
   }
 
-  snackBar(String title, String desc) {
+  Future snackBar(String title, String desc, IconData icon) async {
     return Get.snackbar(
       title,
       desc,
       backgroundColor: Colors.grey[400],
       dismissDirection: SnackDismissDirection.HORIZONTAL,
       snackPosition: SnackPosition.BOTTOM,
-    );
-  }
-
-  Future okButtonDialog(
-      String title, String desc, Function nav, IconData icon) {
-    return Get.dialog(
-      Center(
-        child: Container(
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromRGBO(143, 148, 251, .2),
-                blurRadius: 20.0,
-                offset: Offset(0, 10),
-              ),
-            ],
-          ),
-          height: Get.height / 2.8,
-          width: Get.width / 1.3,
-          child: Scaffold(
-            body: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(top: 20),
-                  alignment: Alignment.topCenter,
-                  child: Icon(
-                    icon,
-                    size: 90,
-                    color: Colors.red[700],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    title,
-                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 13, 20, 15),
-                  child: Text(
-                    desc,
-                    style: TextStyle(fontSize: 17, color: Colors.blue[900]),
-                  ),
-                ),
-                FlatButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(10.0)),
-                  color: Colors.blue,
-                  child: Text(
-                    'Ok',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  onPressed: () {
-                    nav();
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      barrierDismissible: false,
+      duration: Duration(seconds: 4),
+      icon: Icon(icon),
+      isDismissible: false,
     );
   }
 
@@ -147,7 +82,7 @@ class ReusableWidgets {
               ),
             ],
           ),
-          height: Get.height / 2.3,
+          height: Get.height / 2.1,
           width: Get.width / 1.2,
           child: Scaffold(
             body: Column(
@@ -157,8 +92,8 @@ class ReusableWidgets {
                   child: Center(
                     child: Icon(
                       icon,
-                      size: 120,
-                      color: Colors.red[600],
+                      size: Get.height * 0.09,
+                      color: Colors.blue[900],
                     ),
                   ),
                 ),
@@ -238,21 +173,25 @@ class ReusableWidgets {
   ) {
     return FadeAnimation(
       1,
-      Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(143, 148, 251, .2),
-              blurRadius: 20.0,
-              offset: Offset(0, 10),
-            ),
-          ],
+      Padding(
+        padding:
+            EdgeInsets.symmetric(horizontal: 23, vertical: Get.height * 0.01),
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromRGBO(143, 148, 251, .2),
+                blurRadius: 20.0,
+                offset: Offset(0, 10),
+              ),
+            ],
+          ),
+          child: widget,
         ),
-        child: widget,
       ),
     );
   }

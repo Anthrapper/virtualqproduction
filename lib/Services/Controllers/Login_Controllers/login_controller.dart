@@ -41,9 +41,7 @@ class LoginController extends GetxController {
         Get.offAllNamed('home');
       } else if (postData[0] == 401) {
         _reusableWidgets.snackBar(
-          'Login Failed',
-          postData[1]['detail'],
-        );
+            'Login Failed', postData[1]['detail'], Icons.error);
       }
     } on SocketException {
       _reusableWidgets.noInternet();

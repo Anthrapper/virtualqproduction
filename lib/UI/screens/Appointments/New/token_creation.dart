@@ -85,7 +85,7 @@ class _NewAppointmentState extends State<NewAppointment> {
                                         ),
                                       )
                                     : Text(
-                                        'Select Date',
+                                        'dropDownThree'.tr,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           color: Colors.grey[700],
@@ -124,14 +124,16 @@ class _NewAppointmentState extends State<NewAppointment> {
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(0, 0, 20, 5),
-                              child: Obx(() => CustomDropDown(
-                                    hintText: 'Choose Purpose',
-                                    drValue: sePurpose,
-                                    data: _tokenCreationController.data.value,
-                                    dText: 'service_name',
-                                    misc: true,
-                                    onChanged: serviceOnChanged,
-                                  )),
+                              child: Obx(
+                                () => CustomDropDown(
+                                  hintText: 'dropDownFour'.tr,
+                                  drValue: sePurpose,
+                                  data: _tokenCreationController.data.value,
+                                  dText: 'service_name',
+                                  misc: true,
+                                  onChanged: serviceOnChanged,
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -153,7 +155,7 @@ class _NewAppointmentState extends State<NewAppointment> {
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(0, 0, 20, 5),
                               child: Obx(() => CustomDropDown(
-                                    hintText: 'Choose Time Slot',
+                                    hintText: 'dropDownFive'.tr,
                                     drValue: timeslot,
                                     data: _tokenCreationController
                                         .timeSlots.value,
@@ -199,7 +201,7 @@ class _NewAppointmentState extends State<NewAppointment> {
                     }
                   }
                 },
-                child: _reusableWidgets.customButton('Generate Token'),
+                child: _reusableWidgets.customButton('homeButtonOne'.tr),
               ),
             ),
           ],

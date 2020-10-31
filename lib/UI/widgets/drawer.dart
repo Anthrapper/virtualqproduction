@@ -53,7 +53,13 @@ class MyDrawer extends StatelessWidget {
         ),
         SizedBox(height: 20),
         ButtonWithIcon(
-          onPressed: () {},
+          onPressed: () {
+            Get.locale.toString() == 'ml'
+                ? Get.updateLocale(Locale('en'))
+                : Get.updateLocale(Locale('ml'));
+
+            print(Get.locale);
+          },
           text: 'Change Language',
           icon: Icons.language_sharp,
         ),

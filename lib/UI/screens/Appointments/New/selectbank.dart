@@ -44,59 +44,60 @@ class _SelectBankState extends State<SelectBank> {
     return Scaffold(
       appBar: CustomAppBar('Select Your Bank'),
       body: SafeArea(
-          child: ListView(
-        children: [
-          _reusableWidgets.customSvg('assets/images/bank.svg'),
-          _reusableWidgets.customContainer(
-            Column(
-              children: [
-                Obx(
-                  () => CustomDropDown(
-                    hintText: 'Choose Bank',
-                    drValue: bank,
-                    data: _bankController.bankData.value,
-                    onChanged: bankOnchanged,
-                    dText: 'name',
-                    onTap: bankOntapped,
-                    misc: true,
+        child: ListView(
+          children: [
+            _reusableWidgets.customSvg('assets/images/bank.svg'),
+            _reusableWidgets.customContainer(
+              Column(
+                children: [
+                  Obx(
+                    () => CustomDropDown(
+                      hintText: 'dropdownOne'.tr,
+                      drValue: bank,
+                      data: _bankController.bankData.value,
+                      onChanged: bankOnchanged,
+                      dText: 'name',
+                      onTap: bankOntapped,
+                      misc: true,
+                    ),
                   ),
-                ),
-                _bankController.showBranch.value
-                    ? SizedBox()
-                    : Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: Obx(
-                          () => CustomDropDown(
-                            hintText: 'Choose Branch',
-                            drValue: _bankController.branch.value,
-                            data: _bankController.branchData.value,
-                            onChanged: dOnchanged,
-                            dText: 'name',
-                            misc: true,
+                  _bankController.showBranch.value
+                      ? SizedBox()
+                      : Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Obx(
+                            () => CustomDropDown(
+                              hintText: 'dropdownTwo'.tr,
+                              drValue: _bankController.branch.value,
+                              data: _bankController.branchData.value,
+                              onChanged: dOnchanged,
+                              dText: 'name',
+                              misc: true,
+                            ),
                           ),
                         ),
-                      ),
-              ],
+                ],
+              ),
             ),
-          ),
-          FadeAnimation(
-            1.2,
-            Padding(
-              padding: EdgeInsets.only(top: Get.height * 0.04),
-              child: InkWell(
-                onTap: () {
-                  if (bank != null && _bankController.branch.value != null) {
-                    Get.toNamed('/tokengen/${_bankController.branch.value}');
-                  }
-                },
-                child: _reusableWidgets.customButton(
-                  'Next',
+            FadeAnimation(
+              1.2,
+              Padding(
+                padding: EdgeInsets.only(top: Get.height * 0.04),
+                child: InkWell(
+                  onTap: () {
+                    if (bank != null && _bankController.branch.value != null) {
+                      Get.toNamed('/tokengen/${_bankController.branch.value}');
+                    }
+                  },
+                  child: _reusableWidgets.customButton(
+                    'Next',
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
 }

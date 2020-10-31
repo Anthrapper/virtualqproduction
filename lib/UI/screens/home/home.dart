@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(context, 'bankselection');
               },
-              child: ReusableWidgets().customButton('Generate New Token'),
+              child: ReusableWidgets().customButton('homeButtonOne'.tr),
             ),
           ),
           FadeAnimation(
@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 Get.toNamed('/currentappointments');
               },
-              child: _reusableWidgets.customButton('Current Tokens'),
+              child: _reusableWidgets.customButton('homeButtonTwo'.tr),
             ),
           ),
         ],

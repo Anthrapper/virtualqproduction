@@ -18,31 +18,26 @@ class HomePage extends StatelessWidget {
       body: ListView(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 60, 20, 50),
+            padding:
+                EdgeInsets.fromLTRB(0, Get.height * 0.04, 0, Get.height * 0.14),
             child: _reusableWidgets.customSvg('assets/images/home.svg'),
           ),
           FadeAnimation(
             1,
-            Padding(
-              padding: EdgeInsets.fromLTRB(40, 50, 40, 20),
-              child: InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, 'bankselection');
-                },
-                child: ReusableWidgets().customButton('Generate New Token'),
-              ),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, 'bankselection');
+              },
+              child: ReusableWidgets().customButton('Generate New Token'),
             ),
           ),
           FadeAnimation(
             1.1,
-            Padding(
-              padding: EdgeInsets.fromLTRB(40, 10, 40, 20),
-              child: InkWell(
-                onTap: () {
-                  Get.toNamed('/currentappointments');
-                },
-                child: _reusableWidgets.customButton('Current Tokens'),
-              ),
+            InkWell(
+              onTap: () {
+                Get.toNamed('/currentappointments');
+              },
+              child: _reusableWidgets.customButton('Current Tokens'),
             ),
           ),
         ],

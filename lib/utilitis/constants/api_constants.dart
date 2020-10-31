@@ -5,7 +5,7 @@ class ApiConstants {
   var jsonHeader = {"Content-Type": "application/json"};
 
   Future getHeader() async {
-    var loginToken = await _authenticationHelper.readAccessToken();
+    var loginToken = await _authenticationHelper.checkTokenStatus();
     var headers = {
       'Content-type': 'application/json',
       'Accept': 'application/json',

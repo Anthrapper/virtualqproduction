@@ -190,23 +190,21 @@ class _NewAppointmentState extends State<NewAppointment> {
             ),
             FadeAnimation(
               1.2,
-              Padding(
-                padding: EdgeInsets.fromLTRB(25, 30, 25, 20),
-                child: InkWell(
-                  onTap: () {
-                    if (_formKey.currentState.validate()) {
-                      if (_tokenCreationController.value.value != null &&
-                          sePurpose != null) {
-                        _tokenCreationController.generateToken(
-                            timeslot: timeslot,
-                            date: _tokenCreationController.date.value,
-                            id: sePurpose,
-                            doc: _tokenCreationController.idController.text);
-                      }
+              InkWell(
+                onTap: () {
+                  if (_formKey.currentState.validate()) {
+                    if (_tokenCreationController.value.value != null &&
+                        sePurpose != null) {
+                      _reusableWidgets.progressIndicator();
+                      _tokenCreationController.generateToken(
+                          timeslot: timeslot,
+                          date: _tokenCreationController.date.value,
+                          id: sePurpose,
+                          doc: _tokenCreationController.idController.text);
                     }
-                  },
-                  child: _reusableWidgets.customButton('Generate Token'),
-                ),
+                  }
+                },
+                child: _reusableWidgets.customButton('Generate Token'),
               ),
             ),
           ],

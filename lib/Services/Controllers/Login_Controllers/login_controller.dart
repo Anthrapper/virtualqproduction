@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:virtualQ/Services/api_calls.dart';
 import 'package:virtualQ/Services/authentication_helper.dart';
@@ -14,31 +13,14 @@ class LoginController extends GetxController {
   TextEditingController phoneController;
   final ReusableWidgets _reusableWidgets = ReusableWidgets();
   TextEditingController passController;
-  FlutterLocalNotificationsPlugin notificationsPlugin;
+
   @override
   void onInit() {
-    var initNotification = new AndroidInitializationSettings('icon');
-    var initSettings = new InitializationSettings(android: initNotification);
-    notificationsPlugin = new FlutterLocalNotificationsPlugin();
-    notificationsPlugin.initialize(initSettings,
-        onSelectNotification: selectNotification);
     phoneController = TextEditingController();
     passController = TextEditingController();
     super.onInit();
   }
 
-  showNotification() async {
-    var android = new AndroidNotificationDetails(
-      'id',
-      'name',
-      'description',
-      importance: Importance.max,
-    );
-    var generalDetails = new NotificationDetails(android: android);
-    await notificationsPlugin.show(0, 'Not', 'Success', generalDetails);
-  }
-
-  Future selectNotification(String payload) async {}
   Future login(String phone, String pass) async {
     var data = {
       "username": phone,

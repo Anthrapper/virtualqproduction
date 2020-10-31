@@ -46,29 +46,21 @@ class _SelectBankState extends State<SelectBank> {
       body: SafeArea(
           child: ListView(
         children: [
+          _reusableWidgets.customSvg('assets/images/bank.svg'),
           Padding(
-            padding:
-                EdgeInsets.fromLTRB(20, Get.height / 25, 20, Get.height / 16),
-            child: _reusableWidgets.customSvg('assets/images/bank.svg'),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+            padding: EdgeInsets.fromLTRB(25, Get.height * 0.05, 25, 10),
             child: _reusableWidgets.customContainer(
               Column(
                 children: [
                   Obx(
-                    () => Card(
-                      elevation: 1,
-                      shadowColor: Colors.grey,
-                      child: CustomDropDown(
-                        hintText: 'Choose Bank',
-                        drValue: bank,
-                        data: _bankController.bankData.value,
-                        onChanged: bankOnchanged,
-                        dText: 'name',
-                        onTap: bankOntapped,
-                        misc: true,
-                      ),
+                    () => CustomDropDown(
+                      hintText: 'Choose Bank',
+                      drValue: bank,
+                      data: _bankController.bankData.value,
+                      onChanged: bankOnchanged,
+                      dText: 'name',
+                      onTap: bankOntapped,
+                      misc: true,
                     ),
                   ),
                   _bankController.showBranch.value
@@ -76,17 +68,13 @@ class _SelectBankState extends State<SelectBank> {
                       : Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: Obx(
-                            () => Card(
-                              shadowColor: Colors.grey,
-                              elevation: 1,
-                              child: CustomDropDown(
-                                hintText: 'Choose Branch',
-                                drValue: _bankController.branch.value,
-                                data: _bankController.branchData.value,
-                                onChanged: dOnchanged,
-                                dText: 'name',
-                                misc: true,
-                              ),
+                            () => CustomDropDown(
+                              hintText: 'Choose Branch',
+                              drValue: _bankController.branch.value,
+                              data: _bankController.branchData.value,
+                              onChanged: dOnchanged,
+                              dText: 'name',
+                              misc: true,
                             ),
                           ),
                         ),
@@ -97,7 +85,7 @@ class _SelectBankState extends State<SelectBank> {
           FadeAnimation(
             1.2,
             Padding(
-              padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
+              padding: EdgeInsets.only(top: Get.height * 0.04),
               child: InkWell(
                 onTap: () {
                   if (bank != null && _bankController.branch.value != null) {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class TokenCreationController extends GetxController {
   final ReusableWidgets _reusableWidgets = ReusableWidgets();
+  FlutterLocalNotificationsPlugin notificationsPlugin;
 
   TextEditingController idController;
   var data = [].obs;
@@ -24,10 +26,28 @@ class TokenCreationController extends GetxController {
 
   @override
   void onInit() {
+    var initNotification = new AndroidInitializationSettings('icon');
+    var initSettings = new InitializationSettings(android: initNotification);
+    notificationsPlugin = new FlutterLocalNotificationsPlugin();
+    notificationsPlugin.initialize(initSettings,
+        onSelectNotification: selectNotification);
     idController = TextEditingController();
     getServiceList();
     super.onInit();
   }
+
+  showNotification(String description) async {
+    var android = new AndroidNotificationDetails(
+      'id',
+      'name',
+      'description',
+      importance: Importance.max,
+    );
+    var generalDetails = new NotificationDetails(android: android);
+    await notificationsPlugin.show(0, 'VirtualQ', description, generalDetails);
+  }
+
+  Future selectNotification(String payload) async {}
 
   @override
   void onReady() {
@@ -109,7 +129,7 @@ class TokenCreationController extends GetxController {
       "token_date": date,
       "service": id,
       "doc_ids": "{ 'id': $doc}",
-      "service_time_slot": 1,
+      "service_time_slot": timeslot,
     };
 
     var response = await http.post(
@@ -117,13 +137,15 @@ class TokenCreationController extends GetxController {
       body: jsonEncode(data),
       headers: await ApiConstants().getHeader(),
     );
-    print(Urls.tokenGen);
     var jsonData = json.decode(response.body);
     print(jsonData);
-    print(response.statusCode);
+    if (Get.isDialogOpen) {
+      Get.back();
+    }
     if (response.statusCode == 201) {
       _reusableWidgets.okButtonDialog('Success', 'Token Generated Successfully',
           gotoHome, Icons.assignment_turned_in);
+      showNotification('Success! Token Generated Successfully');
     } else if (response.statusCode == 400) {
       _reusableWidgets.okButtonDialog('Failed', jsonData['message'][0],
           ReusableFunctions().pop, Icons.error);

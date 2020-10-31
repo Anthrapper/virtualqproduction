@@ -16,10 +16,7 @@ class WelcomeScreen extends StatelessWidget {
           FadeAnimation(0.8, _subHeading()),
           FadeAnimation(
             1,
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
-              child: _reusableWidgets.customSvg('assets/images/q.svg'),
-            ),
+            _reusableWidgets.customSvg('assets/images/q.svg'),
           ),
           FadeAnimation(
             1.2,
@@ -28,7 +25,7 @@ class WelcomeScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 60),
+                    padding: EdgeInsets.symmetric(horizontal: Get.width * 0.15),
                     child: Obx(
                       () => FlatButton(
                         onPressed: () {
@@ -70,7 +67,7 @@ class WelcomeScreen extends StatelessWidget {
           FadeAnimation(
             1.3,
             Padding(
-              padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
+              padding: EdgeInsets.fromLTRB(10, Get.height * 0.05, 10, 0),
               child: InkWell(
                 onTap: () {
                   Get.toNamed('/login');
@@ -82,7 +79,7 @@ class WelcomeScreen extends StatelessWidget {
           FadeAnimation(
             1.4,
             Padding(
-              padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
               child: InkWell(
                 onTap: () {
                   Get.toNamed('/register');

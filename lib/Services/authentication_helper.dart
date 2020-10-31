@@ -29,12 +29,12 @@ class AuthenticationHelper {
     String loginToken = await storage.read(key: 'accesstoken');
     String refreshToken = await storage.read(key: 'refreshtoken');
     if (loginToken != null) {
-      print('accesstoken exists');
+      print('ACCESS TOKEN EXISTS');
       if (JwtDecoder.isExpired(loginToken) == false) {
-        print('access token is alive');
+        print('ACCESS TOKEN is LIVE');
         Get.offAllNamed('home');
       } else {
-        print('access token is expired');
+        print('ACCESS TOKEN EXPIRED');
 
         if (JwtDecoder.isExpired(refreshToken) == false) {
           print('refresh token is alive');
@@ -79,10 +79,10 @@ class AuthenticationHelper {
     String loginToken = await storage.read(key: 'accesstoken');
     String refreshToken = await storage.read(key: 'refreshtoken');
     if (JwtDecoder.isExpired(loginToken) == false) {
-      print('access token is alive');
+      print('access token alive');
       return loginToken;
     } else {
-      print('access token is expired');
+      print('access token expired');
 
       if (JwtDecoder.isExpired(refreshToken) == false) {
         print('refresh token is alive');

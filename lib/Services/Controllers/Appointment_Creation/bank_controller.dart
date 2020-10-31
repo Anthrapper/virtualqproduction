@@ -20,7 +20,7 @@ class BankController extends GetxController {
   @override
   void onReady() {
     ReusableWidgets().progressIndicator();
-    super.onInit();
+    super.onReady();
   }
 
   Future getBanks() async {

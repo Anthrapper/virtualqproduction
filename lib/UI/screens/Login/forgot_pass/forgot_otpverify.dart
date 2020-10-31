@@ -16,56 +16,53 @@ class ForgotOtpVerification extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar('Otp Verification'),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 50, 20, 40),
+        child: ListView(
+          children: [
+            Padding(
+                padding: EdgeInsets.only(top: Get.height * 0.03),
                 child:
-                    _reusableWidgets.customSvg('assets/images/forgotpass.svg'),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                child: _reusableWidgets.customContainer(
-                  Container(
-                    margin: const EdgeInsets.all(8),
-                    child: PinEntryTextField(
-                      fields: 4,
-                      showFieldAsBox: false,
-                      onSubmit: (String pin) {
-                        _reusableWidgets.progressIndicator();
-                        print(Get.parameters['phone']);
+                    _reusableWidgets.customSvg('assets/images/forgotpass.svg')),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: Get.height * 0.06, horizontal: Get.width * 0.04),
+              child: _reusableWidgets.customContainer(
+                Container(
+                  margin: const EdgeInsets.all(8),
+                  child: PinEntryTextField(
+                    fields: 4,
+                    showFieldAsBox: false,
+                    onSubmit: (String pin) {
+                      _reusableWidgets.progressIndicator();
+                      print(Get.parameters['phone']);
 
-                        _forgotOtpController.verifyOtp(
-                          pin,
-                          Get.parameters['phone'],
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ),
-              FadeAnimation(
-                1.7,
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: InkWell(
-                    onTap: () {
-                      _forgotOtpController.getOtp();
+                      _forgotOtpController.verifyOtp(
+                        pin,
+                        Get.parameters['phone'],
+                      );
                     },
-                    child: Text(
-                      "Resend Otp",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.lightBlue[900],
-                        fontWeight: FontWeight.bold,
-                      ),
+                  ),
+                ),
+              ),
+            ),
+            FadeAnimation(
+              1.7,
+              Center(
+                child: InkWell(
+                  onTap: () {
+                    _forgotOtpController.getOtp();
+                  },
+                  child: Text(
+                    "Resend Otp",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.lightBlue[900],
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -12,7 +12,7 @@ class ReusableWidgets {
     return FadeAnimation(
       0.5,
       Container(
-        padding: EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
         height: Get.height / 2.7,
         width: Get.width / 1.2,
         child: SvgPicture.asset(text),
@@ -74,12 +74,13 @@ class ReusableWidgets {
               ),
             ],
           ),
-          height: Get.height / 2.7,
+          height: Get.height / 2.8,
           width: Get.width / 1.3,
           child: Scaffold(
             body: Column(
               children: [
                 Container(
+                  padding: const EdgeInsets.only(top: 20),
                   alignment: Alignment.topCenter,
                   child: Icon(
                     icon,
@@ -101,22 +102,19 @@ class ReusableWidgets {
                     style: TextStyle(fontSize: 17, color: Colors.blue[900]),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: FlatButton(
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(10.0)),
-                    color: Colors.blue,
-                    child: Text(
-                      'Ok',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
+                FlatButton(
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(10.0)),
+                  color: Colors.blue,
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
-                    onPressed: () {
-                      nav();
-                    },
                   ),
+                  onPressed: () {
+                    nav();
+                  },
                 ),
               ],
             ),
@@ -323,24 +321,30 @@ class ReusableWidgets {
   Widget customButton(
     String text,
   ) {
-    return Container(
-      height: Get.height / 20,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        gradient: LinearGradient(
-          colors: [
-            Colors.lightBlue[800],
-            Colors.lightBlue[600],
-          ],
-        ),
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: Get.width * 0.055,
+        vertical: Get.height * 0.02,
       ),
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
+      child: Container(
+        height: Get.height / 20,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          gradient: LinearGradient(
+            colors: [
+              Colors.lightBlue[800],
+              Colors.lightBlue[600],
+            ],
+          ),
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

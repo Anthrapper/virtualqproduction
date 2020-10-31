@@ -53,17 +53,17 @@ class MyDrawer extends StatelessWidget {
         ),
         SizedBox(height: 20),
         ButtonWithIcon(
-          onPressed: logOutFunction,
-          text: 'Log Out',
-          icon: Icons.exit_to_app_sharp,
+          onPressed: () {},
+          text: 'Change Language',
+          icon: Icons.language_sharp,
         ),
         SizedBox(
           height: 20,
         ),
         ButtonWithIcon(
-          onPressed: () {},
-          text: 'Change Language',
-          icon: Icons.language_sharp,
+          onPressed: logOutFunction,
+          text: 'Log Out',
+          icon: Icons.exit_to_app_sharp,
         ),
       ],
     );

@@ -21,7 +21,8 @@ class LoginPage extends StatelessWidget {
               _heading(),
               _image(),
               Padding(
-                padding: const EdgeInsets.all(18.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 23, vertical: 20),
                 child: _reusableWidgets.customContainer(
                   Form(
                     key: _formKey,
@@ -45,10 +46,6 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              FlatButton(
-                onPressed: _loginController.showNotification,
-                child: Text('Click to show sample noti'),
               ),
               FadeAnimation(
                 1.5,
@@ -123,7 +120,7 @@ class LoginPage extends StatelessWidget {
         'login'.tr,
         style: TextStyle(
           color: Colors.lightBlue[900],
-          fontSize: 40,
+          fontSize: Get.width / 9,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -131,9 +128,6 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _image() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-      child: _reusableWidgets.customSvg('assets/images/signin.svg'),
-    );
+    return _reusableWidgets.customSvg('assets/images/signin.svg');
   }
 }

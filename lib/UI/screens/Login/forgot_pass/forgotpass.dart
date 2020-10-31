@@ -19,24 +19,22 @@ class ForgotPass extends StatelessWidget {
           children: [
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.only(top: 20),
+              padding: EdgeInsets.symmetric(vertical: Get.height * 0.03),
               child: Text(
                 'Forgot Password',
                 style: TextStyle(
                   color: Colors.lightBlue[900],
-                  fontSize: 32,
+                  fontSize: Get.width * 0.08,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 50, 20, 60),
-              child: _reusableWidgets.customSvg('assets/images/forgot.svg'),
-            ),
+            _reusableWidgets.customSvg('assets/images/forgot.svg'),
             Form(
               key: _formKey,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+                padding: EdgeInsets.symmetric(
+                    vertical: Get.height * 0.08, horizontal: Get.width * 0.06),
                 child: _reusableWidgets.customContainer(
                   _reusableWidgets.customTextfield(
                     'Enter Phone Number',
@@ -50,18 +48,15 @@ class ForgotPass extends StatelessWidget {
             ),
             FadeAnimation(
               1.2,
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
-                child: InkWell(
-                  child: _reusableWidgets.customButton('Get OTP'),
-                  onTap: () {
-                    if (_formKey.currentState.validate()) {
-                      _reusableWidgets.progressIndicator();
-                      _forgotController
-                          .getOtp(_forgotController.phoneController.text);
-                    }
-                  },
-                ),
+              InkWell(
+                child: _reusableWidgets.customButton('Get OTP'),
+                onTap: () {
+                  if (_formKey.currentState.validate()) {
+                    _reusableWidgets.progressIndicator();
+                    _forgotController
+                        .getOtp(_forgotController.phoneController.text);
+                  }
+                },
               ),
             ),
           ],

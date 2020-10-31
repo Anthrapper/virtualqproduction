@@ -22,15 +22,14 @@ class PasswordReset extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 50, 20, 40),
-              child: _reusableWidgets.customImage('assets/images/reset.png'),
-            ),
+            _reusableWidgets.customImage('assets/images/reset.png'),
             Form(
-              // autovalidate: true,
               key: _formKey,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+                padding: EdgeInsets.symmetric(
+                  vertical: Get.height * 0.05,
+                  horizontal: Get.width * 0.07,
+                ),
                 child: _reusableWidgets.customContainer(
                   Column(
                     children: [
@@ -80,19 +79,16 @@ class PasswordReset extends StatelessWidget {
             ),
             FadeAnimation(
               1.2,
-              Padding(
-                padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
-                child: InkWell(
-                  child: _reusableWidgets.customButton('Reset Password'),
-                  onTap: () {
-                    if (_formKey.currentState.validate()) {
-                      _reusableWidgets.progressIndicator();
-                      _passwordResetController.resetPassword(
-                        _passwordResetController.pass.text,
-                      );
-                    }
-                  },
-                ),
+              InkWell(
+                child: _reusableWidgets.customButton('Reset Password'),
+                onTap: () {
+                  if (_formKey.currentState.validate()) {
+                    _reusableWidgets.progressIndicator();
+                    _passwordResetController.resetPassword(
+                      _passwordResetController.pass.text,
+                    );
+                  }
+                },
               ),
             ),
           ],

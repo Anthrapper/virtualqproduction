@@ -12,6 +12,12 @@ class Messages extends Translations {
           'dropDownThree': 'Select Date',
           'dropDownFour': 'Choose Purpose',
           'dropDownFive': 'Choose Time Slot',
+          'logout': 'Log Out',
+          'passChange': 'Change Password',
+          'contact': 'Contact',
+          'changeLn': 'Change Language',
+          'appbarTwo': 'Select Your Bank',
+          'appbarThree': 'Token creation'
         },
         'ml': {
           'login': 'ലോഗിൻ',
@@ -22,6 +28,12 @@ class Messages extends Translations {
           'dropDownThree': 'തീയ്യതി',
           'dropDownFour': 'ആവശ്യം',
           'dropDownFive': 'സമയം',
+          'logout': 'ലോഗ് ഔട്ട്',
+          'passChange': 'പാസ്‌വേഡ് മാറ്റുക',
+          'contact': 'കോണ്ടാക്റ്റ്',
+          'changeLn': 'ഭാഷ മാറ്റുക',
+          'appbarTwo': 'ബാങ്ക് തിരഞ്ഞെടുക്കുക',
+          'appbarThree': 'ടോക്കൺ സൃഷ്ടിക്കൽ'
         },
       };
 }

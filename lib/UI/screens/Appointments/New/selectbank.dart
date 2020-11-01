@@ -42,7 +42,7 @@ class _SelectBankState extends State<SelectBank> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar('Select Your Bank'),
+      appBar: CustomAppBar('appbarTwo'.tr),
       body: SafeArea(
         child: ListView(
           children: [

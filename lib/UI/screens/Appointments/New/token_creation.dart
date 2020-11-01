@@ -43,7 +43,7 @@ class _NewAppointmentState extends State<NewAppointment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar('Create New Appointment'),
+      appBar: CustomAppBar('appbarThree'.tr),
       body: SafeArea(
         child: ListView(
           children: <Widget>[

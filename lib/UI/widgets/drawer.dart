@@ -38,7 +38,7 @@ class MyDrawer extends StatelessWidget {
         SizedBox(height: 40),
         ButtonWithIcon(
           icon: Icons.live_help,
-          text: 'Contact',
+          text: 'contact'.tr,
           onPressed: () {
             Get.toNamed('/contact');
           },
@@ -48,7 +48,7 @@ class MyDrawer extends StatelessWidget {
           onPressed: () {
             Get.toNamed('/passwordreset');
           },
-          text: 'Change Password',
+          text: 'passChange'.tr,
           icon: Icons.security,
         ),
         SizedBox(height: 20),
@@ -57,10 +57,8 @@ class MyDrawer extends StatelessWidget {
             Get.locale.toString() == 'ml'
                 ? Get.updateLocale(Locale('en'))
                 : Get.updateLocale(Locale('ml'));
-
-            print(Get.locale);
           },
-          text: 'Change Language',
+          text: 'changeLn'.tr,
           icon: Icons.language_sharp,
         ),
         SizedBox(
@@ -68,7 +66,7 @@ class MyDrawer extends StatelessWidget {
         ),
         ButtonWithIcon(
           onPressed: logOutFunction,
-          text: 'Log Out',
+          text: 'logout'.tr,
           icon: Icons.exit_to_app_sharp,
         ),
       ],

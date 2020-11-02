@@ -1,15 +1,35 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
 import 'package:virtualQ/utilitis/constants/api_constants.dart';
 import 'package:virtualQ/utilitis/constants/api_urls.dart';
 
 class AuthenticationHelper {
   final storage = FlutterSecureStorage();
+  Future storeLang() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (Get.locale.toString() == 'en') {
+      Get.updateLocale(Locale('ml'));
+      prefs.setString('lang', "ml");
+    } else {
+      Get.updateLocale(Locale('en'));
+
+      prefs.setString('lang', "en");
+    }
+  }
+
+  Future<String> readLang() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs.getString('lang'));
+    return prefs.getString('lang');
+  }
+
   Future storeToken(String access, String refresh) async {
     await storage.write(key: 'accesstoken', value: access);
     await storage.write(key: 'refreshtoken', value: refresh);

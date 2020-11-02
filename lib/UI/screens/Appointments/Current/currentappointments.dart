@@ -16,58 +16,65 @@ class CurrentAppointments extends StatelessWidget {
       body: SafeArea(
         child: Obx(
           () => ListView.builder(
+            physics: BouncingScrollPhysics(),
             itemCount: _tokenListController.tokenData == null
                 ? 0
                 : _tokenListController.tokenData.length,
             itemBuilder: (context, index) {
-              String tokenNumber =
-                  _tokenListController.tokenData[index]["order_number"];
-              String bank = _tokenListController.tokenData[index]["bank"];
-              String date = _tokenListController.tokenData[index]["token_date"];
-              String service = _tokenListController.tokenData[index]["service"];
-              date = date.substring(
-                0,
-                date.indexOf('T'),
-              );
               return Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    padding: EdgeInsets.symmetric(
+                        vertical: Get.height * 0.01,
+                        horizontal: Get.width * 0.02),
                     child: FadeAnimation(
-                      0.7,
-                      _reusableWidgets.customContainer(
-                        InkWell(
-                          onTap: () {
-                            Get.toNamed('/detailedtoken');
-                          },
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.all(7),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Token Deatails',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.lightBlue[900],
-                                    fontWeight: FontWeight.bold,
+                      0.1,
+                      Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(Get.width * 0.07)),
+                        color: Colors.blue[400],
+                        elevation: 10,
+                        child: _reusableWidgets.customContainer(
+                          InkWell(
+                            onTap: () {
+                              Get.toNamed('/detailedtoken');
+                            },
+                            child: Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.all(7),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Token Deatails',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.lightBlue[900],
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              _reusableWidgets
-                                  .customText('Token Number:    $tokenNumber'),
-                              _reusableWidgets
-                                  .customText('Bank:         $bank'),
-                              _reusableWidgets
-                                  .customText('Service:    $service'),
-                              _reusableWidgets
-                                  .customText('Date :        $date'),
-                            ],
+                                _reusableWidgets.customText(
+                                    'Token Number:    ${_tokenListController.tokenData[index]["order_number"]}'),
+                                _reusableWidgets.customText(
+                                    'Bank:         ${_tokenListController.tokenData[index]["bank"]}'),
+                                _reusableWidgets.customText(
+                                    'Service:    ${_tokenListController.tokenData[index]["service"]}'),
+                                _reusableWidgets.customText(
+                                    'Date :        ${_tokenListController.tokenData[index]["token_date"].toString().substring(
+                                          0,
+                                          _tokenListController.tokenData[index]
+                                                  ["token_date"]
+                                              .toString()
+                                              .indexOf('T'),
+                                        )}'),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               );
             },

@@ -1,4 +1,4 @@
-package com.example.virtualQ
+package com.example.virtualq
 
 import io.flutter.embedding.android.FlutterActivity
 

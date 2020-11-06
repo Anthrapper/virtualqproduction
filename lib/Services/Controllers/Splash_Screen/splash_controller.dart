@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:virtualQ/Services/authentication_helper.dart';
+import 'package:virtualq/Services/authentication_helper.dart';
 
 class SplashController extends GetxController {
   final AuthenticationHelper _authenticationHelper = AuthenticationHelper();

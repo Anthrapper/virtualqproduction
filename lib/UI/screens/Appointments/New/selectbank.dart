@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:virtualQ/Services/Controllers/Appointment_Creation/bank_controller.dart';
-import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/widgets/app_bar.dart';
-import 'package:virtualQ/UI/widgets/dropdown.dart';
-import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
+import 'package:virtualq/Services/Controllers/Appointment_Creation/bank_controller.dart';
+import 'package:virtualq/UI/Animation/fadeanimation.dart';
+import 'package:virtualq/UI/widgets/app_bar.dart';
+import 'package:virtualq/UI/widgets/dropdown.dart';
+import 'package:virtualq/UI/widgets/reusable_widgets.dart';
 
 class SelectBank extends StatefulWidget {
   @override

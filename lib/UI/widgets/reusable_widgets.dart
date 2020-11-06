@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:virtualQ/UI/Animation/fadeanimation.dart';
+import 'package:virtualq/UI/Animation/fadeanimation.dart';
 import 'package:get/get.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 

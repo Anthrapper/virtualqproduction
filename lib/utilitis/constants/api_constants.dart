@@ -1,4 +1,4 @@
-import 'package:virtualQ/Services/authentication_helper.dart';
+import 'package:virtualq/Services/authentication_helper.dart';
 
 class ApiConstants {
   final AuthenticationHelper _authenticationHelper = AuthenticationHelper();

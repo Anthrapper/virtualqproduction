@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
-import 'package:virtualQ/utilitis/constants/api_urls.dart';
+import 'package:virtualq/UI/widgets/reusable_widgets.dart';
+import 'package:virtualq/utilitis/constants/api_urls.dart';
 
 class OtpController extends GetxController {
   final ReusableWidgets _reusableWidgets = ReusableWidgets();

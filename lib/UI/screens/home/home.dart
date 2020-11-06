@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/widgets/app_bar.dart';
-import 'package:virtualQ/UI/widgets/drawer.dart';
-import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
+import 'package:virtualq/UI/Animation/fadeanimation.dart';
+import 'package:virtualq/UI/widgets/app_bar.dart';
+import 'package:virtualq/UI/widgets/drawer.dart';
+import 'package:virtualq/UI/widgets/reusable_widgets.dart';
 
 class HomePage extends StatelessWidget {
   final ReusableWidgets _reusableWidgets = ReusableWidgets();

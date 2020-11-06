@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:virtualQ/Services/Controllers/Translations/translations.dart';
-import 'package:virtualQ/utilitis/router/routes.dart';
 import 'package:get/get.dart';
+import 'package:virtualq/utilitis/router/routes.dart';
+import 'Services/Controllers/Translations/translations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

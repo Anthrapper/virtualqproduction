@@ -5,10 +5,10 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:virtualQ/Services/api_calls.dart';
-import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
-import 'package:virtualQ/utilitis/constants/api_constants.dart';
-import 'package:virtualQ/utilitis/constants/api_urls.dart';
+import 'package:virtualq/Services/api_calls.dart';
+import 'package:virtualq/UI/widgets/reusable_widgets.dart';
+import 'package:virtualq/utilitis/constants/api_constants.dart';
+import 'package:virtualq/utilitis/constants/api_urls.dart';
 
 class TokenCreationController extends GetxController {
   final ReusableWidgets _reusableWidgets = ReusableWidgets();
@@ -43,7 +43,7 @@ class TokenCreationController extends GetxController {
       importance: Importance.max,
     );
     var generalDetails = new NotificationDetails(android: android);
-    await notificationsPlugin.show(0, 'VirtualQ', description, generalDetails);
+    await notificationsPlugin.show(0, 'virtualq', description, generalDetails);
   }
 
   Future selectNotification(String payload) async {}

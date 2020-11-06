@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:virtualQ/Services/api_calls.dart';
-import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
-import 'package:virtualQ/utilitis/constants/api_constants.dart';
-import 'package:virtualQ/utilitis/constants/api_urls.dart';
+import 'package:virtualq/Services/api_calls.dart';
+import 'package:virtualq/UI/widgets/reusable_widgets.dart';
+import 'package:virtualq/utilitis/constants/api_constants.dart';
+import 'package:virtualq/utilitis/constants/api_urls.dart';
 
 class PasswordResetController extends GetxController {
   TextEditingController pass;

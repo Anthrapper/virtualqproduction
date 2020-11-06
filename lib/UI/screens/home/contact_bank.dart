@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:virtualQ/UI/widgets/app_bar.dart';
+import 'package:virtualq/UI/widgets/app_bar.dart';
 
 class Contact extends StatelessWidget {
   @override

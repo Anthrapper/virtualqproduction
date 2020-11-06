@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:virtualQ/Services/Controllers/Welcome_Controller/welcome_controller.dart';
-import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
+import 'package:virtualq/Services/Controllers/Welcome_Controller/welcome_controller.dart';
+import 'package:virtualq/UI/Animation/fadeanimation.dart';
+import 'package:virtualq/UI/widgets/reusable_widgets.dart';
 
 class WelcomeScreen extends StatelessWidget {
   final WelcomeController _welcomeController = Get.put(WelcomeController());
@@ -99,7 +99,7 @@ Widget _heading() {
     padding: const EdgeInsets.only(top: 30),
     child: Center(
       child: Text(
-        'Welcome To VirtualQ',
+        'Welcome To virtualq',
         style: TextStyle(
           color: Colors.lightBlue[900],
           fontSize: 32,

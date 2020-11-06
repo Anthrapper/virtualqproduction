@@ -6,9 +6,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
-import 'package:virtualQ/utilitis/constants/api_constants.dart';
-import 'package:virtualQ/utilitis/constants/api_urls.dart';
+import 'package:virtualq/UI/widgets/reusable_widgets.dart';
+import 'package:virtualq/utilitis/constants/api_constants.dart';
+import 'package:virtualq/utilitis/constants/api_urls.dart';
 
 class AuthenticationHelper {
   final storage = FlutterSecureStorage();

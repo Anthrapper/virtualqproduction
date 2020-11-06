@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
-import 'package:virtualQ/Services/Controllers/Registration_Controller/signup_controller.dart';
-import 'package:virtualQ/Services/validator.dart';
-import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
+import 'package:virtualq/Services/Controllers/Registration_Controller/signup_controller.dart';
+import 'package:virtualq/Services/validator.dart';
+import 'package:virtualq/UI/Animation/fadeanimation.dart';
+import 'package:virtualq/UI/widgets/reusable_widgets.dart';
 
 class SignUpForm extends StatelessWidget {
   final ReusableWidgets _reusableWidgets = ReusableWidgets();

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:virtualQ/Services/authentication_helper.dart';
-import 'package:virtualQ/UI/widgets/icon_button.dart';
-import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
+import 'package:virtualq/Services/authentication_helper.dart';
+import 'package:virtualq/UI/widgets/icon_button.dart';
+import 'package:virtualq/UI/widgets/reusable_widgets.dart';
 
 class MyDrawer extends StatelessWidget {
   final ReusableWidgets _reusableWidgets = ReusableWidgets();

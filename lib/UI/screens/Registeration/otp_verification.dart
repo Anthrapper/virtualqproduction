@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_entry_text_field/pin_entry_text_field.dart';
-import 'package:virtualQ/Services/Controllers/Registration_Controller/otpcontroller.dart';
-import 'package:virtualQ/UI/Animation/fadeanimation.dart';
-import 'package:virtualQ/UI/widgets/app_bar.dart';
-import 'package:virtualQ/UI/widgets/reusable_widgets.dart';
+import 'package:virtualq/Services/Controllers/Registration_Controller/otpcontroller.dart';
+import 'package:virtualq/UI/Animation/fadeanimation.dart';
+import 'package:virtualq/UI/widgets/app_bar.dart';
+import 'package:virtualq/UI/widgets/reusable_widgets.dart';
 
 class OtpVerification extends StatelessWidget {
   final ReusableWidgets _reusableWidgets = ReusableWidgets();

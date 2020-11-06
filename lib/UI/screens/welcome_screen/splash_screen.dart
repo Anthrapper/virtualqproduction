@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:virtualQ/Services/Controllers/Splash_Screen/splash_controller.dart';
+import 'package:virtualq/Services/Controllers/Splash_Screen/splash_controller.dart';
 
 class SplashScreen extends GetView<SplashController> {
   @override
